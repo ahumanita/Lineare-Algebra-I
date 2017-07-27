@@ -1,0 +1,2380 @@
+\documentclass[fleqn, a4paper, 11pt]{article}
+\usepackage{geometry}
+\geometry{a4paper, top=25mm, left=15mm, right=15mm, bottom=30mm, headsep=10mm, footskip=12mm}
+
+\usepackage[ngerman]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage{amssymb, amsmath}
+\usepackage{gauss}
+\usepackage{ulem}
+
+%disjunkt: \mathbin{\dot{\cup}}
+%zweizeiliger Index: b_{ij})_{\substack{i=1...m\\ j=1...n}}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\huge\bfseries Lineare Algebra I \par
+	\vspace{3cm}
+	\Large\itshape Gebhard B\"ockle \par
+	\vspace{8cm}
+	Wintersemester 2015/16\\
+	getext von eurer Mitstudentin.
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\setcounter{section}{-1}
+\section{Aussagenlogik}
+
+Auch in der Mathematik ist die Sprache die Grundlage von allem. Die Sprache der Mathematik besteht aus $\uline{Aussagen}$. Aussagen sind S\"atze, denen man das Pr\"adikat $\uline{wahr(w)}$ oder $\uline{falsch(f)}$ zuordnen kann. Das nennt man den $\uline{Wahrheitsgehalt}$ der Aussage.\\
+Beachte: S\"atze oder Alltagssprache sind oft keine Aussagen ("Wie ist das Wetter heute?") \\
+Oft wird von $\uline{Axiomen}$ (Grundaussagen) ausgegangen. Aus diesen kann man nach bestimmten Regeln neue Aussagen bilden.\\
+Um diese Regeln einzuf\"uhren, verwenden wir $\uline{Definitionen}$ (Vereinbarungen).\\
+\\
+$\uline{Definition\:0.1:}$ Seien $A$ und $B$ Aussagen. Dann sind folgende S\"atze Aussagen:
+a) $\neg A$  "nicht $A$" (die Negation von A)\\
+b) $A\wedge B$  "$A$ und $B$"\\
+c) $A\vee B$  "$A$ oder $B$" (einschlie\ss{}endes oder)\\
+Der Wahrheitsgehalt dieser Aussagen ist durch Wahrheitstabellen beschrieben.\\
+
+\begin{tabular}{|c|c|}
+	\hline
+	$A$ & $\neg A$ \\
+	\hline
+	w & f \\
+	f & w \\
+	\hline
+\end{tabular}
+\hspace{2cm}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	$A$ & $B$ & $A\wedge B$ & $A\vee B$ \\
+	\hline
+	w & w & w & w \\
+	w & f & f & w \\
+	f & w & f & w \\
+	f & f & f & f \\
+	\hline
+\end{tabular}\\
+\\
+$\uline{Bsp:}$ $A$: 3 ist eine Primzahl (w)\\
+	$\neg A$: 3 ist keine Primzahl (f)\\
+$\uline{Vorsicht:}$ $B$: alle Primzahlen sind ungerade (f)\\
+	$\neg B$: nicht alle Primzahlen sind ungerade (w) oder: wenigstens eine Primzahl ist gerade (w)\\
+	\hspace{0,5cm}
+	$\uline{falsch\:ist:}$ $\neg B$: keine Primzahl ist ungerade (f) \\
+\\
+$\uline{Definition\:0.2:}$ Sind $A$ und $B$ Aussagen, so auch folgende S\"atze:\\
+d) $A\Rightarrow B$ "$A$ impliziert $B$" oder "aus $A$ folge $B$" oder "wenn $A$ gilt, dann auch $B$" \\
+e) $A\Leftrightarrow B$ "$A$ ist \"aquivalent zu $B$ \dq oder\dq $A$ gilt genau dann, wenn $B$ gilt" \\
+Die zugeh\"orige Wertetabellen:\\
+\\
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	$A$ & $B$ & $A\Rightarrow B$ & $A\Leftrightarrow B$ \\
+	\hline
+	w & w & w & w \\
+	w & f & f & f \\
+	f & w & w & f \\
+	f & f & w & w \\
+	\hline
+\end{tabular} \\
+\\
+! Merke: $\cdot$ Aus einer falschen Aussage folgt alles.\\
+	$\cdot$ "Man kann Implikationen und \"Aquivalenzen mit Wahrheitstafeln nachpr\"ufen", (im Sinn der folgenden Prposition..)\\
+\\
+$\uline{Proposition\:0.3:}$ F\"ur Aussagen $A,B,C$ gelten:\\
+i) $(A\wedge B) \Leftrightarrow (B\wedge A)$ ; $(A\vee B) \Leftrightarrow (B\vee A)$, d.h. "und" und "oder" sind $\uline{kommutativ}$.\\
+ii) $(A\wedge B)\wedge C \Leftrightarrow A\wedge (B\wedge C)$; $(A\vee B)\vee C\Leftrightarrow A\vee (B\vee C)$, d.h. "und" und "oder" sind $\uline{assoziativ}$.\\
+iii) $A\wedge(B\vee C) \Leftrightarrow (A\wedge B)\vee(A\wedge C)$; $A\vee(B\wedge C) \Leftrightarrow (A\vee B)\wedge(A\vee C)$ ($\uline{Distributivit\ddot{a}t}$)\\
+iv) $\neg(\neg$A$)\Leftrightarrow A$\\
+v) $\neg(A\vee B)\Leftrightarrow (\neg A)\wedge (\neg B)$; $\neg(A\wedge B) \Leftrightarrow (\neg A)\vee (\neg B)$ ($\uline{deMorgansche\:Regel}$)\\
+\\
+$\uline{Beweis\:(zum\:Teil)\::}$\\
+\\
+i) 1. Teil \begin{tabular}{|c|c|c|c|}
+	\hline
+	$A$ & $B$ & $A\wedge B$ & $B\wedge A$ \\
+	\hline
+	w & W & w & w \\
+	w & f & f & f \\
+	f & w & f & f \\
+	f & f & f & f \\
+	\hline
+\end{tabular}
+v) 1. Teil \begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	$A$ & $B$ & $A\vee B$ & $\neg(A\vee B)$ & $\neg A$ & $\neg B$ & $(\neg A)\wedge(\neg B)$ \\
+	\hline
+	w & W & W & f & f & f & f \\
+	w & f & w & f & f & w & f \\
+	f & w & w & f & w & f & f \\
+	f & f & f & w & w & w & w\\
+	\hline
+\end{tabular}\\
+\\
+Alles \"Ubrige mit Wahrheitstafeln. \hfill $\Box$\\
+\\
+$\uline{Proposition\:0.4:}$ F\"ur Aussagen $A$ und $B$ gelten:\\
+i) $(A\Rightarrow B)\Leftrightarrow (\neg A\vee B)$\\
+ii) $(A\Rightarrow B) \Leftrightarrow (\neg B \Rightarrow \neg A)$ ($\uline{Kontraposition}$) \\
+iii) $\neg(A\Rightarrow B) \Leftrightarrow A\wedge\neg B$ ($\uline{Widerspruchsbeweis}$) \\
+\\
+$\uline{Interpretation:}$ ii) Um zu zeigen, dass $B$ aus $A$ folgt, kann man alternativ zeigen, dass aus $\neg B$ die Aussage $\neg A$ folgt.\\
+iii) Um $A\Rightarrow B$ zu zeigen, kann man wie folgt vorgehen: $A$ gelte und man nimmt an, dass $B$ falsch ist und dann folgt $\neg(A\Rightarrow B)$ ist falsch, dann folgt $A\Rightarrow B)$ gilt. (Widerspruchsbeweis)\\
+\\
+$\uline{Proposition\:0.5}$ F\"ur Aussagen $A,B$ und $C$ gelten:\\
+i) $(A\Rightarrow B)\wedge(B\Rightarrow C)\Rightarrow(A\Rightarrow C)$ \\
+ii) $(A\Leftrightarrow B)\Leftrightarrow((A\Rightarrow B)\wedge(B\Rightarrow A))$\\
+\\
+$\uline{Beweis:}$ Wahrheitstafeln.\\
+\\
+$\uline{Interpretation:}$ ii) sagt: gehe in 2 Schritten vor, um $\Leftrightarrow$ nachzuweisen!\\
+\\
+$\uline{Beweis\:von\:0.4ii):}$ $(A\Rightarrow B) \Leftrightarrow \neg A\vee B \Leftrightarrow B\vee\neg A \Leftrightarrow \neg(\neg B)\vee(\neg A) \Leftrightarrow (\neg B \Rightarrow \neg A)$\hfill $\Box$\\
+\\
+\newpage
+\section{Mengen, Abbildungen, vollst\"andige Induktion}
+
+Wir werden in dieser Vorlesung mit einem "naiven" Mengenbegriff arbeiten.\\
+$\uline{Georg\:Cantor(Ende\:19.Jhd.):}$ Eine $\uline{Menge}$ ist eine Zusammenfassung von Objekten unseres Denkens. Diese Objekte hei\ss{}en $\uline{Elemente}$ von $M$.\\
+$x\in M$ bedeutet "$x$ ist Element von $M$.\\
+\\
+$\uline{Bemerkung:}$ $\cdot$ endliche Mengen werden oft durch eine Aufz\"ahlung ihrer Elemente angegeben.\\
+$\cdot$ viele Mengen sind durch ein Bildungsgesetz definiert.\\
+\\
+$\uline{Beispiel:}$ $\{0,1,2,...,100\}$\\
+$\mathbb{N}=\{1,2,3,...\}$ (Nat\"urliche Zahlen)\\
+$\mathbb{N}_{0}=\{0,1,2,3,...\}$ (nat\"urliche Zahlen und die Null)\\
+$\mathbb{Z}=\{0,\pm 1,\pm 2,...\}$ (ganze Zahlen)\\
+$\mathbb{Q}=\{\tfrac{a}{b} |a,b\in\mathbb{Z},\:b\neq0\}$ (Menge der rationalen Zahlen)\\
+$\mathbb{R}=$relle Zahlen (siehe Analysis)\\
+$\emptyset=\{\}$ (leere Menge)\\
+$\mathbb{P}=\{x\in\mathbb{N} |x\:ist\:Primzahl\}=\{2,3,5,7,...\}$\\
+\\
+Seien heute im Weiteren $M,N$ Mengen.\\
+$\uline{Definition\:1.1:}$ a) $x\in M:\Leftrightarrow x$ liegt nicht in $M$ ($\Leftrightarrow \neg(x\in M)$).\\
+b) $N\subseteq M:\Leftrightarrow$ Jedes Element $x\in N$ liegt auch in $M$.\\
+Man sagt: "$N$ ist Teilmenge von $M$ \dq oder\dq $M$ ist Obermenge von $N$".\\
+c) $N\subset M:\Leftrightarrow N\subseteq M$ und $N\neq M$\\
+\\
+$\uline{\ddot{U}bung:}$ $M=N\Leftrightarrow(M\subseteq N\wedge N\subseteq M)$.\\
+\\
+$\uline{Beispiel:}$ $\mathbb{P}\subset\mathbb{N}$\\
+\\
+$\uline{Definition\:1.2:}$ a) $M\cap N:=\{x|x\in M\wedge x\in N\}$ $M\cap N$ hei\ss{}t Durchschnitt von $M$ und $N$.\\
+b) $M\cup N:=\{x|x\in M\vee x\in N\}$ "Vereinigung von $M$ und $N$."\\
+c) $M\setminus N:=\{x|x\in M\wedge x\notin N\}$ "Differenz von $M$ und $N$" ("$M$ ohne $N$)\\
+d) $M$ und $N$ hei\ss{}en $\uline{disjunkt}:\Leftrightarrow M\cap N=\emptyset$\\
+e) Sind $M$ und $N$ disjunkt, so schreibt man auch $M\mathbin{\dot{\cup}}N$ f\"ur $M\cup N$ ("disjunkte Vereinigung")\\
+\\
+$\uline{Beispiel:}$ $\mathbb{P}\cap\{1,...,10\}=\{2,3,5,7\},\{1,...,10\}\setminus\mathbb{P}=\{1,4,6,8,9,10\}$\\
+\\
+$\uline{Beachte:}$ i) $\Rightarrow,\Leftrightarrow,\Leftarrow,:\Leftrightarrow$ stehen zwischen Aussagen.\\
+ii) $=,:=$ stehen zwischen Mengen oder zwischen Elementen.\\
+\\
+$\uline{Definition\:1.3:}$ a) F\"ur $m\in M$ und $n\in N$ bezeichnet der Ausdruck $(m,n)$ das geordnete Paar mit 1. Eintrag $m$, 2. Eintrag $n$.\\
+b) Das Mengenprodukt von $M$ und $N$ ist $M\times N=\{(m,n)|m\in M,n\in N\}$\\
+\\
+$\uline{Beispiel:}$ $\mathbb{R}\times\mathbb{R}=\{(a,b)|a,b\in\mathbb{R}\}$ "=Punkte der Ebene" $\supseteq[0,1]\times[0,2]$ ($[a,b]=\{x\in\mathbb{R}|a\subseteq x\subseteq b\}$)\\
+\\
+$\uline{Definition\:1.4}$ Sei $k\in\mathbb{N}$: a) Ein $k$-Tupel ist eine geordnete Aufz\"ahlung ($m_{1},...,m_{k}$) von Objekten $m_{1},...,m_{k}$\\
+b) Sind $M_{1},...,M_{k}$ Mengen, so ist ihr Mengenprodukt $M_{1}\times...\times M_{k}=\{(m_{1},...,m_{k})|m_{1}\in M_{1},...,m_{k}\in M_{k}\}$\\
+c) Man schreibt $M^{k}$ f\"ur $M\times...\times M$ ($k$ Faktoren)\\
+\\
+$\uline{Beispiel:}$ $\mathbb{R}^{3}=\mathbb{R}\times\mathbb{R}\times\mathbb{R}$ "Punkte im Raum"\\
+\\
+$\uline{Definition\:1.5:}$ i) Eine $\uline{Abbildung}$ ist ein Tripel ($M,N,f$) bestehend aus Mengen $M$, dem $\uline{Definitionsbereich}$, und $N$, dem $\uline{Wertebereich}$, und einer $\uline{Abbildungsvorschrift}$ $f$, die jedem $m\in M$ ein Element $f(m)\in N)$ zuordnet.\\
+Andere Notation: $\cdot$ $f:M\rightarrow N,m\mapsto f(m)=n$\\
+$\cdot$ $f:M\rightarrow N$\\
+$\cdot$ $M\xrightarrow{f} N$\\
+$\cdot$ $f$\\
+ii) Der $\uline{Graph}$ einer Abbildung $f:M\rightarrow N$ ist $Graph(f):=\{(m,f(m))|m\in M\}\subseteq M\times N$\\
+\\
+$\uline{Beispiel:}$ Ist die Menge eine beliebige Menge, so ist $id_{M}:M\rightarrow M,m\mapsto m$ die identische Abbildung.\\
+\\
+Sei im Weiteren $f:M\rightarrow N$ eine Abbildung.\\
+$\uline{Definition\:1.6:}$ i) F\"ur $U\subseteq M$ sei $f(U):=\{f(m)|m\in U\}$ das Bild von U unter f.\\
+ii) F\"ur $V\subseteq N$ sei $f^{-1}(V):=\{m\in M|f(m)\in V\}$ das Urbild von V unter f.\\
+\\
+$\uline{Definition\:1.7}$ i) $f$ hei\ss{}t $\uline{injektiv}:\Leftrightarrow$ f\"ur jedes $n\in N$ enth\"alt $f^{-1}(\{n\})$ h\"ochstens ein Element.\\
+ii) $f$ hei\ss{}t $\uline{surjektiv}:\Leftrightarrow$ f\"ur jedes $n\in N$ enth\"alt $f^{-1}(\{n\})$ mindestens ein Element.\\
+iii) $f$ hei\ss{}t $\uline{bijektiv}:\Leftrightarrow$ f\"ur jedes $n\in N$ enth\"alt $f^{-1}(\{n\})$ genau ein Element.\\
+\\
+$\uline{Lemma\:1.8}$ a) $f$ ist injektiv$:\Leftrightarrow$ (f\"ur alle $m,m'\in M$ gilt: $f(m)=f(m')\Rightarrow m=m'$)\\
+b) $f$ ist surjektiv$\Leftrightarrow f(M)=N$\\
+c) $f$ ist bijektiv$\Leftrightarrow f$ ist injektiv und surjektiv\\
+\\
+$\uline{Einschub:}$ Notation: $\cdot$ $\forall n\in N:$ bedeutet "f\"ur alle $n\in N$ gilt" oder "f\"ur jedes $n\in N$ gilt"\\
+$\cdot$ $\exists n\in N:$ bedeutet \dq es existiert ein $n\in N$, so dass\dq\\
+$\cdot$ $\exists!n\in N:$ bedeutet \dq es gibt genau ein $n\in N$, so dass\dq\\
+\\
+$\uline{Beweis:}$ c) Eine Menge enth\"alt genau ein Element, genau dann, wenn sie mindestens ein Element enth\"alt und h\"ochstens ein Element enth\"alt.\\
+$f$ injektiv und surjektiv $:\Leftrightarrow \forall n\in N:f^{-1}(\{n\})$ enth\"alt mindestens und h\"ochstens ein Element $\Leftrightarrow\forall n\in N:f^{-1}(\{n\})$ enth\"alt genau ein Element $\Leftrightarrow f$ ist bijektiv \\
+a) \dq$\Rightarrow$\dq: Sei $f$ injektiv. Seien $m,m'\in M$ und gelte $f(m)=f(m')$. Setze $n:=f(m)\Rightarrow m,m'\in f^{-1}(\{n\}) \Rightarrow$, da $f$ inj.: $m=m'$, da $f^{-1}(\{n\})$ h\"ochstens einelementig ist.\\
+\dq$\Leftarrow$\dq ("Widerspruchsbeweis"): Gelte die rechte Seite der Aussage a)\\
+Annahme: $f$ ist nicht injektiv, d.h. $\exists n\in N: f^{-1}(\{n\})$ enth\"alt nicht kein oder ein Element, d.h. $\exists n\in N:\exists m,m'\in M:f^{-1}(\{n\})\ni m,m'$ und $m\neq m'$\\
+Aber: wegen Aussage rechts: $f(m)=f(m')=n$ impliziert $m=m'$ $\uline{!Widerspruch\:zur\:Annahme!}$\\
+D.h. die Annahme muss falsch sein. Folglich sit $f$ injektiv.\\
+b) $f(M)=N\Leftrightarrow f(M)\supseteq N$ (Bemerkung: $f(M)\subseteq N$ gilt immer) $\Leftrightarrow \forall n\in N:n\in f(M)=\{f(m)|m\in M\} \Leftrightarrow \forall n\in N:\exists m\in M:n=f(m)\Leftrightarrow\forall n\in N:\exists m\in M:m\in f^{-1}(\{n\})\Leftrightarrow\forall n\in N:f^{-1}(\{n\})\neq\emptyset\Leftrightarrow f$ surjektiv \hfill $\Box$\\
+\\
+Seien weiterhin $M,N$ Mengen und $f:M\rightarrow N$ eine Abbildung.\\
+$\uline{Bemerkung:}$ i) F\"ur jedes $N\:\exists !$ Abbildung: $\emptyset\rightarrow N$\\
+ii) Falls $M\neq\emptyset$, so existiert keine Abbildung: $M\rightarrow\emptyset$\\
+\\
+\subsection{Verkettung (/Komposition) von Abbildungen}
+
+$\uline{Definition\:1.9:}$ Sei $g:L\rightarrow M$ eine weitere Abbildung. Die Verkettung \dq$f$ nach $g$\dq  ist die Abbildung $f\circ g:L\rightarrow N,x\mapsto (f\circ g)(x):=f(g(x))$ \\
+\\
+$\uline{Lemma\:1.10:}$ Sei $h:K\rightarrow L$ eine weitere Abbildung. Dann gilt $(f\circ g)\circ h = f\circ(g\circ h)$ als Abbildung: $K\rightarrow N$\\
+\\
+$\uline{Beweis:}$ Es ist nur zu zeigen, dass die Abbildungsvorschriften dieselben sind:\\
+Sei $x\in K:((f\circ g)\circ h)(x)=(f\circ g)(h(x))=f(g(h(x)))=f((g\circ h)(x))=(f\circ(f\circ h))(x)\:$ \hfill $\Box$\\
+\\
+$\uline{\ddot{U}bung:}$ F\"ur $V\subseteq N$ gilt: $(f\circ g)^{-1}(V)=g^{-1}(f^{-1}(V))$\\
+\\
+$\uline{Lemma\:1.11:}$ a) $f,g$ injektiv $\Rightarrow f\circ g$ injektiv\\
+b) $f,g$ surjektiv $\Rightarrow f\circ g$ surjektiv\\
+c) $f\circ g$ injektiv $\Rightarrow g$ injektiv\\
+d) $f\circ g$ surjektiv $\Rightarrow f$ surjektiv\\
+\\
+$\uline{Beweis:}$ c) Seien $x_{1},x_{2}\in L$ und gelte $g(x_{1})=g(x_{2}).$ $\uline{zz:}\:x_{1}=x_{2}$\\
+Dazu wende $f$ an: $(f\circ g)(x_{1})=f(g(x_{1}))=f(g(x_{2}))=(f\circ g)(x_{2}\Rightarrow$ (da $f\circ g$ inj.) $x_{1}=x_{2}$ \hfill $\Box$\\
+d) $\uline{zz:}$ $f$ surjektiv. Sei $n\in N$ $\uline{zz:}$ $\exists m\in M:f(m)=n$\\
+Wissen: $f\circ g$ surjektiv $\Rightarrow\:\exists l\in L$ mit $n=(f\circ g)(l)=(f(g(l))$. W\"ahle $m:=g(l) \Rightarrow n=f(m)$ \hfill $\Box$\\
+\\
+$\uline{Satz\:1.12:}$ Sei $f:M\rightarrow N$ eine bijektive Abbildung. Dann existiert genau eine Abbildung $\tilde{f}:N\rightarrow M$, mit ($\circledast$) $\tilde{f}\circ f=id_{M}$ und $f\circ\tilde{f}=id_{N}$. Man schreib $f^{-1}$ f\"ur $\tilde{f}$ und nennt $f^{-1}$ die zu $f$ $\uline{inverse\:Abbildung}$.\\
+\\
+$\uline{Beweis:}$ $\uline{Konstruktion:}$ Sei $n\in N\stackrel{f bij.}{\Rightarrow}\:f^{-1}(\{n\})$ ist einelementig. Definiere $\tilde{f}(n)$ so, dass $\{\tilde{f}(n)=f^{-1}(\{n\}) \leadsto$ erhalten: $\tilde{f}:N\rightarrow M$\\
+nun: $\uline{\circledast\:nachweisen:}$ Sei $m\in M.\:\tilde{f}(f(m))=m$. Sei nun $n\in N:f(\tilde{f}(n))=n$\\
+$\uline{Eindeutigkeit\:von\:\tilde{f}:}$ Sei $g:N\rightarrow M$ eine Abbildung und $f\circ g=id_{N}\wedge g\circ f=id_{M}$. Dann: $\tilde{f}=\tilde{f}\circ id_{N}=\tilde{f}\circ(f\circ g)=(\tilde{f}\circ f)\circ g \stackrel{\circledast}{=} id_{M}\circ g=g$ \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ Gilt $\circledast$ f\"ur $f$ und $\tilde{f}$, so sind beide bijektiv.\\
+\\
+$\uline{Induktion:}$ Man kann die nat\"urlichen Zahlen durch folgende Axiome (nach Peano) beschreiben:\\
+(P1) $\mathbb{N}_{0}$ hat ein ausgezeichnetes Element, die Null.\\
+(P2) Es gibt eine Abbildung $\nu:\mathbb{N}_{0}\rightarrow\mathbb{N}_{0},n\mapsto\nu(n)$ ($\nu(n)$ der Nachfolger von $n$)\\
+(P3) $0\notin\nu(\mathbb{N}_{0}$) ("$0$ hat keinen Vorg\"anger")\\
+(P4) $\nu$ ist injektiv\\
+(P5) Ist $N\subseteq\mathbb{N}_{0}$ mit $0\in N$ und $\nu(N)\subseteq N$, so gilt $N=\mathbb{N}_{0}$\\
+Man definiert: $1:=\nu(0), 2:=\nu(1)=\nu(\nu(0)),...$\\
+\\
+$\uline{Satz\:1.13(Induktionsprinzip):}$ Sei $A(n)$ eine Aussage f\"ur jedes $n\in\mathbb{N}_{0}$, so dass gilt:\\
+a) $A(n)$ ist wahr\\
+b) Ist $A(n)$ wahr, so ist $A(\nu(n))$ wahr\\
+Dann gilt $A(n)$ f\"ur alle $n\in\mathbb{N}_{0}$\\
+\\ 
+$\uline{Beweis:}$ Definiere $N:=\{n\in\mathbb{N}_{0}|A(n)$ ist wahr $\}$ $\uline{zz:}$ $N=\mathbb{N}_{0}$\\
+wegen a) und b) gelten: $0\in N$ und $\nu(N)\subseteq N\Rightarrow N=\mathbb{N}_{0}$ \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ i) Man kann "rekursiv" f\"ur alle $m\in\mathbb{N}_{0}$ eine Abbildung $m+_:\mathbb{N}_{0}\rightarrow\mathbb{N}_{0}, a\mapsto m\cdot a$\\
+($m\cdot 0=0, m\cdot\nu(n)=m+m\cdot n$)\\
+\\
+$\uline{Definition\:1.14}$ a) Eine Relation auf einer Menge $M$ ist eine Teilmenge $R\subseteq M\times M$\\
+b) An Stelle $(x,y)\in R$ schreibt man oft $xRy$\\
+c) Eine Relation $R\subseteq M\times M$ hei\ss{}t Totalordnung, schreibe "$\leq$"\\
+i) $\forall m\in M:m\leq m$\\
+ii) $\forall m,m'\in M:m\leq m'$ und $m'\leq m\Rightarrow m=m'$\\
+iii) $\forall m,m'\in M:m\leq m'$ oder $m'\leq m$\\
+iv) $\forall m,m',m'':m\leq m'$ und $m'\leq m''\Rightarrow m\leq m''$\\
+d) Definiere Relation $\leq$ auf $\mathbb{N}_{0}$ durch: $m\leq m'\Leftrightarrow\exists m\in\mathbb{N}_{0}:m'=n+m$\\
+\\
+$\uline{Proposition:}$ $\leq$ aus d) ist eine Totalordnung auf $\mathbb{N}_{0}$\\
+\\
+\subsection{M\"achtigkeit (Kardinalit\"at) von Mengen}
+
+F\"ur $n\in\mathbb{N}$ sei $\{1,...,n\}=\{x\in\mathbb{N}|1\leq x\leq n\}$\\
+\\
+$\uline{Satz\:1.15}$ Ist $f:\{1,...,n\}\rightarrow\{1,...,m\}$ eine Bijektion, so gilt $n=m$.\\
+\\
+$\uline{Beweis:}$ Induktion \"uber $n\in\mathbb{N}$\\
+$n=1$ (Induktions-Anfang): $f(\{1,...,n\})=f(\{1\})=\{f(1)\}\stackrel{f\:surj.}{=}\{1,...,m\}\Rightarrow m=1$\\
+$n\mapsto n+1$ (Induktions-Schritt): Gelte die Aussage f\"ur ein beliebiges, aber festes $n\in\mathbb{N}$. Zeige nun, sie gilt auch f\"ur $n+1$:\\
+Sei $f:\{1,...,n+1\}\rightarrow\{1,...,m\}$ bij. Sei $m'=f(n+1)$, definiere $g:\{1,...,m\}\rightarrow\{1,...,m\}$.\\
+$i\mapsto\begin{cases}
+	i & \text{f\"ur } i\neq m,m'\\
+	m & \text{f\"ur } i=m'\\
+	m' & \text{f\"ur } i=m
+\end{cases}$\\
+Pr\"ufe: $g$ bijektiv, $g\circ f$ ist bijektiv, $g\circ f(n+1)=m,m>1\Rightarrow h:\{1,...,n\}\rightarrow\{1,...,m-1\},i\mapsto g\circ f(i)$ ist bijektiv $\stackrel{IV}{\Rightarrow}\:m-1=n \Rightarrow m=n+1$ \hfill $\Box$\\
+\\
+$\uline{Proposition-Definition\:1.16:}$ F\"ur eine Menge $M$ gilt genau eine der folgenden 3 Aussagen:\\
+a) $M=\emptyset$\\
+b) $\exists n\in\mathbb{N}:\exists$bijektive Abbildung $f:\{1,...,n\}\rightarrow M$\\
+c) es gilt weder a) noch b)\\
+Im Fall b) ist die Zahl $n\in\mathbb{N}$ eindeutig.\\
+Die $\uline{Kardinalit\ddot{a}t}$ (oder M\"achtigkeit) von $M$ ist $|M|:=\begin{cases}
+	0 & \text{falls } M=\emptyset \\
+	n & \text{falls b) gilt} \\
+	\infty & \text{falls c) gilt}
+\end{cases}$\\
+$M$ hei\ss{}t endlich, falls a) oder b) gilt.\\
+\\
+$\uline{Beweis:}\:\uline{zz:}$ i) a) und b) schlie\ss{}en sich gegenseitig aus.\\
+ii) $n$ in b) ist eindeutig.\\
+i) Falls $M=\emptyset$, so existiert keine Abbildung $N\rightarrow M=\emptyset$ f\"ur $N\neq\emptyset\Rightarrow$ b) gilt nicht.\\
+ii) Seine $\{1,...,n\}\stackrel{f}{\rightarrow} M$ und $\{1,...,m\}\stackrel{g}{\rightarrow} M$ beide bijektiv. $\Rightarrow g^{-1}\circ f:\{1,...,n\}\rightarrow\{1,...,m\}$ ist bijektiv $\stackrel{1.15}{\Rightarrow} n=m$. \hfill $\Box$\\
+\\
+$\uline{Fakten:}$ a) Sei $f:M\rightarrow N$ bijektiv. Dann gilt $|M|=|N|$\\
+b) Sei $f:\{1,...,m\}\rightarrow\{1,...,n\}$ eine Abbildung:\\
+i) $n=m\Rightarrow f$ bijektiv\\
+ii) $n<m\Rightarrow f$ nicht injektiv\\
+iii) $n>m\Rightarrow f$ nicht surjektiv\\
+c) Sind $M$ und $N$ disjunkt, so gilt $|M\mathbin{\dot{\cup}}N|=|M|+|N|$ (unter der Vereinbarung $\infty+_=\infty$ ; $_+\infty=\infty$) (oder setze voraus: $M,N$ sind beide endlich)\\
+d) Ist $M$ endlich und $N\subset M$, so ist $N$ endlich und $|N|<|M|$\\
+e) $|\mathbb{N}_{0}|=\infty$\\
+f) $M,N$ endlich: $|M\cup N|=|M|+|N|-|N\cap M|$\\
+\\
+$\uline{Definition:}$ Ist $M$ eine Menge, so hei\ss{}t $P(M):=\{N|N\subseteq M\}$ die $\uline{Potenzmenge}$ von $M$.\\
+\\
+$\uline{Beispiel:}$ $P(\{1,2\})=\{\emptyset,\{1\},\{2\},\{2,1\}\}$\\
+\\
+$\uline{Satz:}$ $M$ endlich $\Rightarrow$ $|P(M)|=2^{|M|}$\\
+\\
+\newpage
+\section{Gruppen und K\"orper}
+
+$\uline{Definition\:2.1:}$ Eine $\uline{Gruppe}$ ist ein Tripel $(G,e,\odot)$ bestehend aus eine Menge $G$, einem Element $e\in G$ und einer Abbildung $\odot:G\times G\rightarrow G$ (einer Verkn\"upfung), sodass gelten:\\
+G1) (Assoziativit\"at) $\forall g\in G:g\odot e=g$\\
+G2) (Rechtseins) $\forall g\in G:\exists h\in G:g\odot e=g$\\
+G3) (Rechtsinverses) $\forall g\in G:\exists h\in G:g\odot h=e$\\
+Gilt zus\"atzlich G4) (Kommutativit\"at) $\forall g,h\in G:g\odot h=h\odot g$: so hei\ss{}t $G$ $\uline{abelsche\:Gruppe}$.\\
+\\
+Wir schreiben oft $G$ f\"ur $(G,e,\odot)$. $e$ hei\ss{}t neutrales Element oder (kurz) Eins von $G$.\\
+$\uline{Beispiel:}$ a) $(\mathbb{Z},0,+)$ ist eine abelsche Gruppe. Das bedeutet: $+:\mathbb{Z}\times\mathbb{Z}\rightarrow\mathbb{Z},(a,b)\mapsto a+b\\
+\forall a,b,c\in\mathbb{Z}:$ G1) $(a+b)+c=a+(b+c)$\\
+G2) $a+0=a$\\
+G3) $\forall a\in\mathbb{Z}:\exists a'\in\mathbb{Z}: a+a'=0$ (schreibe $-a$ f\"ur $a$)\\
+G4) $a+b=b+a$\\
+b) $(\mathbb{R},0,+)$ ist eine abelsche Gruppe.\\
+c) $(\mathbb{R}^{n},\uline{0},+)$ ist eine abelsche Gruppe f\"r $\uline{0}=(0,...,0)$ (n-Tupel): $(a_{1},...,a_{n})+(b_{1},...,b_{n}):=(a_{1}+b_{1},...,a_{n}+b_{n})$\\
+d) Sei $\mathbb{R}^{x}=\mathbb{R}\setminus\{0\}$, dann ist $(\mathbb{R}^{x},1,\cdot)$ eine abelsche Gruppe.\\
+e) $(\{\pm 1\},1,\cdot)$ ist eine abelsche Gruppe.\\
+Verkn\"upfungstafel:
+\begin{tabular}{|c|cc|}
+	\hline
+	$\cdot$ & 1 & -1\\
+	\hline
+	1 & 1 & -1\\
+	-1 & -1 & 1\\
+	\hline
+\end{tabular}
+\\
+$\uline{Definition:}$ F\"ur eine Menge $M$ definiere $Bij(M);=\{f:M\rightarrow M|f\:ist\:bijektiv\}$\\
+\\
+$\uline{Proposition\:2.3:}$ $(Bij(M),id_{M},\circ)$ ist eine Gruppe. ($\circ$ ist Verkettung von Abbildungen)\\
+\\
+$\uline{Beweis:}$ $\cdot$ G1 gilt: $(f\circ g)\circ h=f\circ(g\circ h)$ gilt $\forall f,g,h\in Bij(M)$ nach Lemma 1.10.\\
+G2: $f\circ id_{M}=f\:\:\:\forall f\in Bij(M)$\\
+G3: Satz 1.12 $\Rightarrow f\circ f^{-1}=id_{M}$ \hfill $\Box$\\
+\\
+$\uline{Definition\:2.4:}$ F\"ur $n\in\mathbb{N}$ sei $S_{n}:=Bij(\{1,...,n\})$. $S_{n}$ hei\ss{}t auch $\uline{Gruppe\:der\:Permutationen}$ von $\{1,...,n\}$.\\
+\\
+$\uline{\ddot{U}bung:}$ i) $|M|\geq 3 \Rightarrow$ Die Gruppe $Bij(M)$ ist nicht abelsch.\\
+ii) $M$ endlich, $|M|=n$. Dann: $|Bij(M)|=n!=1\cdot 2\cdot ... \cdot n$\\
+\\
+$\uline{Proposition\:2.5:}$ F\"ur eine Gruppe $(G,e,\odot)$ gelten:\\
+a) $g\odot h=e\Rightarrow h\odot g=e$ f\"ur $g,h\in G$\\
+b) $\forall g\in G:e\odot g=g$\\
+c) $\forall g\in G:\exists !h\in G$ mit $g\odot h=e$ (Schreibe sp\"ater $g^{-1}$ anstelle von diesem eindeutigen $h$; $g^{-1}$ hei\ss{}t invers zu $g$)\\
+d) $e$ ist das einzige Element von $G$, sodass G2 und G3 gelten.\\
+e) $\forall g,h\in G$ gilt: die Gleichung $g\odot x=h$ hat eine eindeutige L\"osung, n\"amlich $x=g^{-1}\odot h$\\
+\\
+$\uline{Beweis:}$ a) Gelte $g\odot h=e$. Sei $k\in G$ rechtsinvers zu $h$, d.h. $h\odot k=e$. Betrachte nun $h\odot g\stackrel{G1+G2}{=} h\odot(g\odot(h\odot k))\stackrel{G1}{=} h\odot((g\odot h)\odot k) \stackrel{G3}{=} h\odot(e\odot k)\stackrel{G1}{=} (h\odot e)\odot k\stackrel{G2}{=} h\odot k\stackrel{G3}{=} e$\\
+ b) Sei $h$ rechtsinvers zu $g$, d.h. $g\odot h=e$, dann gilt: $e\odot g=(g\odot h)\odot g\stackrel{G1}{=} g\odot(h\odot g)\stackrel{a)}{=} g\odot e\stackrel{G2}{=} g$\\
+c) Seine $h,h'$ rechtsinvers zu $g$. $\uline{zz:}\:h=h'$\\
+Dazu: $g\stackrel{G2}{=} h\odot e\stackrel{G3}{=} h\odot(g\odot h')\stackrel{G1}{=}(h\odot g)\odot h')\stackrel{a)}{=} e\odot h'\stackrel{b)}{=} h'$\\
+d) Seine $e,e'\in G$ Elemente f\"ur die G2 und G3 gilt: $e\stackrel{G2}{=} e\odot e'\stackrel{b)}{=} e'$\\
+e) $\uline{g^{-1}\odot h\:ist\:L\ddot{o}sung:}$ $g\odot (g^{-1}\odot h)\stackrel{G1}{=}(g\odot g^{-1}\odot h\stackrel{G3}{=} e\odot h\stackrel{b)}{=} h\\
+\uline{\exists!\:L\ddot{o}osung:}$ Gelte $g\odot x=g\odot x'(=h)$. Verkn\"upfe von links mit $g^{-1}$. Nun folgt mit G1 und G2 und b), dass $x=x'$. \hfill $\Box$\\
+\\
+$\uline{Notation:}$ a) Wir schreiben meist i) $G$ statt $(G,e,\odot)$\\
+ii) $\cdot$ statt $\odot$, z.B: $gh=g\cdot h=g\odot h$\\
+iii) Falls $G$ abelsch ist: schreibe $+$ statt $\odot$, dann auch $-g$ statt $g^{-1}$\\
+b) Sei $a\in G$ und $n\in\mathbb{Z}$, schreibe $a^{n}$ f\"ur
+$\begin{cases}
+	a\cdot...\cdot a & \text{falls }n>0\\
+	a^{-1}\cdot...\cdot a^{-1} & \text{falls }n<0\\
+	e & \text{falls } n=0
+\end{cases}$\\
+Falls $\odot=+$, so gilt $n\cdot a$ statt $a^{n}$\\
+\\
+$\uline{\ddot{U}bung:}$ F\"ur alle $m,n\in\mathbb{Z}$ gilt $a^{m}\cdot a^{n}=a^{m+n}$\\
+\\
+$\uline{Definition\:2.6:}$ Ein $\uline{K\ddot{o}rper}$ ist ein Quintupel $(K,0,1,+,\cdot)$, oder einfach $K$, bestehend aus einer Menge $K$, Elementen $0,1\in K$ und Verkn\"upfungen $+,\cdot:K\times K\rightarrow K$, so dass gelten:\\
+K1) $(K,0,+)$ ist eine abelsche Gruppe.\\
+K2) $(K\setminus\{0\},1,\cdot)$ ist eine abelsche Gruppe.\\
+K3) (Distributivgesetz) $\forall a,b,c\in K:(a+b)\cdot c=a\cdot c+b\cdot c$\\
+\\
+$\uline{Beispiel:}$ $(\mathbb{R},0,1,+,\cdot)$ ist ein K\"orper; $(\mathbb{Q},0,1,+,\cdot)$ ist ein K\"orper; $(\mathbb{Z},0,1,+,\cdot)$ ist kein K\"orper; $(\mathbb{F}_{2},0,1,+,\cdot)$ ist ein K\"orper f\"ur $\mathbb{F}_{2}=\{0,1\}$\\
+\begin{tabular}{|c|cc|}
+	\hline
+	$+_{\mathbb{F}_{2}}$ & 0 & 1 \\
+	\hline
+	0 & 0 & 1\\
+	1 & 1 & 0\\
+	\hline
+\end{tabular}\\
+\\
+$\uline{Lemma\:2.7:}$ F\"ur einen K\"orper $K$ gelten: a) $0\neq 1$\\
+b) $\forall x\in K: 0\cdot x=x\cdot 0=0$\\
+c) $\forall x\in K: 1\cdot x=x\cdot1=x$\\
+d) $\forall a,b\in K: a\cdot b=b\cdot a$\\
+\\
+$\uline{Beweis:}$ a) $1\in K\setminus\{0\}\Rightarrow 0\neq 1$\\
+b) $0\cdot x\stackrel{K1}{=}(0+0)\cdot x\stackrel{K3}{=}0\cdot x+0\cdot x\stackrel{addiere\:-(0\cdot x)}{\Rightarrow} 0=0\cdot x$. $x\cdot 0=0$ ist analog.\\
+c) Falls $x\neq0:$ verwende $K2\Rightarrow1\cdot x=x\cdot1=x$. Falls $x=0$: wende b) an.\\
+d) Falls $a\neq0\neq b:$ wende $K2$ an. Falls $a=0\vee b=0$, wende b) an. \hfill $\Box$\\
+\\
+$\uline{Notation:}$ Manchmal schreiben wir $0_{K},1_{K},+_{K},\cdot_{K}$ an Stelle von $0,1,+,\cdot$ (analog f\"ur Gruppen).\\
+\\
+\subsection{Primk\"orper}
+
+Ziel: zu jeder Primzahl $p$ existiert ein K\"orper mit $p$ Elementen. (sp\"ater: K\"orper ist eindeutig)\\
+$\uline{Definition\:2.8:}$ Sei $n\in\mathbb{N}$. Eine $\uline{Restklasse}$ modulo $n$ ist eine Teilmenge $m\subseteq\mathbb{Z}$, so dass gelten:\\
+i) $\forall a,b\in M$: $n$ teilt $b-a$\\
+ii) $\forall a\in M:\forall b\in\mathbb{Z}:$ $(n$ teilt $(b-a)\Rightarrow b\in M)$\\
+iii) $M=\emptyset$\\
+Die Elemente von M hei\ss{}en Vertreter von $M$.\\
+\\
+$\uline{Notation:}$ $\cdot$ Schreibe \dq$n|x$\dq f\"ur \dq$n$ teilt $x$\dq\\
+$\cdot$ F\"ur Restklassen $M,N$ modulo $n$ seien $M\oplus N:=\{a+b|a\in M,b\in N\}$ und $M\odot N:=\{a\cdot b+k\cdot n|a\in M,b\in N\text{ und }k\in\mathbb{Z}\}$\\
+\\
+$\uline{Satz\:2.9:}$ Sei $n\in\mathbb{N}$. Schreibe \dq Restklasse \dq f\"ur \dq Restklasse modulo $n$\dq. a) Je 2 Restklassen $M,N$ sind disjunkt oder identisch.\\
+b) Jedes $x\in\mathbb{Z}$ liegt in der Restklasse $x+n\cdot\mathbb{Z}:=\{x+n\cdot k|k\in\mathbb{Z}\}$\\
+c) Es gibt genau $n$ Restklassen (modulo $n$)\\
+d) Sind $M,N$ Restklassen, so auch $M\oplus N$ und $M\odot N$\\
+e) Sei $\mathbb{Z}/n$ die Menge aller Restklassen. Dann ist $(\mathbb{Z}/n,0+n\cdot\mathbb{Z},\oplus)$ eine abelsche Gruppe.\\
+f) Ist $n$ Primzahl, so ist $(\mathbb{Z}/n,0+n\cdot\mathbb{Z},1+n\cdot\mathbb{Z},\oplus,\odot)$ ein K\"orper.\\
+\\
+$\uline{Korollar\:2.10:}$ Zu jeder Primzahl $p$ gibt es einen K\"orper mit $p$ Elementen.\\
+\\
+$\uline{Beispiel:}$ Restklassen modulo 3 ($n=3$):\\
+$\overline{0}=0+3\cdot\mathbb{Z}=\{...,-6,-3,0,3,6,...\}\\
+\overline{1}=1+3\cdot\mathbb{Z}=\{...,-5,-2,1,4,7,...\}\\
+\overline{2}=2+3\cdot\mathbb{Z}=\{...,-4,-1,2,5,8,...\}$\\
+\begin{tabular}{|c|ccc|}
+	\hline
+	+&$\overline{0}$&$\overline{1}$&$\overline{2}$\\
+	\hline
+	$\overline{0}$ & $\overline{0}$ &$ \overline{1}$ & $\overline{2}$\\
+	$\overline{1}$ &$ \overline{1}$ & $\overline{2}$ & $\overline{0}$\\
+	$\overline{2}$ &$ \overline{2}$ & $\overline{0}$ & $\overline{1}$\\
+	\hline
+\end{tabular}\\
+\\
+$\uline{Beweis:}$ a) $\uline{zz:}$ $M\cap N\neq\emptyset\Rightarrow M=N$.\\
+Sei $x\in M\cap N$. $\uline{N\subseteq M:}$ Sei $y\in N\stackrel{i)\:f\ddot{u}r\:N}{\Rightarrow}\:n|y-x\stackrel{ii)\:f\ddot{u}r\:M}{\Rightarrow} y\in M$\\
+$\uline{M\subseteq N:}$ analog.\\
+b) $\uline{zz:}$ $M:=x+n\cdot\mathbb{Z}$ ist Restklasse.\\
+Denn: iii): $x\in M\Rightarrow M\neq\emptyset$\\
+i): Seien $a=x+k\cdot n,b=x+l\cdot n\in M\:(k,l\in\mathbb{Z})\:\Rightarrow b-a=(l-k)\cdot n$. Wird von $n$ geteilt.\\
+ii): Seien $a=x+k.\cdot n\in M$ und $b\in\mathbb{Z}$, so dass $n|b-a$. D.h: $b-a=l\cdot n$ f\"ur $l\in\mathbb{Z}\Rightarrow b=a+l\cdot n=x+(k+l)\cdot n\in M$\\
+c) $\uline{Behauptung:}$ Jede Restklasse $M$ enth\"alt ein eindeutiges Element aus $\{0,...,n-1\}\ni x$\\
+$\uline{Existenz\:von\:x:}$ Sei $y\in M\Rightarrow y+n\cdot |y|\in M\cap\mathbb{N}_{0}$, denn $y+n\cdot |y|\geq y+|y|\geq0$. Sei nun $y\in M\cap\mathbb{N}_{0}$ ein kleinstes Element. (\"UB 2)\\
+$\uline{Behauptung:}$ $0\leq y\leq n-1$, sonst bilde $y-n$. Dies F\"uhrt zu Widerspruch.\\
+$\uline{Eindeutigkeit:}$ Seien $x,x'\in M$ mit $0\leq x\leq x'\leq n-1$ $\uline{zz:}$ $x'=x$\\
+Wissen: $0\leq x'-x=k\cdot n\leq n-1$ f\"ur ein $k\in\mathbb{Z}\Rightarrow 0\leq k<1\Rightarrow k=0\Rightarrow x'=x$\\
+$\uline{Behauptung:}$  1b)$\Rightarrow$ Die Abbildung, die einer Restklasse $M$ (modulo $n$) das eindeutige element in $M\cap\{0,...,n-1\}$ zuordnet, ist eine Bijektion: $\{Restklassen\}\rightarrow\{0,...,n-1\}$, d.h. c) gilt.\\
+d) Wissen; nach c) und b), dass alle Restklassen die Form $x+n\cdot\mathbb{Z}$ haben (f\"ur ein $x\in\{0,...,n-1\}$)\\
+$\uline{\ddot{U}bung:}$ $\cdot$ $(a+n\cdot\mathbb{Z})\oplus(b+n\cdot\mathbb{Z}=(a+b)+n\cdot\mathbb{Z}$ $\circledast$\\
+$\cdot$ $(a+n\cdot\mathbb{Z}\odot(b+n\cdot\mathbb{Z})=a\cdot b+n\cdot\mathbb{Z}$ $\circledast\circledast$\\
+e) $\uline{z.B.:}$ $0+n\cdot\mathbb{Z}$ ist die Eins. $(a+n\cdot\mathbb{Z})\oplus(0+n\cdot\mathbb{Z})\stackrel{\circledast}{=}(a+(-a))+n\cdot\mathbb{Z}=0+n\cdot\mathbb{Z}$\\
+f) Assoziativit\"at, Kommutativit\"at von $0$ mit $(\circledast\circledast)$, Distributivgesetz mit $(\circledast)$ und $(\circledast\circledast)$ (und verwende Gesetze f\"ur $\mathbb{Z}$)\\
+$\uline{Bleibt\:zz:}$ F\"ur $a\in\{1,...,n-1\}\:\exists b\in\{0,...,n-1\}$ mit $a+n\cdot\mathbb{Z}\odot b+n\cdot\mathbb{Z}=1+n\cdot\mathbb{Z}$. \\
+Dazu zeigen wir: $f_{a}:\mathbb{Z}/n\rightarrow\mathbb{Z}/n,M\mapsto M\odot(a+n\cdot\mathbb{Z})$ ist surjektiv.\\
+Aus den \"Ubungen wissen wir: Sei $X$ eine endliche Menge, $f:X\rightarrow X$ injektiv $\Rightarrow f$ ist surjektiv. $\uline{Wir\:zeigen:}$ $f_{a}$ ist injektiv!\\
+Seien $x+n\cdot\mathbb{Z},x'+n\cdot\mathbb{Z}$ Restklassen mit $(x+n\cdot\mathbb{Z})\odot(a+n\cdot\mathbb{Z})=(x'+n\cdot\mathbb{Z})\odot(a+n\cdot\mathbb{Z})=a\cdot x'+n\cdot\mathbb{Z}\Rightarrow a\cdot x,a\cdot x'$ sind in derselben Restklasse $\Rightarrow n|(a\cdot x'-a\cdot x)=a\cdot (x'-x)$ und da $n$ eine Primzahl ist $\Rightarrow n|a$ oder $n|x'-x \stackrel{0<a<n}{\Rightarrow} n|x'-x\Rightarrow x',x$ in derselben Restklasse. \hfill $\Box$\\ 
+\\
+$\uline{Definition\:2.10:}$ $p\in\mathbb{N}$ hei\ss{}t $\uline{Primzahl}:\Leftrightarrow p>1$ und die einzigen Teiler aus $\mathbb{N}$ von $p$ sind 1 und $p$.\\
+\\
+$\uline{Satz\:2.11:}$ $p$ Primzahl $\Rightarrow(\forall a,b\in\mathbb{Z}:p|a\cdot b\Rightarrow p|a\vee p|b)$\\
+\\
+$\uline{Lemma\:2.12(\ddot{U}bung):}$ Sei $\{0\}\subset M\subseteq\mathbb{Z}$, sodass gilt: $\forall a,a'\in M$ gilt $a\pm a'\in M$. Dann folgt: a) Es gilt $M=m\cdot\mathbb{Z}(=\{m\cdot x|x\in \mathbb{Z}\})$, wobei $m$ das kleinste Element in $M\cap\mathbb{N}$ ist (und $\neq\emptyset$)\\
+b) Falls $M\supseteq p\cdot\mathbb{Z}$ f\"ur $p$ eine Primzahl $\Rightarrow M=\mathbb{Z}\vee M=p\cdot \mathbb{Z}$\\
+\\
+$\uline{Beweis\:des\:Satzes\:mit\:Lemma:}$ Seien $a,b\in\mathbb{Z}$ mit $p|a\cdot b$. Gelte nun $p\times b$. Betrachte $M:=\{x\in\mathbb{Z}|p\:teilt\:x\cdot b\}$\\
+$\uline{Pr\ddot{u}fe:}$ $\forall x,x'\in M:x\pm x'\in M$ und $p\cdot\mathbb{Z}\subseteq M$. Aus dem Lemma folgt nun: $M=\mathbb{Z}$ oder $M=p\cdot\mathbb{Z}$\\
+Falls $M=p\cdot\mathbb{Z}:\stackrel{a\in M}{\Rightarrow}\exists k\in\mathbb{Z}:a=p\cdot k$, d.h. $p|a$.\\
+Falls $M=\mathbb{Z}:\stackrel{1\in M}{\Rightarrow} p$ teilt $1\cdot b=b$ $\uline{!Widerspruch!}$ \hfill $\Box$\\
+\\
+$\uline{Definition\:2.13:}$ a) Eine Relation $R\subseteq M\times M$ (auf $M$) hei\ss{}t $\uline{\ddot{A}quivalenzrelation}:\Leftrightarrow$ i) $\forall x\in M: xRx$ (reflexiv)\\
+ii) $\forall x,y\in M: xRy\Leftrightarrow yRx$ (symmetrisch)\\
+iii) $\forall x,y,z\in M: xRy$ und $yRz\Rightarrow xRz$ (transitiv)\\
+($xRy$ bedeutet $(x,y)\in R$)\\
+b) Schreibe $x/\sim\:y$ f\"ur $xRy$, falls $R$ \"Aquivalenzrelation.\\
+c) Die \"Aquivalenzklasse $x\in M$ ist $[x]:=\{y\in M|x\tilde y\}$\\
+d) $M/R:=M/\sim:=\{[x]|x\in M\}$ hei\ss{}t Menge der \"Aquivalenzklassen.\\
+\\
+$\uline{Beispiel:}$ Sei $M=\mathbb{Z}$. Dann ist $R_{n}=\{(x,y)\in\mathbb{Z}^{2}|n\:teilt\:x-y\}\:(n\in\mathbb{N})$ ist eine \"Aquivalenzrelation auf $\mathbb{Z}$. \"Aquivalenzklassen zu $R_{n}$ sind die Restklassen modulo $n$.\\
+\\
+$\uline{Definition\:2.14:}$ Seien $\mathbb{C}:=\mathbb{R}^{2}=\{(a,b)|a,b\in\mathbb{R}\},0_{\mathbb{C}}:=(0_{\mathbb{R}},0_{\mathbb{R}}),1_{\mathbb{C}}=(1_{\mathbb{R}},0_{\mathbb{R}})$. $+_{\mathbb{C}}:\mathbb{C}\times\mathbb{C}\rightarrow\mathbb{C},((a,b),(c,d))\mapsto(a,b)+_{\mathbb{C}}(c,d):=(a+_{\mathbb{R}}c,b+_{\mathbb{R}}d);\:\cdot_{\mathbb{C}}:\mathbb{C}\times\mathbb{C}\rightarrow\mathbb{C},((a,b),(c,d))\mapsto(a,b)\cdot_{\mathbb{C}}(c,d):=(a\cdot_{\mathbb{R}}c-_{\mathbb{R}}b\cdot_{\mathbb{R}}d,a\cdot_{\mathbb{R}}d+_{\mathbb{R}}b\cdot_{\mathbb{R}}c)$\\
+\\
+$\uline{Satz:}$ $(\mathbb{C},0_{\mathbb{C}},1_{\mathbb{C}},+_{\mathbb{C}},\cdot_{\mathbb{C}})$ ist ein K\"orper. Der $\uline{K\ddot{o}rper\:der\:komplexen\:Zahlen}$. $\uline{Hinweis:}$ $(a,b)\cdot_{\mathbb{C}}(a-b)=(a^{2}+b^{2},0)$ und $(r,0)\cdot_{\mathbb{C}}(c,d)=(r\cdot c, r\cdot d)$\\
+\\
+$\uline{Notation:}$ $\cdot$ Oft schreibt man $i$ f\"ur $(0,1)$ und $a+b\cdot i$ f\"ur $(a,b)$\\
+$\cdot$ Man identifiziert (oft) $a\in\mathbb{R}$ mit $a+0\cdot i=(a,0)\in\mathbb{C}\Rightarrow\mathbb{R}\subseteq\mathbb{C}$\\
+$\cdot$ $\exists x\in\mathbb{C}$ mit $x^{2}=-1_{\mathbb{C}}$: denn $i^{2}=(0,1)\cdot(0,1)=(0\cdot 0-1\cdot 1,0\cdot 1+1\cdot 0)=(-1,0)=-(1,0)=-1_{\mathbb{C}}$\\
+\\
+\newpage
+\section{Vektorr\"aume und Unterobjekte}
+
+$\uline{Definition\:3.1:}$ Sei $(K,0_{K},1_{K},+_{K},\cdot_{K})$ ein K\"orper. Ein $\uline{Vektorraum}$ (VR) \"uber $K$, oder ein $K-VR$, ist ein Quadrupel $(V,0_{V},+{V},\cdot_{V})$ bestehend aus einer Menge $V$ (Menge der Vektoren), einem Element $0_{V}\in V$ (Nullvektor) und Verkn\"upfungen $+_{V}:V\times V\rightarrow V,(v,w)\mapsto v+w;\: \cdot_{V}:K\times V\rightarrow V,(\lambda,v)\mapsto\lambda\cdot_{V} v$, sodass gelten: V1: $(V,0_{V},+_{V})$ ist eine abelsche Gruppe.\\
+V2: (Assoziativit\"at von $\cdot_{V}$) $\forall\lambda,\mu\in K:\forall v\in V:(\lambda\cdot_{K}\mu)\cdot_{V} v=\lambda\cdot_{V}(\mu\cdot_{V} v)$\\
+V3: (Distributivgesetze) $\cdot$ $\forall\lambda,\mu\in K:\forall v\in V:(\lambda+_{V}\mu)\cdot_{V} v=\lambda\cdot_{V} v+_{V}\mu\cdot_{V} v\\
+\cdot\; \forall\lambda\in K:\forall v,w\in V:\lambda\cdot v(v+_{V} w)=\lambda\cdot_{V} v+_{V}\lambda\cdot_{V} w$\\
+V4: $\forall v\in V:1_{K}\cdot_{V} v=v$\\
+\\
+$\uline{Notation:}$ $\cdot$ ab nun meist $+,\cdot$ statt $+_{K},\cdot_{K}$ oder $+_{V},\cdot_{V}$ und $\lambda v$ statt $\lambda\cdot v$. Multiplikation bindet enger als Addition (\dq Punkt vor Strich\dq).\\
+\\
+$\uline{Lemma\:3.2:}$ Sei $K$ ein K\"orper und $V$ ein $K-VR$. Dann gelten $\forall v\in V,\forall\lambda\in K:$ a) $0_{K}\cdot_{V} v=0_{V}$\\
+b) $\lambda\cdot_{V} 0_{V}=0_{V}$\\
+c) $\lambda\cdot_{V} v=0\Rightarrow \lambda=0_{K}\cdot_{V} v=0_{V}$\\
+d) $(-1)\cdot_{V} v =-v$\\
+\\
+$\uline{Beweis:}$ a) $0_{K}\cdot_{V} v=(0_{K}+0_{K})\cdot_{V} v\stackrel{V3}{=} 0_{K}\cdot_{V} v+_{V}0_{K}\cdot_{V} v$ Addiere $-(0_{K}\cdot_{V} v)$ und erhalte: $0_{V}=...=0_{K}\cdot_{V} v$\\
+b) wie a).\\
+c) Gelte $\lambda\cdot_{V} v=0_{V}$ und $\lambda\neq0_{K}$. Multipliziere mit $\lambda^{-1}$: $0_{V}\stackrel{b)}{=}\lambda^{-1}\cdot_{V}0_{V}=\lambda^{-1}\cdot_{V}(\lambda\cdot_{V} v)\stackrel{V2}{=}(\lambda^{-1}\cdot_{K}\lambda)\cdot_{V} v=1_{K}\cdot v\stackrel{V4}{=} v$\\
+d) \"Ubung. \hfill $\Box$\\
+\\
+$\uline{Beispiel:}$ Sei $K$ ein K\"orper. 0) $V=\{0_{V}\},+_{V}$ und $\cdot_{V}$ die einzig m\"oglichen Verkn\"upfungen $\rightarrow\uline{Null-VR}$.\\
+1) $(K^{n},\uline{0},+,\cdot)$ $(n\in\mathbb{N})$ ist ein $K-VR$ f\"ur $\uline{0}=(0_{K},...,0_{K})$ (n-Tupel)\\
+$(\lambda_{1},...,\lambda_{n})+(\mu_{1},...,\mu_{n}):=(\lambda_{1}+\mu_{1},...,\lambda_{n}+\mu_{n})\\
+\lambda\cdot(\mu_{1},...,\mu_{n})=(\lambda\cdot\mu_{1},...,\lambda\cdot\mu{n})$ f\"ur $\lambda,\mu\in K$\\
+$\uline{Pr\ddot{u}fe:}$ V1: $(K^{n},\uline{0},+)$ ist abelsche Gruppe (gilt, da $K0,+)$ ist abelsche Gruppe)\\
+V2: $(\lambda\cdot\mu)(\nu_{1},...,\nu_{n})\stackrel{Def.}{=}((\lambda\cdot\mu)\cdot\nu_{1},...,(\lambda\cdot\mu)\cdot\nu_{n})=(\lambda\cdot(\mu\cdot\nu_{1},...,\lambda\cdot(\mu\cdot\nu_{n}))\stackrel{Def.}{=}\lambda\cdot((\mu\cdot\nu_{1},...,\mu\cdot\nu_{n}))\stackrel{Def.}{=}\lambda(\mu(\nu_{1},...,\nu_{n}))$ D.h. $(\lambda\cdot\mu)\cdot\nu=\lambda\cdot(\mu\cdot\nu)$\\
+V4 und V3 analog.\\
+$\uline{Beispiel:}$ Seien $(V,0_{V},+_{V},\cdot_{V})$ und $(W,0_{W},+_{W},\cdot_{W})$ zwei Vektorr\"aume \"uber $K$. So erh\"alt man einen Vektorraum $V\oplus W$ \"uber $K$, definiert durch $V\oplus W=(V\times W,\uline{0},+,\cdot)$ mit $\uline{0}=(0_{V},0_{W}),(v,w)+(v',w'):=(v+_{V}v',w+_{W}w'),\lambda\cdot(v,w):=(\lambda\cdot_{V}v,\lambda\cdot_{W}w)$ f\"ur $v,v'\in V,w,w'\in W,\lambda\in K$.\\
+Demn\"achst: $(K^{m},0,+,\cdot)\oplus(K^{n},0,+,\cdot)\dq=\dq(K^{m+n},0,+,\cdot)$\\
+\\
+\subsection{Unterobjekte}
+
+$\uline{Definition\:3.3:}$ Sei $(G,e,\cdot_{G})$ eine Gruppe $H\subseteq G$ hei\ss{}t $\uline{Untergruppe}:\Leftrightarrow$ i) $e\in H$ und ii) $\forall g,h\in H:(g^{-1}\cdot_{G}h)\in H$\\
+\\
+$\uline{Lemma\:3.4:}$ Sei $H\subseteq G$ eine Untergruppe. Dann gelten a) $\forall h\in H:h^{-1}\in H$\\
+b) $\forall g,h\in H:(g\cdot_{g}h)\in H$\\
+c) $(H,e,\cdot_{G})$ ist eine Gruppe.\\
+\\
+$\uline{Beweis:}$ a) Sei $h\in H$. Wegen $e\in H$, folgt aus ii): $h^{-1}\cdot_{G}e=h^{-1}\in H$\\
+b) Seien $g,h\in H:\stackrel{a)}{\Rightarrow}g^{-1}\in H,h\in H\stackrel{ii)}{\Rightarrow}(g^{-1})^{-1}\cdot h=(g\cdot h)\in H$\\
+c) Aus b) folgt: $H$ ist abgeschlossen unter $\cdot_{G}$, d.h. $\dq\cdot\dq:H\times H\rightarrow H,(g,h)\mapsto g\cdot_{G}h$ ist wohldefiniert. Axiome: G1 gilt in $G$, d.h. $\forall g,h,k\in G:(g\cdot h)\cdot k=g\cdot (h\cdot k)\stackrel{H\subseteq G}{\Rightarrow} \forall g,h,k\in H:(g\cdot h)\cdot k=g\cdot(h\cdot k)$.\\
+G2) $g\cdot e=g\:\forall g\in G\stackrel{H\subseteq G}{\Rightarrow} h\cdot e=h\:\forall h\in H$\\
+G3) (Rechtsinverses) Wurde in a) gezeigt. \hfill $\Box$\\
+\\
+$\uline{Merke:}$ Axiome, die nur den Allquantor ($\forall$) enthalten, "vererben sich" auf Teilmengen. F\"ur $\exists$ geht das nicht! Das muss man pr\"ufen!\\
+\\
+$\uline{Beispiel:}$ 0) Ist $G$ eine Gruppe, so ist $H:=\{e\}\subseteq G$ eine Untergruppe.\\
+1) Ist $G$ eine geliebige Gruppe, so ist $g\in G$ bel. $\Rightarrow H=\{g^{n}|n\in\mathbb{Z}\}\subseteq G$ ist Untergruppe.\\
+2) $\{\sigma\in S_{n}|\sigma(n)=n\}\subseteq S_{n}$ ist Untergruppe (und $\dq=\dq S_{n-1}$)\\
+\\
+$\uline{Notation:}$ Sei $f:M\rightarrow N$ eine Abbildung und $L\subseteq M$. Die Einschr\"ankung $f|_{L}$ von $f$ auf (dem Teildefinitionsbereich) $L$ ist die Abbildung $f|_{L}:L\rightarrow f(L),l\mapsto f(l)$\\
+\\
+$\uline{Beispiel:}$ $H\subseteq G$ Untergruppe $\Rightarrow \cdot_{G}|_{H\times H}:H\times H\rightarrow H$\\
+\\
+$\uline{Definition\:3.5:}$ Sei $(K,0,1,+,\cdot)$ ein K\"orper. $L\subseteq K$ hei\ss{}t $\uline{Unterk\ddot{o}rper}:\Leftrightarrow$ i) $L$ ist Untergruppe von $(K,0,+)$ und ii) $L\setminus\{0\}$ ist Untergruppe von $(K\setminus\{0\},1,\cdot)$\\
+\\
+$\uline{Proposition\:3.6:}$ Ist $L\subseteq K$ ein Unterk\"orper, so gelten: a) $+_{K}(L\times L)=L$ (oder $L+_{K}L=L$) und $\cdot_{K}(L\times L)=L$ (oder $L\cdot_{K} L=L$)\\
+b) $(L,0,1,+_{L}|_{L\times L},\cdot_{K}|_{L\times L})$ ist ein K\"orper.\\
+\\
+$\uline{Beweis:}$ a) Verwende Lemma 3.4 f\"ur $(K,0,+),(K\setminus\{0\},1,\cdot)$ und $\forall l\in L:0\cdot l=l\cdot 0=0$\\
+b) Axiome K1,K2 folgen aus Lemma 3.4. Distributivgesetze in $L$: Vererben sich von $K$ nach $L$.\\
+\\
+$\uline{Beispiel:}$ $\mathbb{Q}\subseteq\mathbb{R}$ und $\mathbb{R}\subseteq\mathbb{C}$ sind Unterk\"orper.\\
+\\
+$\uline{Definition\:3.7:}$ Sei $K$ ein K\"orper und $V$ ein $K-VR$. $U\subseteq V$ hei\ss{}t $\uline{Untervektorraum}$ (UVR) $:\Leftrightarrow$ i) $0\in U$ ii) $\forall\lambda\in K:\forall u\in U:(\lambda\cdot u)\in U$ iii) $\forall u,v\in U:(u+v)\in U$\\
+\\
+$\uline{Beispiel:}$ 0) $\{0_{V}\}\subseteq V$ ist ein Untervektorraum.\\
+1) F\"ur $u\in V$ ist $\{\lambda\cdot v|\lambda\in K\}$ ein Untervektorraum (verwende $0\cdot v=0$ und V2 und V3))\\
+\\
+$\uline{Proposition\:3.8:}$ Seien $K$ ein K\"orper, $V$ ein $K-VR$, $U\subseteq V$ ein Untervektorraum. Dann gelten:\\
+a) $+_{V}(U\times U)=U$ und $\cdot_{V}(K\times U)=U$\\
+b) $(U,0,+_{V}|_{U\times U},\cdot_{V}|_{K\times U})$ ist ein $K-VR$\\
+\\
+$\uline{Beweis:}$ a) $+_{V}:$ es gen\"ugt zu zeigen: $(U,0,+_{V}|_{U\times U})$ ist eine abelsche Gruppe. Dazu gen\"ugt zu zeigen: $U\subseteq V$ und $((V,0,+))$ ist eine Untergruppe.\\
+Dazu: $u,v\in U\stackrel{ii)}{\Rightarrow}(-1)\cdot u=-u,v\in U\stackrel{iii)}{\Rightarrow}((-u)+v)\in U$ und $0\in U$ wegen i).\\
+$\cdot_{V}:$ folgt aus ii) (und i)).\\
+b) V1 wurde im Beweis von a) gezeigt. zu V2-V4: Axiome enthalten nur $\dq\forall\dq\Rightarrow$ Sie vererben sich auf $U$. \hfill $\Box$\\
+\\
+$\uline{Proposition\:3.9:}$ Seien $K$ ein K\"orper, $V$ ein $K-VR$, $U,W\subseteq V$ Untervektorr\"aume. Dann gelten:\\
+a) $U\cap W$ ist ein UVR von $V$\\
+b) $U+W=\{u+w|u\in U,w\in W\}$ ist ein UVR von $V$\\
+c) $U\cup W$ ist ein UVR $\Leftrightarrow U\subseteq W$ oder $W\subseteq U$\\
+\\
+$\uline{Beweis(nur\:b):}$ i) $0=(0+0)\in U+W$\\
+ii)+iii): Seien $v,v'\in U+w$, d.h. $v=u+w,v'=u'+w'$ mit $u,u'\in U,w,w'\in W \Rightarrow v+v'=(u+w)+(u'+w')=(u+u')+(w+w')\in U+W$. Sei $\lambda\in K$, dann: $\lambda\cdot v=\lambda(u+w)=\lambda\cdot u+\lambda\cdot w\in U+W$ \hfill $\Box$\\
+\\
+\newpage
+\section{Erezeugendensysteme, lineare Unabh\"angigkeit und Basen}
+
+$\uline{Notation:}$ Sei $u\in\mathbb{N}$, f\"ur $i=1,...,n$, sei $e_{i}=(0,...,0,1,0,...,0)\in K^{n}$, so dass die 1 an $i$-ter Stelle steht.\\
+\\
+$\uline{Lemma\:4.1:}$ $\forall v\in K^{n}:\exists!\lambda_{1},...,\lambda_{n}\in K$mit $v= \sum\limits_{i=1}^{n} \lambda_{i}\cdot e_{i}$\\
+\\
+$\uline{Beweis:}$ Seien $\lambda_{1},...,\lambda_{n}\in K$ und $w:=\sum\limits_{i=1}^{n}\lambda_{i}\cdot(0,...,0,1,0,...,0)=\sum\limits_{i=1}^{n}(0,...,0,\lambda_{i},0,...,0)=(\lambda_{1},...,\lambda_{n})$. Sei $v=(\mu_{1},...,\mu_{n})\in K^{n}$ beliebig, dann: $v=\sum\limits_{i=1}^{n}\lambda_{i}e_{i}\stackrel{\circledast}{\Leftrightarrow}(\mu_{1},...,\mu_{n})=(\lambda_{1},...,\lambda_{n})\Leftrightarrow \forall i=1,...,n: \lambda_{i}=\mu_{i}$\\
+\\
+Im weiteren seien $K$ ein K\"orper und $V$ ein $K-VR$.\\
+$\uline{Definition\:4.2:}$ a) $v\in V$ hei\ss{}t $\uline{Linearkombination}$ (LK) von $v_{1},...,v_{n}\in V:\Leftrightarrow \exists\lambda_{1},...,\lambda_{n}\in K$ mit $v=\sum\limits_{i=1}^{n}\lambda_{i}v_{i}$\\
+b) F\"ur $S\subseteq V$: $v$ hei\ss{}t LK aus $S$ :$\Leftrightarrow\exists n\in\mathbb{N},\exists v_{1},...,v_{n}\in S$. $v$ ist LK von $v_{1},...,v_{n}$. $L(S):=\{v\in V|v\:ist\:LK\:aus\:S\}=$ die $\uline{lineare\:H\ddot{u}lle}$ von $S$.\\
+c) $S\subseteq V$ hei\ss{}t $\uline{Erzeugendensystem}$ (ES) $\Leftrightarrow V=L(S)$\\
+d) $V$ hei\ss{}t endlich erzeugt $\Leftrightarrow \exists S\subseteq V$ endlich: $V=L(S)$\\
+e) $L(\emptyset):=\{0\}$\\
+\\
+$\uline{Beispiel:}$ $K^{n}=L(\{e_{1},...,e_{n}\})$ $\leftarrow$ in Lemma 4.1\\
+\\
+$\uline{Lemma\:4.3:}$ Sei $V$ ein $K-VR$, $K$ ein K\"orper und seien $S;T\subseteq V$, dann gilt:\\
+a) $0\in L(S)$, $S\subseteq L(S)$\\
+b) Ist $U\subseteq V$ ein UVR, so gilt $L(U)=U$\\
+c) $T\subseteq S\Rightarrow L(T)\subseteq L(S)$\\
+d) $L(S)$ ist ein UVR\\
+e) $L(S)$ ist der kleinste UVR von $V$, der $S$ enth\"alt.\\
+f) $L(S\cup T)=L(S)+L(T)$\\
+g) $L(L(S))=L(S)$\\
+\\
+$\uline{Beweis:}$ a) Falls $S=\emptyset\stackrel{Def.}{\Rightarrow}L(S)=\{\emptyset\}\ni 0,\:\emptyset=S\subseteq L(S)$.\\
+Falls $S\neq\emptyset$: F\"ur jedes $v\in S$ sind $0\cdot v,1\cdot v$ LK aus $S \Rightarrow 0,v\in L(S)\Rightarrow 0\subseteq L(S),\:S\subseteq L(S)$\\
+b) $U\subseteq L(U)$: gilt nach a).\\
+$L(S)\subseteq U$: Seien $v_{1},...,v_{n}\in U,\lambda_{1},...,\lambda_{n}\in K\stackrel{ii)\:von\:UVR}{\Rightarrow}\lambda_{1}\cdot v_{1},...,\lambda_{n}\cdot v_{n}\in U\stackrel{iii)\:von\:UVR}{\Rightarrow}\lambda_{1} v_{1}+\lambda_{2} v_{2}\in U; \lambda_{1} v_{1}+\lambda_{2}v_{2}+\lambda_{3}v_{3}\in U$ ... (Induktion) $\rightarrow \lambda_{1}v_{1}+...+\lambda_{n}v_{n}\in U$\\
+c) $\uline{\ddot{U}bung}$\\
+d) $0\in L(S)$ nach a); Seien $v=\lambda_{1}v_{1}+...+\lambda_{n}v_{n},w=\mu_{1}w_{1}+...+\mu_{m}w_{m}\in L(S)$ mit $\lambda_{1},...,\lambda_{n},\mu_{1},...,\mu_{m}\in K,v_{1},...,v_{n},w_{1},...,w_{m}\in L(S)\Rightarrow v+w=\lambda_{1}v_{1}+...+\lambda_{n}v_{n}+\mu_{1}w_{1}+...+\mu_{m}w_{m}\in L(S)$. Analog $\lambda\cdot v=(\lambda\cdot\lambda_{1})v_{1}+...+(\lambda\cdot\lambda_{n})v_{n}\in L(S)$\\
+e) $\uline{zz:}$ $\forall$ Untervektorr\"aume $U\subseteq V$ mit $S\subseteq U$ gilt $U\supseteq L(S)$\\
+Starte mit $S\subseteq U$. Wende $L(.)$ an. $\stackrel{c)}{\Rightarrow}L(S)\subseteq L(U)\stackrel{b)}{=}U$\\
+f),g): $\uline{\ddot{U}bung}$ \hfill $\Box$\\
+\\
+$\uline{Definition\:4.4:}$ Sei $S\subseteq V$. a) $S$ hei\ss{}t linear unabh\"angig $:\Leftrightarrow \exists v\in S:v\in L(S\setminus\{v\})$\\
+b) $S$ hei\ss{}t linear unabh\"angig (l.u.) $:\Leftrightarrow\neg(S$ linear abh\"angig (l.a.))\\
+c) $S$ hei\ss{}t Basis von $V$ $:\Leftrightarrow S$ ist l.u. und $V=L(S)$, d.h. $S$ ist Erzeugendensystem von $V$.\\
+\\
+$\uline{Beispiel:}$ 1) Sei $S=\{V\}\subseteq V$: $S$ l.a. $\Leftrightarrow v\in L(\emptyset)=\{\}\Leftrightarrow v=0$\\
+2) Sei $S=\{(1,1,0),(1,0,1),(0,1,1)\}\subseteq\mathbb{R}^3$. Beh: $S$ ist l.u.\\
+z.B.: Annahme: $(1,1,0)\in L(\{(1,0,1),(0,1,1)\})$ D.h. $\exists\lambda,\mu\in\mathbb{R}:(1,1,0)=\mu(1,0,1)+\lambda(0,1,1)=(\mu,\lambda,\mu+\lambda)\Rightarrow\lambda=1=\mu\wedge\lambda+\mu=0$ $\uline{!Widerspruch!}$\\
+\\
+$\uline{Lemma\:4.5:}$ F\"ur $S\subseteq V$ sind \"aquivalent:\\
+a) $S$ ist l.u.\\
+b) F\"ur alle paarweise verschiedenen Vektoren $v_1,...,v_n\in S$ ($n\in\mathbb{N}$ beliebig) und $\lambda_1,...,\lambda_n\in K$ gilt: $\sum\limits_{i=1}^n \lambda_i v_i = 0\Rightarrow \lambda_1 =...=\lambda_n =0$\\
+c) Jeder Vektor $w\in L(S)$ ist eine eindeute LK aus $S$, d.h. sind $v_1,...,v_n \in S$ paarweise verschieden und gelten $w=\lambda_1 v_1 +...+\lambda_n v_n =\mu_1 v_1 +...+ \mu_n v_n$ (f\"ur alle Skalare $\mu_i,\lambda_i \in K$), so gilt: $\lambda_i = \mu_1\wedge ... \wedge \mu_n =\lambda_n$\\
+\\
+$\uline{Beweis:}$ $\uline{c)\Rightarrow b):}$ Wende c) an auf $0=\sum\limits_{i=1}^n \lambda_i v_i =0\cdot v_1 +...+0\cdot v_n \stackrel{c)}{\Rightarrow} \lambda_1 =...= \lambda_n =0$\\
+$\uline{b) \Rightarrow a):}$ wir zeigen: $\neg a)\Rightarrow \neg b)$: Sei $v_0 \in S$, so dass $v_0 \in L(S\setminus\{v_0\})$, d.h. $\exists v_1,...,v_n \in S\setminus\{v_0\}$ paarweise verschieden und $\exists \lambda_1,...,\lambda_n \in K$ mit $v_0 =\sum\limits_{i=1}^n \lambda_i v_i \Rightarrow (-1)\cdot v_0 +\lambda_1 v_1 +...+ \lambda_n v_n =0$. Widerspruch zu b).\\
+$\uline{a)\Rightarrow c):}$ Zeige $\neg c)\Rightarrow\neg a):$ Gelte $w=\sum\limits_{i=1}^n \lambda_i v_i = \sum\limits_{i=1}^n \mu_i v_i$ (mit $\lambda_i,\mu_i,v_i$ wie in c)) und $\exists i_0$ mit $\lambda_{i_0} \neq \mu_{i_0}$. Dann gilt: $(\lambda_{i_0} -\mu_{i_0})\cdot v_{i_0} =\sum\limits_{i=1,i\neq i_0}^n (\mu_i -\lambda_i)\cdot v_i$. Wir wissen: $\lambda_{i_0}-\mu_{i_0}\neq 0$ (in K). Multipliziere mit $\tfrac{1}{\lambda_{i_0}-\mu_{i_0}}:v_{i_0}=\sum\limits_{i=1,i\neq 0}^n (\tfrac{\mu_i -\lambda_i}{\lambda_{i_0} -\mu_{i_0}})\cdot v_i \in L(S\setminus\{v\})$, d.h. $\neg a)$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:4.6:}$ $S\subseteq V$ ist Basis $\Leftrightarrow$ Jeder Bektor $v\in V$ ist eindeutige LK aus $S$\\
+\\
+$\uline{Beweis:}$ $S\subseteq V$ ist Basis $\Leftrightarrow S$ ist l.u. und $L(S)=V \stackrel{4.5\wedge V=L(S)}{\Leftrightarrow}$ Jedes $v\in V$ ist eindeutige LK aus $S$. \hfill $\Box$\\
+\\
+$\uline{Korollar\:4.7:}$ Sei $S=\{e_1,...,e_n\}\subseteq K^n$ mit $e_i =(0,...,0,1,0,...,0)\in K^n$, wobei die 1 an $i$-ter Stelle steht. Dann ist nach Lemma 4.1 $S$ eine Basis von $K^n$.\\
+Bezeichnung: $\{e_1,...,e_n\}$ hei\ss{}t $\uline{Standardbasis}$ von $K^n$.\\
+\\
+$\uline{Korollar\:4.8:}$ Jedes endlich ES $S\subseteq V$ enth\"alt eine Basis $B\subseteq S$ von $V$.\\
+$\uline{Beweis:}$ Sei $E:=\{T\subseteq S| T$ ist ES von $V\}$. $E\neq\emptyset$, denn $S\in E$. $S$ ist endlich $\Rightarrow$ alle $T\subseteq S$ sind endlich. W\"ahle $T\subseteq E$ mit kleinster Kardinalit\"at.\\
+Beh: $T$ ist Basis von $V$. $\uline{zz:}$ $T$ ist l.u.\\
+Sonst ($T$ l.a.) $\exists v\in T$ mit $v\in L(T\setminus\{v\})(\Rightarrow L(\{v\})\subseteq L(T\setminus\{v\}))\Rightarrow L(T\setminus\{v\})=L(T\setminus\{v\})+l(\{v\})\stackrel{Lemma\:4.3}{=} L(T\setminus\{v\}\cup\{v\})=L(T)=V$. Aber: $| T\setminus\{v\} | < | T |$, d.h. Widerspruch zur Wahl von $T$. \hfill $\Box$\\
+\\
+$\uline{Lemma\:4.9:}$ Sei $S\subseteq V$ l.u. und $v\notin L(S)\Rightarrow S\cup\{v\}$ ist l.u.\\
+\\
+$\uline{Beweis:}$ Annahme: $S\cup\{v\}$ ist l.a. $\Rightarrow \exists$ Vektoren $v_1,...,v_n\in S$ paarweise verschieden und $\lambda,\lambda_1,...,\lambda_n$ mit $0=\lambda\cdot v+\lambda_1\cdot v_1 +...+\lambda_n\cdot v_n$ und nicht $\lambda=\lambda_1=...=\lambda_n=0!$\\
+Fall 1: $\lambda =0\stackrel{S\:l.u.}{\Rightarrow}\lambda_1 =...=\lambda_n =0$ $\uline{!Widerspruch!}$\\
+Fall 2: $\lambda\neq0\Rightarrow v=(-\tfrac{\lambda_1}{\lambda})\cdot v_1 +...+ (-\tfrac{\lambda_n}{\lambda})\cdot v_n \in L(S)$ ist ein Widerspruch zur Voraussetzung $v\notin L(S)$ \hfill $\Box$\\
+\\
+$\uline{Satz\:4.10(\text{Austauschsatz von Steinitz}):}$ Sei $T\subseteq V$ ein ES und $S\subseteq V$ l.u. mit $|S| < \infty$. Dann $\exists\tilde{T}\subseteq T$ mit $|\tilde{T}|=|S|$, so dass $(T\setminus\tilde{T})\cup S$ ein ES von $V$.\\
+\\
+$\uline{Korollar\:4.11:}$ Sei $V$ endlich erzeugt und $S\subseteq V$ l.u., dann gilt:\\
+a) F\"ur jedes ES $T$ von $V$ gilt: $|T|\geq |S|$ und insbesondere gilt $|S| < \infty$\\
+b) Je zwei Basen von $V$ haben dieselbe Kardinalit\"at\\ 
+\\
+$\uline{Beweis\:von\:Korollar:}$ Sei nur $S$ endlich. Dazu sei $T\subseteq V$ ein endliches ES mit $m=|T|$. $\uline{Steinitz:}$ Annahme $|S| > m \Rightarrow \exists S_0\subseteq S$ mit $|S_0|=m+1$ und $S_0$ l.u.\\
+$\uline{Steinitz:}$ $\exists\tilde{T}\subseteq T$ mit $|\tilde{T}|=|S_0|$ und ... $\Rightarrow|S_0|=|\tilde{T}|\leq|T|=m$ $\uline{!Widerspruch!}$\\
+zu a): es ist noch zu zeigen: Ist $T$ ein unendliches ES von $V$, so gilt: $|T|\geq|S|$. Dies folgt aus $|T|=\infty > |S|$\\
+b) Seien $T,T'$ Basen von $V\Rightarrow T,T'$ l.u. $\stackrel{a)}{\Rightarrow} T,T'$ endlich. Nun: $T$ ist ES $\wedge T'$ ist l.u. $\stackrel{a)}{\Rightarrow} |T|\geq|T'|;T'$ ist ES $\wedge T$ ist l.u. $\stackrel{a)}{\Rightarrow} |T'|\geq |T| \Rightarrow |T|=|T'| (< \infty)$ \hfill $\Box$\\
+\\
+$\uline{Definition:}$ Elemente $x_1,...,x_n$ einer Menge $X$ hei\ss{}en $\uline{paarweise\:verschieden}:\Leftrightarrow \forall i\neq j:x_i\neq x_j(\Leftrightarrow |\{x_1,...,x_n\}|=n$\\
+\\
+$\uline{Bemerkung:}$ 4.10 und 4.11 gelten auch f\"ur $|S|=\infty$ bzw. $V$ nicht endlich erzeugt. Ben\"otigt "Auswahlaxiom" und "unendliche M\"achtigkeit".\\
+\\
+$\uline{Beweis\:von\:4.10:}$ 1) Beh: Sei $U\subseteq V$ ein UVR, $T\subseteq V$ ein ES, $v\in V\setminus U$. Dann gilt: $\exists t\in T\setminus U$, so dass $T\setminus\{t\}\cup\{v\}$ ein ES ist. Denn: Schreibe $v=\sum\limits_{i=1}^n \lambda_i t_i$ mit $t_1,...,t_n \in T,\lambda_i\in K$ und $t_1,...,t_n$ seien paarweise verschieden und alle $\lambda_i\neq 0(v\neq 0)$. Ein $t_{i_0}\notin U$, sonst LK$\in U$, aber $v\notin U \stackrel{\lambda_{i_0}}{\Rightarrow} t_{i_0}=\tfrac{1}{\lambda_{i_0}}\cdot v +\sum\limits_{i=1,i\neq i_0}^n (\tfrac{-\lambda_i}{\lambda_{i_0}})$. $t_i\in L(T\setminus\{t_{i_0}\}\cup\{v\}\Rightarrow T\subseteq L(T\setminus\{t_{i_0}\}\cup\{v\}\Rightarrow V=L(T)\subseteq L(T\setminus\{t_{i_0}\}\cup\{v\})\subseteq V$ \hfill $\Box$\\
+2) Induktion \"uber $N:=|S|$. (Der Fall $n=0,S=\emptyset$ ist klar).\\
+$n\mapsto n+1$: Gelte 4.10 f\"ur alle $S'\subseteq V$ l.u. mit $|S'|=n$. Sei $S\subseteq V$ l.u. mit $|S|=n+1$. Schreibe $S=S'\cup\{v\}$ mit $|S'|=n$
+Induktionsvoraussetzung: $\exists T'\subseteq T$ mit $|T'|=n$ und $T\setminus T'\cup S'$ ist ES von $V$. Wende 1) auf $v\in V\setminus L(S)$ an, denn $S$ ist l.u. $\stackrel{1)}{\Rightarrow}\exists t\in T\setminus T'\cup S'\setminus L(S)$ mit $X=T\setminus T'\cup S'\setminus\{t\}\cup\{v\}$ ist ES. Wegen $t\notin L(S)$ gilt $t\notin S'$, d.h. $t\in T\setminus T'\Rightarrow X=T\setminus (T'\cup\{t\})\cup(S'\cup\{v\})$. Nenne nun $T'\cup \{t\}=:\tilde{T}$ und $S'\cup\{s\}=:S$. \hfill $\Box$\\
+\\
+$\uline{Definition\:4.12:}$ a) Sei $V$ ein endlich erzeugter $K-VR$. Ist $T\subseteq V$ eine Basis, sod efiniert man $dim_K V:= |T|$ als die $\uline{Dimension}$ von $V$.\\
+b) Ist $V$ ein $K-VR$ ohne endliches ES, so setze $dim_K V=\infty$\\
+\\
+$\uline{Notation:}$ Ist $K$ aus dem Kontext klar, so schreibe $dim V$ statt $dim_k V$.\\
+$\uline{Warnung:}$ $dim_{\mathbb{C}} \mathbb{C}=1$ aber $dim_{\mathbb{R}} \mathbb{C}=2$.\\
+$\uline{Sprechweise:}$ Ein $K-VR$ hei\ss{}t endlich-dimensional $:\Leftrightarrow dim_K V < \infty (\Leftrightarrow V$ ist endlich erzeugter $K-VR$)\\
+\\
+$\uline{Korollar\:4.13:}$ Sei $V$ ein endlich-dimensionaler $K-VR$, $T\subseteq V$ ein ES, $S\subseteq V$ l.u. Dann gelten:\\
+a) $|S|\leq dim V$ und ($|S|=dim V\Leftrightarrow S$ ist Basis von $V$)\\
+b) $|T|\geq dim V$ und ($|T|=dim V\Leftrightarrow T$ ist Basis von $V$)\\
+\\
+$\uline{Beweis:}$ \"Ubung. linke H\"alfte aus Kor.4.11, rechte H\"alft: Satz von Steinitz.\\
+\\
+$\uline{Satz\:4.14(\text{Basiserg\"anzungssatz}):}$ Sei $V$ ein endlich-dimensionaler $K-VR$. Sei $S\subseteq V$ l.u. Dann gilt: $\exists S' \subseteq V,S\subseteq S'$ und $S'$ ist Basis von $V$. (d.h. Elemente von $S'\setminus S$ erg\"anzen $S$ zu eine Basis).\\
+\\
+$\uline{Beweis:}$ Sei $S'\supseteq S$ l.u. und von maximaler Kardinalit\"at (Wissen: $S'$ l.u. $\Rightarrow|S'|\leq dim V$). Annahme: $L(S)\subset V \Rightarrow \exists v\in V,v\notin L(S)\stackrel{Lemma\:4.9}{\Rightarrow}S'\cup\{v\}$ ist l.u. $\uline{!Widerspruch!}$, denn: $|S'\cup \{v\}|=|S'|+1 > |S'|$, aber $S'$ hat maximale Kardinalit\"at. \hfill $\Box$\\
+\\
+$\uline{Korollar\:4.15 (\ddot{U}):}$ Sei $V$ ein $K-VR$ und $d\in\mathbb{N}$. Gelte $|S|\leq d$ f\"ur alle $S\subseteq V$ l.u. Dann gilt: $dim V\leq d$.\\
+\\
+$\uline{Beweis:}$ Mit derselben Idee wie in 4.14.\\
+\\
+$\uline{Korollar\:4.16:}$ Sei $V$ ein endlich-dimensionaler $K-VR$ und $W\subseteq V$ ein UVR. Dann gelten:\\
+a) $dim W\leq dim V$\\
+b) $dim W=dim V\Rightarrow W=V$\\
+c) Jede Basis von $W$ l\"asst sich zu einer Basis von $V$ erg\"anzen.\\
+\\
+$\uline{Beweis:}$ c) folgt aus 4.14, a) folgt aus 4.13, weil Basis von $W$ ist l.u. und in $V$. b) ist 4.13 a) 2. Teil.\\
+\\
+$\uline{Erinnerung:}$ Seien $M,N$ endliche Mengen. Dann $|M\cup N|=|M|+|N|-|M\cap N|$\\
+\\
+$\uline{Satz\:4.17(\text{Dimensionsformel f\"ur Untervektorr\"aume}):}$ Seien $V$ ein endlich-dimensionaler $K-VR$ und $U,W\subseteq V$ UVR'e, dann gilt: $dim(U+W)=dim U+dim W-dim(U\cap W)$\\
+\\
+$\uline{Beweis:}$ Sei $dim V < \infty \stackrel{4.16}{\Rightarrow} U+W,U,W,U\cap W\subseteq V$ sind endlich-dimensional. Sei $B_0$ Basis von $U\cap W$. Eg\"anze zu Basis $B_1\supseteq B_0$ von $U$. Erg\"anze zu Basis $B_2\supseteq B_0$ von $W$. Behauptung: i) $B_1\cap B_2 =B_0$ ii) $B_1\cup B_0$ ist ES von $U+W$ iii) $B_1\cup B_2(=B_1\mathbin{\dot{\cup}} B_2\setminus B_0)$ ist l.u.\\
+Die Behauptung impliziert: $dim(U+W)\stackrel{ii)\wedge iii)}{=} |B_1\cup B_2|\stackrel{Erinn.}{=} |B_1|+|B_2|-|B_1\wedge B_2|\stackrel{i)}{=} dim U+dim W-dim(U\cap W)$.\\
+i) Sei $b\in B_1\cap B_2\supseteq B_0\stackrel{B_1\: l.u.}{\Rightarrow} B_0\cup\{b\}$ l.u. $\subseteq B_1$ und $\subseteq B_2\Rightarrow B_0\cup\{b\}$ ist l.u. von $L(B_1)$ und $L(B_2)\Rightarrow B_0\cup\{b\}\subseteq U\cap W$ ist l.u. $\Rightarrow |B_0\cup\{b\}|\leq dim U\cap W=|B_0|\Rightarrow b\in B_0$\\
+ii) $U+W=L(B_1)+L(B_2)=L(B_1\cup B_2)\Rightarrow B_1\cup B_2$ ist ES von $U+W$.\\
+iii) $B_1\cup B_2$ ist l.u., denn: Seien $\lambda_b,b\in B_2\cup B_1$ Elemente aus $V$ mit $\circledast \sum\limits_{b\in B_1\cup B_2} \lambda_b \cdot b=0$ $\uline{zz:}$ alle $\lambda_b=0$\\
+$\circledast \Rightarrow \sum\limits_{b\in B_1} \lambda_b\cdot b=\sum\limits_{b\in B_2\setminus B_1} (-\lambda_b)\cdot b=:w\Rightarrow w\in W\cap U\stackrel{w\in L(B_0)\wedge B_1\:l.u.}{\Rightarrow} \lambda_w =0 \: \forall b\in B_1\setminus B_0$ (linke Seite $\stackrel{\circledast}{\Rightarrow} \sum\limits_{b\in B_0} \lambda_b\cdot b=0\stackrel{B_0\:l.u.}{\Rightarrow} \lambda_b=0 \: \forall b\in B_0$, d.h. $\lambda_b=0 \: \forall b\in B_1\setminus B_0\cup B_2\setminus B_0\cup B_0= B_1\cup B_2$ \hfill $\Box$\\
+\\
+$\uline{Notation:}$ $K$ K\"orper, $V$ ein $K-VR$, $V_1,...,v_n\in V$ sind k.u. (bzw. eine Basis) $:\Leftrightarrow \{v_1...,v_n\}\subseteq V$ ist l.u. (bzw. Basis) und $v_1,...,v_n$ sind paarweise verschieden.\\
+\\
+$\uline{Bemerkung:}$ $v_1,...,v_n\in V$ sind l.u. $\Leftrightarrow$ 1) $\forall i=1...n:v_i \notin L(\{v_1,...,v_{i-1},v_{i+1},...,v_n\}) \Leftrightarrow $ 2) $\forall \lambda_1,...,\lambda_n\in K:(\sum\limits_{i=1}^n \lambda_i v_i=0\Rightarrow \lambda_1 =...=\lambda_n =0)$\\
+\\
+\newpage
+\section{Matrizen und Gau\ss{}-Elimination}
+
+Sei $K$ ein K\"orper, $m,n\in\mathbb{N}$\\
+$\uline{Definition\:5.1:}$ a) Eine $mxn$-Matrix $A$ \"uber $K$ ist eine Tabelle mit $m$ Zeilen und $n$ Spalten und Eintr\"agen aus $K$:\\
+$A=\begin{pmatrix}
+	a_{11} & a_{12} & \dots & a_{1n} \\
+	a_{21} & \ddots & \ddots & a_{2n} \\
+	\vdots & \ddots & \ddots & \vdots \\
+	a_{m1} & \dots & \dots & a_{mn}
+\end{pmatrix}$\\
+b) Der Eintrag $a_{ij}$ hei\ss{}t $\uline{Matrixkoeffizient}$ an der Stelle $(i,j)$\\
+c) Die Menge aller $mxn$-Matrizen ist $M_{mxn}(K)$\\
+d) Eine $1xn$-Matrix he\ss{}t Zeilenvektor der L\"ange $n$ $\begin{pmatrix}
+	a_1 & a_2 &\dots & a_n
+\end{pmatrix}$. $Z_n (K):=M_{1xn}(K)$. Eine $mx1$-Matrix hei\ss{}t Spaltenvektor der L\"ange $m$ $\begin{pmatrix}
+	a_1 \\
+	a_2 \\
+	\vdots \\
+	a_m
+\end{pmatrix}$. $V_m (K) =M_{mx1}(K)$\\
+e) F\"ur $A=(a_{ij})$ aus a) hei\ss{}t $(a_{i1} \dots a_{in})$ die $i$-te Zeile von $A$ ($i=1...m$). F\"ur $j=1...n$ hei\ss{}t $\begin{pmatrix}
+	a_{1j}\\
+	\vdots\\
+	a_{mj}
+\end{pmatrix}$
+der $j$-te Spaltenvektor von $A$.\\
+\\
+$\uline{\ddot{U}:}$ $M_{mxn}(K)$ ist ein VR \"uber $K$ (der Dimension $m\cdot n$) mit: $(a_{ij})_{i=1...m\\ j=1...n}+(b_{ij})_{\substack{i=1...m\\ j=1...n}}=(a_{ij}+b_{ij})_{\substack{i=1...m\\ j=1...n}}$ und $\lambda\cdot(a_{ij}):=(\lambda\cdot a_{ij})$ f\"ur $\lambda\in K$. $(a_{ij}),(b_{ij})\in M_{mxn}(K)$.\\
+Hinweis: $M_{mxn}(K)=Abb(\{1,...,m\}x\{1,...,n\},K)$\\
+\\
+$\uline{Bemerkung:}$ $Z_n (K)\dq = \dq K^n ((a_1 ...a_n))\widehat{=}(a_1 ,...,a_n))$\\
+\\
+$\uline{Definition\:5.2:}$ F\"ur $A=(a_{ij})\in M_{exm}(K), B=(b_{jk})\in M_{mxn}(K)$ definiert man $A\cdot B=(c_{ik})_{\substack{i=1...l\\ k=1...n}}\in M_{exn}(K)$ durch $c_{ik}:=\sum\limits_{j=1}^m a_{ij}\cdot b_{jk}$. D.h. $c_{ik}$ berechnet sich aus Zeile $i$ von $A$ und Spalte $k$ von $B$: $c_{ik}=(a_{i1}\dots a_{im})\cdot\begin{pmatrix}
+	b_{1k}\\
+	\vdots\\
+	b_{mk}
+\end{pmatrix}= a_{i1}\cdot b_{1k}+ a_{i2}\cdot b_{2k}+a_{im}\cdot b_{mk}$\\
+\\
+$\uline{Beispiel:}$ $\begin{pmatrix}
+	1 & -3 & 2\\
+	3 & -5 & 1
+\end{pmatrix}\cdot
+\begin{pmatrix}
+	2 & 2\\
+	1 & -1\\
+	0 & 1
+\end{pmatrix}=
+\begin{pmatrix}
+	-1 & 7\\
+	1 & 12
+\end{pmatrix} \: c_{12}=
+\begin{pmatrix}
+	1 & -3 & 2
+\end{pmatrix}\cdot
+\begin{pmatrix}
+	2\\
+	-1\\
+	1
+\end{pmatrix}$\\
+\\
+$\uline{Bemerkung:}$ $A\cdot B$ f\"ur $A\in M_{exm_1}(K),B\in M_{m_2 xn}(K)$ ist nicht definiert, falls $m_1\neq m_2$.\\
+\\
+\subsection{Anwendung von Matrizen}
+
+Gegeben: $S=\{w_1 ,...,w_m\}\subseteq K^n$\\
+Finde a) \dq einfache Basis \dq von $L(S)$  b) eine maximale l.u. Teilmenge $S'\subseteq S$\\
+Gegeben $S$ wie oben, definiere $A:=\begin{pmatrix}
+	w_1\\
+	\vdots\\
+	w_m
+\end{pmatrix}$, d.h. $i$-te Zeile von $A$ ist der Vektor $w_i$ (als Zeilenvektor)\\
+\\
+$\uline{Definition\:5.3:}$ a) $A=(a_{ij})\in M_{mxn}(K)$ ist in $\uline{Zeilenstufenform}$ (ZSF) $:\Leftrightarrow \exists r\in\{0,...,m\},\exists 1\leq j_1 < j_2 < \dots < j_r \leq n$, so dass f\"ur $i>r$ und $j\in\{1...n\}$ gilt $a_{ij}=0$ und f\"ur $i\in\{1...r\}$ gilt $a_{ij_i}\neq 0$ und $a_{ij}=0$ f\"ur $1\leq j\leq j_i$\\
+\stepcounter{MaxMatrixCols} %ich brauche 11 Spalten.
+$\begin{pmatrix}
+	0 & \dots & 0 & a_{1j_1} & \ast & \dots & \dots & \dots & \dots & \dots & \ast \\
+	0 & \dots & \dots & 0 & a_{2j_2} & \ast & \dots & \dots & \dots & \dots & \ast \\
+	\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
+	0 & \dots & \dots & \dots & \dots & \dots & 0 & a_{rj_r} & \ast & \dots & \ast \\
+	0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0 \\
+	\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
+	0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0 \\
+\end{pmatrix}$\\
+b) $A$ wie in a) hei\ss{}t $\uline{reduzierte\:Zeilenstufenform}$ (red. ZSF) $:\Leftrightarrow A$ hat ZSF (wie in a)) und Pivot-Elemente $a_{ij_i}, i=1...r$, sind $1$ und $a_{kj_i}=0$ f\"ur $k\neq i$ ($i\in\{1...r\}, k\in\{1...m\}$)\\
+\\
+$\uline{Beispiel:}$ $\begin{pmatrix}
+	1 & 2 & 1 & 0 & 1\\
+	0 & 0 & 2 & 1 & 1\\
+	0 & 0 & 0 & 4 & 0
+\end{pmatrix}$ hat ZSF.
+$\begin{pmatrix}
+	1 & 2 & 0 & 0 & \tfrac{1}{2} \\
+	0 & 0 & 1 & 0 & \tfrac{1}{2} \\
+	0 & 0 & 0 & 1 & 0
+\end{pmatrix}$ hat reduzierte ZSF (f\"ur $K=\mathbb{R}$)\\
+\\
+$\uline{Lemma\:5.4:}$ Sei $A\in M_{mxn}(K)$ mit Zeilen $w_1,...,w_m$ aus $K^n$. Ist $A$ in ZSF mit $r$ Zeilen $\neq\uline{0} (\uline{0}=(0...0))$, so ist $w_1,...,w_r$ eine Basis von $L(\{w_1,...,w_m\})$\\
+\\
+$\uline{Beweis:}$ $\uline{\ddot{U}}$\\
+\\
+$\uline{Gau\ss{}-Elimination:}$ \"Uberf\"uhrt eine beliebige $mxn$-Matrix durch \dq elementare Zeilentransformationen\dq\: E1-E3 (s.u.) in reduzierte ZSF.\\
+\\
+$\uline{Definition\:5.5:}$ E1-E3 sind wie folgt definiert: E1) Vertausche zwei Zeilen der Matrix.\\
+E2) Addition des Vielfachen einer Zeile zu einer anderen.\\
+E3) Multiplikation einer Zeile mit einem Skalar $\lambda\in K\setminus\{0\}$\\
+\\
+$\uline{Beispiel:}$ $\begin{pmatrix}
+	2 & 3 & 0\\
+	1 & 1 & 0
+\end{pmatrix}\stackrel{E1}{\rightarrow}
+\begin{pmatrix}
+	1 & 1 & 0\\
+	2 & 3 & 0
+\end{pmatrix}\stackrel{E2}{\rightarrow}
+\begin{pmatrix}
+	1 & 1 & 0\\
+	0 & 1 & 0
+\end{pmatrix}\stackrel{E3}{\rightarrow}
+\begin{pmatrix}
+	2 & 2 & 0\\
+	0 & 1 & 0
+\end{pmatrix}$\\
+\\
+$\uline{Lemma\:5.6:}$ Seien $A,\tilde{A}\in M_{mxn}(K)$ mit Zeilen $w_1,...,w_m$ bzw. $\tilde{w}_1,...,\tilde{w}_m$. Entsteht $\tilde{A}$ aus $A$ durch wiederholtes Anwenden von E1,E2,E3, so gilt $L(\{w_1,...,w_m\})=L(\{\tilde{w}_1,...,\tilde{w}_m\})$ $\circledast$\\
+\\
+$\uline{Beweis:}$ Induktion \"uber die Anzahl der Anwendungen von E1,E2,E3, es gen\"ugt zz: $\circledast$ gilt beim einmaligem Anwenden von E1,E2 oder E3.\\
+zu E1: Vertauschen zweier Zeilen f\"uhrt zu $S=\tilde{S}$. Die Zeilen insgesamt sind dieselben Mengen.\\
+zu E2: z.B. Addiere $\lambda\cdot$ Zeile $i$ zu Zeile $j\neq i$. $\tilde{w}_k =w_k$ f\"ur $k\neq j$, $\tilde{w}_j=w_j +\lambda\cdot w_i (i\neq j)\Rightarrow \tilde{S}\subseteq L(S)\Rightarrow L(\tilde{S})\subseteq L(L(S))=L(S)$. umgekehrt: $w_k=\tilde{w}_k$ f\"ur $k\neq j, w_j=\tilde{w}_j -\lambda\tilde{w}_i$, wie eben $S\subseteq L(\tilde{S})\Rightarrow L(S)=L(\tilde{S})$..., E3) analog. \hfill $\Box$\\
+\\
+$\uline{Satz\:5.7:}$ Jede Matrix $A\in M_{mxn}(K)$ l\"asst sich durch endlich viele Anwendungen von E1 und E2 (bzw. E1-E3) in (reduzierte) ZSF \"uberf\"uhren; durch den Gau\ss{}-Algorithmus.\\
+\\
+$\uline{Beweis\:zu\:Satz\:5.7:}$ Gau\ss{}-Algorithmus nur f\"ur ZSF mit Induktion \"uber $m$. $m=1$ ist klar.\\
+$\uline{m\mapsto m+1:}$ Fall 1: alle $a_{ij_i}=0$.\\
+Fall 2: Sei $j_1$ der kleinste Index einer Spalte $\neq\begin{pmatrix}
+	0\\
+	\vdots\\
+	0
+\end{pmatrix}$. Sei $i\in\{1...m\}$, so dass $a_{ij_1}\neq 0$. Vertausche Zeilen 1 und $i$. So erhalten wir die Matrix $\tilde{A}=\begin{pmatrix}
+	0 & \dots & 0 & \tilde{a}_{1j_1} & \dots & \ast \\
+	\vdots & \dots & \vdots & \ast & \dots & \vdots \\
+	\vdots & \dots & \vdots & \vdots & \dots & \vdots \\
+	0 & \dots & 0 & \ast & \dots & \ast
+\end{pmatrix}$ F\"ur $i=2...m$. Addiere $(-\tfrac{\tilde{a}_{ij_1}}{\tilde{a}_{1j_1}})\cdot$ Zeile 1 zu Zeile $i$ (E2) $\rightarrow$ Wir erhalten: $\tilde{B}=\begin{pmatrix}
+	0 & \dots & 0 & \tilde{a}_{1j_1} & \ast & \dots & \ast \\
+	\vdots & \dots & \vdots & 0 & \vdots & \dots & \vdots \\
+	\vdots & \dots & \vdots & \vdots & \vdots & \dots & \vdots \\
+	0 & \dots & 0 & 0 & \ast & \dots & \ast
+\end{pmatrix}$ Sei $B$ die $(m-1)xn$-Matrix bestehend aus den Zeilen $2...m$ von $\tilde{B}$. Wende Induktionsvoraussetzung an, d.h. Gau\ss{}-Algorithmus f\"ur $B$. Beachte: Algorithmus f\"ur $B$ erh\"alt Nullen der Eintr\"age $(i,j)\:i=2...m, j=1...j_1$ \hfill $\Box$\\
+\\
+$\uline{Beispiel:}$ $K=\mathbb{Q}$
+\begin{align*}
+\begin{gmatrix}[p]
+	0 & 3 & 3\\
+	2 & 4 & 7\\
+	1 & 2 & 5
+	\rowops
+		\swap{0}{2}
+\end{gmatrix}
+\leadsto \begin{gmatrix}[p]
+	1 & 2 & 5 \\
+	2 & 4 & 7 \\
+	0 & 3 & 3
+	\rowops
+		\add[-2]{0}{1}
+\end{gmatrix}
+\leadsto \begin{gmatrix}[p]
+	1 & 2 & 5 \\
+	0 & 0 & -3 \\
+	0 & 3 & 3
+	\rowops
+		\swap{1}{2}
+\end{gmatrix}
+\leadsto \begin{gmatrix}[p]
+	1 & 2 & 5\\
+	0 & 3 & 3 \\
+	0 & 0 & -3
+	\rowops
+		\mult{1}{\cdot\tfrac{1}{3}}
+		\mult{2}{\cdot-\tfrac{1}{3}}
+\end{gmatrix}\\
+\leadsto\begin{gmatrix}[p]
+	1 & 2 & 5\\
+	0 & 1 & 1\\
+	0 & 0 & 1
+	\rowops
+		\add[-1]{2}{1}
+		\add[-5]{2}{0}
+\end{gmatrix}
+\leadsto\begin{gmatrix}[p]
+	1 & 2 & 0\\
+	0 & 1 & 0\\
+	0 & 0 & 1
+	\rowops
+		\add[-2]{1}{0}
+\end{gmatrix}
+\leadsto\begin{gmatrix}[p]
+	1 & 0 & 0\\
+	0 & 1 & 0\\
+	0 & 0 & 1
+\end{gmatrix}
+\end{align*}
+\\
+$\uline{Proposition\:5.8:}$ Seien $A,\tilde{A}\in M_{mxn}(K)$ mit Zeilen $w_1,...,w_m$ bzw. $\tilde{w}_1,...,\tilde{w}_m$. Sei $\tilde{A}$ in ZSF, entsanden aus $A$ durch den Algorithmus im obigen Beweis.\\
+Dann gelten: a) $\tilde{w}_1,...,\tilde{w}_r$ ist Basis von $L(\{w_1,...,w_m\})$ f\"ur $r=$Anzahl der Zeilen $\neq(0...0)$ in $\tilde{A}$.\\
+b) Seien $i_1...i_r$ die Nummern der Zeilen, die unter Anwendung von E1 in die Zeilen $1,...,r$ getauscht wurden. Dann sind $w_{i_1},...,w_{i_r}$ eine Basis von $L(\{w_1,...,w_m\})$\\
+\\
+$\uline{Beweis:}$ a) Lemma5.4 + Lemma5.6\\
+b) Skizze: F\"uhre Algorithmus durch. Danach streiche alle Zeilen bis auf $i_1,...,i_r$ in $A$, und die entsprechenden Zeilen in den Matrizen \dq zwischen \dq $A$ und $\tilde{A}$. Man beobachtet, dass die Zeilen $\tilde{w}_1,...,\tilde{w}_r$ Linearkombinationen von $w_{i1},...,w_{ir}$ sind. \hfill $\Box$\\
+\\
+$\uline{Beispiel:}$ 
+\begin{align*}
+\begin{gmatrix}[p]
+	1 & 2 & 3\\
+	2 & 4 & 6\\
+	1 & 2 & 4
+	\rowops
+		\add[-2]{0}{1}
+		\add[-1]{0}{2}
+\end{gmatrix}
+\leadsto\begin{gmatrix}[p]
+	1 & 2 & 3\\
+	0 & 0 & 0\\
+	0 & 0 & 1
+	\rowops
+		\swap{1}{2}
+\end{gmatrix}
+\leadsto\begin{gmatrix}[p]
+	1 & 2 & 3\\
+	0 & 0 & 1\\
+	0 & 0 & 0
+\end{gmatrix}
+\end{align*}
+$r=2\Rightarrow\{\begin{pmatrix} 1 & 2 & 3 \end{pmatrix}=w_1$ und $w_3=\begin{pmatrix} 1 & 2 & 4 \end{pmatrix}\}$ ist Basis von $L(\{w_1,w_2,w_3\})$ \hfill $\Box$\\
+\\
+$A\in M_{mxn}(K)$ haben Zeilen $w_1,...,w_m$ und Spalten $v_1,...,v_n$.\\
+$\uline{Definition\:5.9:}$ a) $L(\{w_1,...,w_m\})\subseteq Z_m (K)$ hei\ss{}t $\uline{Zeilenraum}$ von $A$.\\
+b) $dim(L(\{w_1,...,w_m\}))$ hei\ss{}t $\uline{Zeilenrang}$ von $A$.\\
+c) $L(\{v_1,...,v_n\})\subseteq V_n (K)$ hei\ss{}t $\uline{Spaltenraum}$ von $A$.\\
+d) $dim(L(\{v_1,...,v_n\}))$ hei\ss{}t $\uline{Spaltenrang}$ von $A$.\\
+Demn\"achst: Spaltenrang $A$ = Zeilenrang $A$\\
+\\
+$\uline{Proposition\:5.10:}$ (schon gezeigt!) a) Der Zeilenrang von $A\in M_{mxn}(K)$ ist unver\"andert (invariant) unter Anwendung von E1,E2,E3.\\
+b) Der Zeilenrang ist die maximale Anzahl linear unabh\"angiger Vektoren unter $w_1,...,w_m.$\\
+\\
+\newpage
+\section{Strukturerhaltende Abbildungen (Morphismen)}
+
+$\uline{Definition\:6.1:}$ Seien $(G,e_G,\circ_G)$ und $(H,e_H,\circ_H)$ Gruppen. Eine Abbildung $\varphi:G\rightarrow H$ hei\ss{}t \\$\uline{Gruppenhomomorphismus}$ $\Leftrightarrow\forall g_1,g_2\in G:\varphi(g_1\circ_G g_2)=\varphi(g_1)\circ_H \varphi(g_2)$\\
+\\
+$\uline{Lemma\:6.2:}$ a) Sei $\varphi:G\rightarrow H$ ein Gruppenhomomorphismus, dann gelten:\\
+i) $\varphi(e_G)=e_H$ \quad ii) $\varphi(g^{-1})=\varphi(g)^{-1}$\\
+b) Sind $\varphi_1 :G_1\rightarrow G_2$ und $\varphi_2 :G_2\rightarrow G_3$ Gruppenhomomorphismen, so auch $\varphi_2\circ\varphi_1 :G_1\rightarrow G_3$\\
+\\
+$\uline{Beweis:}$ a) i) $\varphi(e_G)=\varphi(e_G\circ_G e_G)\stackrel{Homom.}{=}\varphi(e_G)\circ_H\varphi(e_G)$ Verkn\"upfe mit $\varphi(e_G)^{-1}(\in\:H)$ $\Rightarrow e_H=\varphi(e_G)$\\
+ii) $\varphi(g^{-1})\circ_H\varphi(g)\stackrel{Homom.}{=} \varphi(g^{-1}\circ_G g)=\varphi(e_G)=e_H$ und $\varphi(g)^{-1}$ ist die eindeutige L\"osung von $x\circ\varphi(g)\stackrel{Lemma\:2.5}{=}e_H$\\
+b) \"Ubung.\\
+\\
+$\uline{Definition\:6.12:}$ Seien $(K,0_K,1_K,+_K,\cdot_K)$ und $(L,0_L,1_L,+_L,\cdot_L)$ K\"orper. Eine Abbildung $\varphi:L\rightarrow L$ hei\ss{}t $\uline{K\ddot{o}rperhomomorphismus}$ $:\Leftrightarrow$ i) $\forall x,y\in K:\varphi(x+_K y)=\varphi(x)+_L\varphi(y)$\\
+ii) $\forall x,y\in K:\varphi(x\cdot_K y)=\varphi(x)\cdot_L\varphi(y)$\\
+iii) $\varphi(1_K)=1_L$\\
+\\
+$\uline{Lemma\:6.13:}$ (folgt aus 6.2) F\"ur einen K\"orperhomomorphismus $\varphi:K\rightarrow L$ gelten: i) $\varphi(0_K)=0_L$\\
+ii) $\varphi(-x)=-\varphi(x) \: \forall x\in K$\\
+iii) $\varphi(x^{-1})=\varphi(x)^{-1}\:\forall x\in K\setminus\{0\}$\\
+\\
+$\uline{Beispiel:}$ Folgende Abbildungen sind K\"orperhomomorphismen: a) $\mathbb{Q}\rightarrow\mathbb{R}, q\mapsto q$\\
+b) $\mathbb{R}\rightarrow\mathbb{C}, r\mapsto (r,0)$\\
+c) $\mathbb{C}\rightarrow\mathbb{C}, z=(a,b)\mapsto\overline{z}:=(a,-b)$\\
+\\
+$\uline{Beispiel:}$ Sei $G$ eine Gruppe und $\mathbb{Q}^x=\mathbb{Q}\setminus\{0\}$. Folgende Abbildungen sind Gruppenhomomorphismen: a) $id_G:G\rightarrow G,g\mapsto g$\\
+b) $(\{e_G\},e_G,\circ_G)\rightarrow G,e_G\mapsto e_G$\\
+c) $(\mathbb{Q}^x,1,\cdot)\rightarrow(\{\pm 1\},1,\cdot),q\mapsto
+\begin{cases}
+	+1 & q>0\\
+	-1 & q<0
+\end{cases}$\\
+d) $(\mathbb{Z},0,+)\rightarrow(\mathbb{Z}/n,\overline(0),\overline{+})$ ist ein Gruppenhomomorphismus.\\
+\\
+N\"achstes Ziel: Der Vorzeichenhomomorphismus $sgn:S_n=Bij(\{1...n\})\rightarrow(\{\pm 1\},1,\cdot)$ $n\in\mathbb{N}$\\
+$\uline{Notation:}$ Schreibe $\sigma\in S_n$ als 
+$\begin{pmatrix}
+	1 & 2 & \dots & n\\
+	\sigma(1) & \sigma(2) & \dots & \sigma(n)
+\end{pmatrix}$ (Wertetabelle)\\
+$\uline{Beispiel:}$ $\begin{pmatrix}
+	1 & 2 & 3 & 4\\
+	2 & 3 & 1 & 4
+\end{pmatrix} \circ
+\begin{pmatrix}
+	1 & 2 & 3 & 4\\
+	2 & 3 & 4 & 1
+\end{pmatrix} =
+\begin{pmatrix}
+	1 & 2 & 3 & 4\\
+	3 & 1 & 4 & 2
+\end{pmatrix}$\\
+\\
+$\uline{Definition\:6.3:}$ Die $\uline{Menge\:der\:Fehlst\ddot{a}nde}$ (Fst.) von $\sigma\in S_n$ ist $F_\sigma:=\{(i,j)|1\leq i<j\leq n$ und $\sigma(i)>\sigma(j)\}$. $l(\sigma):=|F_\sigma |:=\uline{Zahl\:der\:Fehlst\ddot{a}nde}$.\\
+\\
+$\uline{Satz\:6.4:}$ Die Vorzeichenfunktion $\sigma:S_n\rightarrow\{\pm 1\},\sigma\mapsto (-1)^{l(\sigma)}$ ist ein Gruppenhomomorphismus.\\
+\\
+$\uline{Beispiel:}$ $l(\sigma)=1+1+1=3$ , $F_\sigma=\{(1,2),(1,4),(3,4)\}$\\
+\\
+$\uline{Beispiel:}$ i) $\sigma\in S_n$ gegeben durch $\begin{pmatrix}
+	1 & 2 & 3 & 4 & 5 & 6 & 7\\
+	1 & 2 & 6 & 4 & 5 & 3 & 7
+\end{pmatrix}$ $F_{\sigma 1}=\{(i,j)|i<j\}=\{(3,4),(3,5),(3,6),(4,6),(5,6)\}$ , $l(\sigma_1)=|F_\sigma |=5$. $sgn(\sigma)=(-1)^5=-1$\\
+ii) $sgn(id)=(-1)^{l(id)}=(-1)^{|F_{id}|}=1$\\
+\\
+$\uline{Definition\:6.5:}$ a) $\sigma\in S_n$ hei\ss{}t $\uline{Transposition}$ $:\Leftrightarrow \sigma$ genau 2 Elemente aus $\{1...n\}$ vertauscht.\\
+b) F\"ur $1\leq i<j\leq n$ definiert man die Transposition $\tau_{(i,j)}\in S_n$ durch $\tau_{(i,j)}(k):=\begin{cases}
+	k & \text{falls }k\neq i,j\\
+	j & \text{falls }k=i\\
+	i & \text{falls }k=j
+\end{cases}$\\
+c) Die $\tau_{(i,i+1)}\in S_n$ hei\ss{}en $\uline{Nachbartranspositionen}$.\\
+\\
+$\uline{Bemerkung:}$ i) $\sigma_1=\tau_{(3,6)}$\\
+ii) Ist $\tau\in S_n$ eine Transposition $\Rightarrow \tau^2=\tau\cdot\tau=id$, denn $\tau=\tau_{(i,j)}$, $1\leq i<j\leq n$. \\
+$\tau_{(i,j)}\cdot\tau_{(i,j)}(k)=\tau_{(i,j)}(\tau_{(i,j)}(k))=\begin{cases}
+	\tau_{(i,j)}(k) & \text{falls }\tau_{(i,j)}(k)\neq i,j\widehat{=} k\neq i,j\\
+	j & \text{falls } \tau_{(i,j)}(k)=i\widehat{=} k=j\\
+	i & \text{falls } \tau_{(i,j)}(k)=j\widehat{=}k=i
+\end{cases}=\begin{cases}
+	k & k\neq i,j\\
+	j & k=j=id\\
+	i & k=i
+\end{cases}$\\
+\\
+$\uline{Lemma\:6.6:}$ Zu $\sigma\in S_n\setminus\{id\}$ gibt es Transpositionen $\tau_1,...,\tau_k$ mit $k\leq n-1$, so dass $\sigma=\tau_1\circ\tau_2\circ ...\circ\tau_k$\\
+\\
+$\uline{Beweis:}$ Induktion \"uber $n$: n=1 gilt, denn $S_1\setminus\{id\}=\emptyset$\\
+$\uline{n\leadsto n+1:}$ Sei $\sigma\in S_{n+1}\setminus\{id\}$ Fall 1: $\sigma(n+1)=n+1$ und $\tilde{\sigma}:=\begin{pmatrix}
+	1 & 2 & \dots & n\\
+	\sigma(1) & \sigma(2) & \dots & \sigma(n)
+\end{pmatrix}\in S_n\setminus\{id\}$\\
+$\tilde{\sigma}=\tilde{\tau}_1\circ\tilde{\tau}_2\circ...\circ\tilde{\tau}_k$ mit $k\leq n-1$, $\tau_l$'s sind Transpositionen aus $S_n$. $\tilde{\tau}_l:=\begin{pmatrix}
+	1 & 2 & \dots & n & n+1\\
+	\tilde{\tau}_l (1) & \tilde{\tau}_l (2) & \dots & \tilde{\tau}_l (n) & n+1
+\end{pmatrix}\in S_{n+1}$ und es gilt $\sigma=\tau_1\circ\tau_2\circ\dots\circ\tau_k$, $k\leq(n+1)-2$\\
+Fall 2: $\sigma(n+1)\neq n+1\leadsto\tau=\tau_{(\sigma(n+q),n+1)}\in S_{n+1}$\\
+$S_{n+1}\ni\tilde{\sigma}:=\tau\circ\sigma\Rightarrow\tilde{\sigma}=\begin{pmatrix}
+	1 & 2 & \dots & n & n+1\\
+	\tilde{\sigma}(1) & \tilde{\sigma}(2) & \dots & \tilde{\sigma}(n) & n+1
+\end{pmatrix}$. Auf $\tilde{\sigma}$ wenden wir den gerade bewiesenen Fall 1 an: i) $\tau\circ\sigma=\tilde{\sigma}=\tau_1\circ...\circ\tau_k$ mit $k\leq n-1$ $|\tau\cdot \_$ $\Rightarrow \tau\circ\tau\circ\sigma=\tau\circ\tau_1\circ...\circ\tau_k$, $\sigma=\tau\circ\tau_1\circ...\circ\tau_k$ $k+1\leq (n+1)-1$, was zu zeigen war.
+oder ii) $\tau\circ\sigma=\tilde{\sigma}=id\leadsto \sigma=\tau$ \hfill $\Box$\\
+\\
+$\uline{Beispiel:}$ $\sigma=\begin{pmatrix}
+	1 & 2 & 3 & 4\\
+	4 & 3 & 1 & 2
+\end{pmatrix}\leadsto\tau_{(1,4)}\circ\sigma=\begin{pmatrix}
+	1 & 2 & 3 & 4\\
+	2 & 3 & 1 & 4
+\end{pmatrix}$. $\tau_{(1,3)}\circ\tau_{(2,4)}\circ\sigma=\begin{pmatrix}
+	1 & 2 & 3 & 4\\
+	2 & 1 & 3 & 4
+\end{pmatrix}$\\
+\\
+$\uline{Bemerkung:}$ $\tau_{(1,2)}\circ\tau_{(1,3)}\circ\tau_{(2,4)}\circ\sigma=id\Rightarrow \sigma=\tau_{(2,4)}\circ\tau_{(1,3)}\circ\tau_{(1,2)}$\\
+\\
+$\uline{\ddot{U}bung\:6.7:}$ Jede Transposition ist eine Verkettung von Nachbartranspositionen.\\
+\\
+$\uline{Beispiel:}$ $\tau_{(1,3)}=\tau_{(1,2)}\circ\tau_{(2,3)}\circ\tau_{(1,2)}$\\
+\\
+$\uline{Korollar\:6.8:}$ (zu Lemma 6.6 und 6.7) Jedes $\sigma\in S_n$ ist ein Produkt von Nachbartranspositionen.\\
+\\
+$\uline{Lemma\:6.9:}$ F\"ur $\sigma\in S_n$ und $1\leq i\leq n-1$ gilt $l(\sigma\circ\tau_{(i,i+1)})=\\
+\begin{cases}
+	l(\sigma )-1 & \text{falls }(i,i+1)\text{ Fst. von }\sigma\Leftrightarrow\sigma (i)>\sigma (i+1)\\
+	l(\sigma )+1 & \text{falls }(i,i+1)\text{ kein Fst. von }\sigma\Leftrightarrow\sigma (i)<\sigma (i+1)
+\end{cases}$\\
+\\
+$\uline{Beweis:}$ Schreibe $\sigma=\begin{pmatrix}
+	1 & 2 & \dots & n\\
+	\sigma(1) & \sigma(2) & \dots & \sigma(n)
+\end{pmatrix}\leadsto \tilde{\sigma}=\\
+\begin{pmatrix}
+	1 & 2 & 3 & \dots & i-1 & i & i+1 & i+2 & \dots & n\\
+	\sigma(1) & \sigma(2) & \sigma(3) & \dots & \sigma(i-1) & \sigma(i+1) & \sigma(i) & \sigma(i+2) & \dots & \sigma(n)
+\end{pmatrix}$. Vergleiche $F_\sigma$ mit $F_{\tilde{\sigma}}$. Seien $k,l:1\leq k<l\leq n$.\\
+a) $\uline{\{k,l\}\cap\{i,i+1\}=\emptyset}:$ $(k,l)$ Fst. von $\sigma\Leftrightarrow (k,i+1)$ Fst. von $\tilde{\sigma}$\\
+b) $\uline{l\in\{i,i+1\},k<i:}$ $(k,i)$ Fst. von $\sigma\Leftrightarrow\sigma(k)>\sigma(i)=\tilde{\sigma}(i+1)\Leftrightarrow(k,i+1)$ Fst. von $\tilde{\sigma}$, d.h. $(k,i)$ Fst. von $\sigma\Leftrightarrow(k,i+1)$\\
+ Fst. von $\tilde{\sigma}$ und $(k,i+1)$ Fst. von $\sigma\Leftrightarrow(k,i)$ Fst. von $\tilde{\sigma}$\\
+c) $\uline{k\in\{i,i+1\},l>i+1:}$ analog zu b).\\
+d) $\uline{(k,l)=(i,i+1):}$ $(i,i+1)$ Fst. von $\sigma\Leftrightarrow\tilde{\sigma}(i+1)=\sigma(i)>\sigma(i+1)=\tilde{\sigma}(i)\Leftrightarrow (i,i+1)$ ist kein Fst. von $\tilde{\sigma}$, d.h. bis auf $(k,l)=(i,i+1)$, ist die Anzahl von Fehlst\"anden von $\sigma$ gleich der Anzahl von Fehlst\"anden von $\tilde{\sigma}$. Dann bleibt $(k,l)=(i,i+1)$ zu untersuchen.\\
+$\cdot$ $(i,i+1)$ Fst. von $\sigma\Rightarrow$ ist kein Fst. von $\tilde{\sigma}\Rightarrow l(\tilde{\sigma})=l(\sigma)=-1$\\
+$\cdot$ $(i,i+1)$ kein Fst. von $\sigma\Rightarrow$ ist Fs. von $\tilde{\sigma}\Rightarrow l(\tilde{\sigma})=l(\sigma)+1$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:6.10:}$ (\"U) $\sigma, i$ wie im Lemma. Dann ist $sgn(\sigma\circ\tau_{(i,i+1)})=-sgn(\sigma)$\\
+\\
+$\uline{Lemma\:6.11:}$ (\"U) $\forall\sigma\in S_n,\forall\tau_1,...,\tau_m$ Nachbartranspositionen ist $sgn(\sigma\circ\tau_1\circ...\circ\tau_m)=sgn(\sigma)\cdot(-1)^m (=sgn(\sigma)\cdot sgn(\tau_1\circ...\circ\tau_m)$)\\
+\\
+$\uline{Beweis\:zu\:Satz\:6.4:}$ Seien $\sigma,\sigma'\in S_n$ $\uline{zz:}$ $sgn(\sigma\circ\sigma')\stackrel{!}{=}sgn(\sigma)\circ sgn(\sigma')$\\
+Schreibe $\sigma'$ als Produkt (Verkettung) von Nachbartranspositionen. $\sigma'=\tau_1\circ...\circ\tau_m$, dann gilt $sgn(\sigma\circ\sigma')=sgn(\sigma\circ\tau_1\circ...\circ\tau_m)=sgn(\sigma)\cdot sgn(\sigma')$ \hfill $\Box$\\
+\\
+$\uline{Definition\:6.14:}$ Sei $K$ ein K\"orper und seien $V,W$ K-Vektorr\"aume. Eine Abbildung $f:V\rightarrow W$ hei\ss{}t $\uline{(K)-linear}$ (oder ein $\uline{K-VR-Homomorphismus}$) $:\Leftrightarrow$ i) $\forall v,w\in V:f(v+w)=f(v)+f(w)$ und ii) $\forall\lambda\in K,v\in V:f(\lambda\cdot v)=\lambda\cdot f(v)$\\
+Die Menge der (K)-linearen Abbildungen von $V$ nach $W$ bezeichnet man mit $Lin(V,W)$ bzw. $(Lin_K (V,W))$.\\
+\\
+$\uline{Facts:}$ 0) $f:V\rightarrow W$ linear $\Rightarrow f(0_V)=0_W$\\
+1) $id_V:V\rightarrow V$ ist linear.\\
+2) Sind $f:U\rightarrow V$ und $g:V\rightarrow W$ lineare Abbildungen, so auch $g\circ f:U\rightarrow W$\\
+3) Ist $f:V\rightarrow W$ linear und $U\subseteq V$ ein UVR, so ist $f|_U:U\rightarrow W$ linear.\\
+\\
+$\uline{Lemma\:6.15:}$ Sei $f:V\rightarrow W$ linear. Dann gilt f\"ur $n\in\mathbb{N}$, f\"ur $\lambda_1,...,\lambda_n\in K,v_1,...,v_n\in V:f(\sum\limits_{i=1}^n \lambda_i v_i=\sum\limits_{i=1}^n \lambda_i f(v_i)$\\
+\\
+$\uline{Beweis:}$ Induktion \"uber $n$: $n=1$ ist klar wegen ii).\\
+$\uline{n\mapsto n+1:}$ $f(\sum\limits_{i=1}^{n+1}\lambda_i v_i)=f(\sum\limits_{i=1}^n \lambda_i v_i +\lambda_{n+1} v_{n+1})\stackrel{i)}{=}f(\sum\limits_{i=1}^n \lambda_i v_i)+f(\lambda_{n+1} v_{n+1}\stackrel{Ind.Vor.}{=}\sum\limits_{i=1}^n \lambda_i f(v_i)+\lambda_{n+1}f(v_{n+1})$- \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ $f:V\rightarrow W$ ist linear $\Leftrightarrow \forall\lambda\in K,\forall v_1,v_2\in V:f(\lambda v_1+v_2)=\lambda\cdot f(v_1)+f(v_2)$\\
+\\
+$\uline{Korollar\:6.16:}$ (\"U) Sei $f:V\rightarrow W$ linear und $S\subseteq V$. Dann gilt: $f(L(S))=L(f(S))$\\
+\\
+$\uline{Beispiel\:6.17:}$ Sei $W$ ein K-VR, seine $w_1,...,w_n\in W$ beliebig. Dann definiert $(\lambda_1,...,\lambda_n)\mapsto\sum\limits_{i=1}^n\lambda_i w_i$ die eindeutige lineare Abbildung $f:K^n\rightarrow W$ mit $f(e_i)=w_i$\\
+\\
+$\uline{Beweis:}$ z.B.: $f(\nu\cdot(\lambda_1,...,\lambda_n)+(\mu_1,...,\mu_n))=f((\nu\lambda_1+\mu_1,...,\nu\lambda_n+\mu_n))\stackrel{Def.}{=}\sum\limits_{i=1}^n(\nu\cdot\lambda_i+\mu_i)\cdot w_i=\nu\cdot\sum\limits_{i=1}^n \lambda_i w_i+\sum\limits_{i=1}^n \mu_i w_i=\nu f(...)+f(...)$ \hfill $\Box$\\
+\\
+$\uline{Lemma\:6.18:}$ Seien $V,W$ VR'e, $M$ eine Menge. Dann gelten: a) $Abb(M,W)$ ist ein K-VR durch $f+g:M\rightarrow W,m\mapsto f(m)+g(m),\lambda\cdot f:M\rightarrow W,m\mapsto \lambda\cdot f(m)$ f\"ur $f,g:M\rightarrow W$ und $\lambda\in K$.\\
+b) $Lin(V,W)\subseteq Abb(V,W)$ ist ein UVR. (\"U)\\
+\\
+$\uline{Lemma\:6.19:}$ Sei $f:V\rightarrow W$ linear, seien $U\subseteq V$ und $X\subseteq W$ UVR'e. Dann gelten: a) $f(U)\subseteq W$ ist UVR\\
+b) $f^{-1}(X)\subseteq V$ ist UVR\\
+\\
+$\uline{Beweis:}$ a) $f(U)=f(L(U))\stackrel{6.16}{=}L(f(U))\subseteq W$ ist UVR.\\
+b) \"U. \hfill $\Box$\\
+\\
+$\uline{Definition\:6.20:}$ F\"ur eine lineare Abbildung $f:V\rightarrow W$ ist $Kern(f):=f^{-1}(\{0\})=\{v\in V|f(v)=0\}$ der $\uline{Kern}$ von $f$ und $Bild(f)=f(V)$ das $\uline{Bild}$ von $f$.\\
+\\
+$\uline{Fact:}$ $Kern(f)\subseteq V$ und $Bild(f)\subseteq W$ sind UVR'e.\\
+\\
+$\uline{Lemma\:6.21:}$ F\"ur eine lineare Abbildung $f:V\rightarrow W$ gelten: a) $f$ surjektiv $\Leftrightarrow Bild(f)=W$\\
+b) $f$ injektiv $\Leftrightarrow Kern(f)=\{0\}$\\
+\\
+$\uline{Beweis:}$ (nur b)) $f:(V,0,+)\rightarrow (W,0,+)$ als Homom. von Gruppen. In \"Ubung 24: $Kern(f)=\{0\}\Leftrightarrow f$ injektiv. \hfill $\Box$\\
+\\
+$\uline{Definition\:6.22:}$ Sei $f:V\rightarrow W$ eine lineare Abbildung. $f$ hei\ss{}t $\uline{Monomorphismus}:\Leftrightarrow Kern(f)=\{0\}$\\
+b) $\uline{Endomorphismus}:\Leftrightarrow Bild(f)=W$\\
+c) $\uline{Isomorphismus}:\Leftrightarrow f$ ist Monom. $\wedge f$ ist Epim. $\Leftrightarrow f$ ist linear und bijektiv.\\
+\\
+$\uline{Satz\:6.23(Dimensionsformel\:f\ddot{u}r\:lineare\:Abbildungen):}$ Sei $f:V\rightarrow W$ eine lineare Abbildung und sei $V$ endlich-dimensional. Dann gelten: a) $Bild(f)$ ist endlich-dimensional\\
+b) $dim Kern(f)+dim Bild(f)=dim V$\\
+c) $f$ ist Monomorphismus $\Leftrightarrow dim Bild(f)=dim V$ (aus b) und 6.21)\\
+\\
+$\uline{Beweis:}$ $Kern(f)\subseteq V$ ist UVR $\stackrel{4.16}{\Rightarrow} dim Kern(f)\leq dim V<\infty$. W\"ahle Basis $B_0$ von $Kern(f)$; erg\"anze durch $C\subseteq V$ zu Basis $B_0\mathbin{\dot{\cup}} C$ von $V$. Schreibe $C=\{w_1,...,w_m\}$ mit $m=|C|$.\\
+Behauptung 1: $f(w_1),...,f(w_m)$ sind l.u. (in $W$). Seien dazu $\lambda_1,...,\lambda_m\in K$ (bel.), so dass gilt: $0=\sum\limits_{i=1}^n \lambda_i f(w_i\stackrel{6.15}{=}f(\sum\limits_{i=1}^m \lambda_i w_i)\Rightarrow v:=\sum\limits_{i=1}^m \lambda_i w_i\in Kern(f)=L(B_0)\Rightarrow \exists\mu_b\in K:\sum\limits_{b\in B_0} \mu_b\cdot b=v\Rightarrow 0=v-v=\sum\limits_{i=1}^m \lambda_i w_i + \sum\limits_{b\in B_0} (-\mu_b)\cdot b\stackrel{B_0\mathbin{\dot{\cup}}C \text{ Basis}}{\Rightarrow} \lambda_i=0$ f\"ur $i=1...m$ (und alle $\mu_b=0$) $\Rightarrow$ Behauptung 1.\\
+Behauptung 2: $\{f(w_1)...f(w_m)\}$ ist ES von $Bild(f)$, denn: $Bild(f)=f(L(B_0\mathbin{\dot{\cup}}C))=L(f(B_0)\cup f(C))=L(f(B_0\cup C))=L(f(C))=L(\{f(w_1),...,f(w_m)\})$.\\
+$\uline{Beh.1\wedge Beh.2} \Rightarrow f(w_1),...,f(w_m)$ ist Basis von $Bild(f)\Rightarrow dim Bild(f)=m\Rightarrow$ a)\\
+zu b): $dim Bild(f)+dim Kern(f)=|C|+|B_0|=|C\mathbin{\dot{\cup}}B_0|=dim V$ \hfill $\Box$\\
+\\
+$\uline{Satz\:6.26:}$ Gelte $dim V=dim W<\infty$, dann sind f\"ur $f\in Lin(V,W)$ \"aquivalent:\\
+a) $f$ ist ein Monomorphismus\\
+b) $f$ ist ein Epimorphismus\\
+c) $f$ ist ein Isomorphismus\\
+\\
+$\uline{Beweis:}$ a)$\Leftrightarrow$b): a) $\stackrel{Def.}{\Leftrightarrow} Kern(f)=\{0\}\stackrel{6.23}{\Leftrightarrow} dim V= dim Bild(f)\stackrel{dim W=dim V}{\Leftrightarrow} Bild(f)=W\Leftrightarrow$ b)\\
+a)$\Leftrightarrow$c): a)$\Rightarrow$a)$\wedge$b)$\stackrel{Def.}{\Leftrightarrow}$c)$\stackrel{klar}{\Rightarrow}$a) \hfill $\Box$\\
+\\
+$\uline{Definition\:6.27:}$ a) Eine lineare Abbildung $f:V\rightarrow V$ hei\ss{}t $\uline{Endomorphismus}$\\
+b) Ein bijektiver Endomorphismus hei\ss{}t $\uline{Automorphismus}$\\
+c) $End(V)=Lin(V,V)$ und $Aut(V)=\{f\in End(V)|f\text{ ist bijektiv}\}$.\\
+\\
+$\uline{Korollar\:6.28:}$ Sei $V$ ein endlich-dimensionaler VR. Dann sind f\"ur $f\in End(V)$ \"aquivalent:\\
+a) $f$ ist Monomorphismus\\
+b) $f$ ist Epimorphismus\\
+c) $f$ ist Isomorphismus ($\Leftrightarrow f$ ist Automorphismus)\\
+\\
+\subsection{Isomorphie von Vektorr\"aumen}
+
+$\uline{Definition\:6.24:}$ K-VR'e $V$ und $W$ hei\ss{}en $\uline{isomorph}$ (schreibe $V\simeq W$)$:\Leftrightarrow\exists$ Isomorphismus $f\in Lin(V,W)$.\\
+\\
+$\uline{\ddot{U}bung\:6.35:}$ i) Ist $f$ Isom. $f:V\rightarrow W$, so ist $f^{-1}:W\rightarrow V$ K-linearer Isom.\\
+ii) Die Verkettung von Isomorphismen ist ein Isomorphismus.\\
+iii) $f:V\rightarrow W$ ist Isom. $\Leftrightarrow\exists g\in Lin(V,W)$ mit $f\circ g=id_W \wedge g\circ f=id_V$\\
+iv) Isomorphie ist eine \"Aquivalenzrelation auf der Menge aller VR'e.\\
+\\
+Sei $K$ ein K\"orper, $V$ ein K-VR und endlich-dimensional.\\
+$\uline{Definition\:6.29:}$ a) eine $\uline{geordnete\:Basis}$ von $V$ ist ein Tupel $\uline{B}=(b-1,...,b_n)\in V^n$, so dass $b_1,...,b_n$ eine Basis von $V$.\\
+b) F\"ur $\uline{B}$ aus a) definiere die Abbildung $^\iota\uline{B}:V_n(K)\rightarrow V:\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix} \mapsto \sum \lambda_i b_i$\\
+$\uline{Proposition\:6.30:}$ Ist $\uline{B}$ geordnete Basis von $V$, so ist $^\iota\uline{B}$ ein Isomorphismus. $^\iota\uline{B}:V_n(K)\rightarrow V,\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix} \mapsto \sum\limits_{=1}^n \lambda_i b_i$ ein VR-Isomorphismus.\\
+\\
+$\uline{Beweis:}$ $^\iota\uline{B}$ wohldefiniert und linear: siehe Bsp. 6.17.\\
+$^\iota\uline{B}$ bijektiv: nach Kor.4.6: Ist $b_1,...,b_n$ Basis von $V$, so gibt es $\forall v\in V:\exists!(\lambda_1,...,\lambda_n)\in K^n$ mit $v=\sum\limits_{i=1}^n \lambda_i b_i$\\
+\\
+$\uline{Beachte:}$ $^\iota\uline{B}(e_i)=b_i$ f\"ur $e_1,...,e_n$ Standardbasis von $V_n(K)$, $e_i=\begin{pmatrix}
+	0 \\
+	\vdots\\
+	0\\
+	1\\
+	0\\
+	\vdots\\
+	0
+\end{pmatrix}$, wobei die 1 an $i$-ter Stelle steht.\\
+\\
+$\uline{Korollar\:6.31:}$ Seien $V,W$ endlich-dimensionale UVR'e \"uber $K$. Dann gilt: a) $dim V=n\Rightarrow V\simeq V_n(K)$ (verm\"oge $\iota\uline{B}$ aus 6.30 f\"ur geordnete Basis $\uline{B}$ von $V$)\\
+b) $dim V=dim W\Leftrightarrow V\simeq W$\\
+\\
+$\uline{Beweis\:zu\:b):}$ \dq$\Rightarrow\dq:$ Sei $n=dim V=dim W<\infty\stackrel{a)}{\Rightarrow}V\simeq V_n(K)\simeq W$. Nun: $\simeq$ ist eine \"Aquivalenzrelation.\\
+\dq$\Leftarrow$\dq: W\"ahle Isomorphismus $f:V\rightarrow W$. Dimensionsformel (\dq f\"ur $f$\dq): $dim V=dim Kern(f)+dim Bild(f)=0+dim W$\hfill $\Box$\\
+\\
+$\uline{Lemma\:6.32:}$ (\"U) Seien $V,W$ VR'e \"uber $K$. Sei $\uline{B}=(b_1,...,b_n)$ geordnete Basis von $V$ und sei $(w_1,...,w_n)$ ein Tupel von Vektoren aus $W$. Dann gelten: a) $\exists !f\in Lin(V,W)$ mit $(f(b_i)=w_i$ f\"ur $i=1...n$\\
+b) Ist $w_1,...,w_n$ Basis von $W$, so ist $f$ aus a) ein Isomorphismus.\\
+\\
+\newpage
+\section{Darstellungsmatrizen (lineare Abbildungen)}
+
+$\uline{Spezialfall:}$ Sei $e_1,...,e_n\in V_n(K)$ die Standardbasis. F\"ur $f\in Lin(V_n(K),V_m(K))$ definiere $Mat(f):=(f(e_1)...f(e_n))\in M_{mxn}(K)$\\
+\\
+$\uline{Lemma\:7.1:}$ a) $Mat:Lin(V_n(K),V_m(K))\rightarrow M_{mxn}(K),f\mapsto Mat(f)$ ist ein VR-Isomorphismus.\\
+b) $\forall\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\in V_n(K)$ gilt $f(\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix})=Mat(f)\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\in V_m(K)$\\
+c) Es gilt $A=Mat(f)\Leftrightarrow\forall\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\in V_n(K):f(\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix})=A\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}$\\
+\\
+$\uline{Beweis:}$ a) i) $Mat$ ist linear: Seien $f,g\in Lin(V_n(K),V_m(K)).\:Mat(f+g)$ hat $j$-te Spalte $(f+g)(e_j)=f(e_j)+g(e_j)$. $Mat(f)+Mat(g)$ hat $j$-te Spalte $f(e_j)+g(e_j)$. analog $\lambda\cdot f$\\
+ii) $Mat$ injektiv: wegen 6.32 ist $f$ eindeutig bestimmt.\\
+iii) $Mat$ surjektiv: wegen 6.32(/6.17) eindeutige lineare Abbildung.\\
+b) $f(\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix})=f(\sum\limits_{i=1}^n\lambda_i e_i)\stackrel{f\:lin.}{=}\sum\limits_{i=1}^n\lambda_i f(e_i)=((f(e_1)...f(e_n))\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}=Mat(f)\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}$\\
+c) $\dq\Rightarrow\dq$ ist b). $\dq\Leftarrow\dq$ $A\cdot\_$ ist lineare Abbildung. (Übung, siehe unten). $A\cdot e_j=$Spalte von $A=A\cdot e_j=f(e_j)=$Spalte $j$ von $Mat(f)$ \hfill $\Box$\\
+\\
+$\uline{Beispiel:}$ $V_n(K)\rightarrow V_m(K)\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_5
+\end{pmatrix} \mapsto\sum\lambda_i w_i$. Dann: $Mat(f)=\begin{pmatrix}
+	w_1 & \dots & w_n
+\end{pmatrix}$ ($w_i\in V_m(K)$)\\
+\\
+$\uline{Korollar\:7.2\text{ (Verkettungsregel f\"ur $Mat$):}}$ F\"ur lineare Abbildungen $f:V_n(K)\rightarrow V_m(K),g:V_m(K)\rightarrow V_l(K)$ gilt: $Mat(g\circ f)=Mat(g)\cdot Mat(f)$\\
+\\
+$\uline{Beweis:}$ F\"ur $v=\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\in V_n(K)$ gilt: $Mat(g\circ f)\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\stackrel{7.1b)}{=}(g\circ f)(v)=g(f(v))=Mat(g)\cdot f(v)=Mat(g)\cdot Mat(f)\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\stackrel{7.1c)}{\Rightarrow} Mat(g)\cdot Mat(f)=Mat(g\circ f)$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:7.3:}$ $dim Lin(V_n(K),V_m(K))=dim M_{mxn}(K)=m\cdot n$\\
+\\
+$\uline{Beweis:}$ $Lin(V_n(K),V_m(K))\stackrel{7.1a)}{\simeq}M_{mxn}(K)\simeq Abb(\{1...m\}\times\{1...n\},K)\leftarrow$ hat Dimension $n\cdot m$. Nun: 6.31 \hfill $\Box$\\
+\\
+$\uline{Lemma\:7.4:}$ (\"U) Seien $U,V,W,X$ K-VR'e und $f:W\rightarrow X$ und $h:U\rightarrow V$ lineare Abbildungen. Dann gelten: a) $l_f:Lin(V,W)\rightarrow Lin(V,X),g\mapsto f\circ g$ ist lineare Abbildung.\\
+b) $r_h:Lin(V,W)\rightarrow Lin(U,W),g\mapsto g\circ h$ ist lineare Abbildung.\\
+c) Ist $f$ ein Isom., so auch $l_f$\\
+d) Ist $h$ ein Isom., so auch $r_h$\\
+\\
+$\uline{Korollar\:7.5:}$ F\"ur $A,A'\in M_{mxn}(K)$, $B,B'\in M_{exm}(K)$ gelten: a) $(B+B')\cdot A=B\cdot A+B'\cdot A$\\
+b) $B\cdot(A+A')=B\cdot A+B\cdot A'$\\
+c) F\"ur $\lambda\in K:\lambda\cdot(B\cdot A)=(\lambda\cdot B)\cdot A=B\cdot (\lambda\cdot A)$\\
+\\
+$\uline{Beweis:}$ z.B. a) w\"ahle $g,g'\in Lin(V_m(K),V_l(K)),h\in Lin(V_n(K),V_m(K))$, so dass $Mat(g)=B$; $Mat(G')=B', Mat(h)=A\stackrel{7.4b)}{\Rightarrow}(g+g')\circ h=g\circ h+g'\circ h\stackrel{Mat\:lin.}{\Rightarrow}Mat((g+g')\circ h)=Mat(g\circ h)+Mat(g'\circ h)\stackrel{7.2}{\Rightarrow} Mat(g+g')\cdot Mat(h)=Mat(g)\cdot Mat(h)+Mat(g')\cdot Mat(h)$ \hfill $\Box$\\
+\\
+$\uline{Allgemeiner\:Fall\:(\dq Darstellungsmatrizen\dq):}$ Seien $V,W$ K-VR'e mit geordneten Basen $\uline{B}=(b_1,...,b_n)$ bzw. $\uline{C}=(c_1,...,c_m)$. F\"ur $f:V\rightarrow W$ betrachte
+$\begin{tabular}{cccc}
+	$V$ & $\stackrel{f}{\rightarrow}$ & $W$ & $\rightarrow f(b_j)$\\
+	&&&\\
+	$^\iota\uline{B}\uparrow$ & & $\uparrow ^\iota\uline{C}$ & \\
+	$V_n(K)$ & & $V_m(K)$ &$ \rightarrow\begin{pmatrix}
+		\mu_1\\
+		\vdots\\
+		\mu_n
+		\end{pmatrix}$
+\end{tabular}$\\
+\\
+$\uline{Lemma\:7.6:}$ Die folgenden Abbildungen sind VR-Isomorphismen: a) $Lin(V,W)\rightarrow Lin(V_n(K),V_m(K)),f\mapsto ^\iota\uline{C}^{-1}\circ f\circ ^\iota\uline{B}$\\
+b) $Mat_{\uline{B}}^{\uline{C}}:Lin(V,W)\rightarrow M_{mxn}(K),f\mapsto Mat_{\uline{B}}^{\uline{C}}(f):=Mat(^\iota\uline{C}^{-1}\circ f\circ ^\iota\uline{B})$ ($Mat_{\uline{B}}^{\uline{C}}(f)$ hei\ss{}t $\uline{Darstellungsmatrix}$ von $f$ bez\"uglich $\uline{B}$ und $\uline{C}$)\\
+\\
+$\uline{Beweis:}$ a) Anwendung von 7.4c) und d); beachte $^\iota\uline{B},^\iota\uline{C}^{-1}$ sind Isomorphismen.\\
+b) $Mat_{\uline{B}}^{\uline{C}}$ ist die Verkettung der VR-Isomorphismen.\\
+\\
+$\uline{Korollar\:7.7:}$ $dim Lin(V,W)=dim V\cdot dim W$ falls $V$ und $W$ endlich-dimensionale K-VR'e.\\
+\\
+$\uline{Direkte\:Beschreibung\:von\:Mat_{\uline{B}}^{\uline{C}}(f):}$ F\"ur $j=1...n$ liegt $f(B_j)\in L(\{c_1,...,c_m\})\stackrel{\uline{C}\:Basis}{\Rightarrow}\exists !(a_{1j},...,a_{mj})\in K^m$ mit $f(b_j)=\sum\limits_{i=1}^m a_{ij}\cdot c_i$\\
+\\
+$\uline{Proposition\:7.8:}$ $Mat_{\uline{B}}^{\uline{C}}(f)=(a_{ij})_{\substack{i=1...m\\j=1...n}}\in M_{mxn}(K)$\\
+\\
+$\uline{Beweis:}$ Spalte $j$ von $Mat(^\iota\uline{C}^{-1}\circ f\circ ^\iota\uline{B})$ $(=Mat_{\uline{B}}^{\uline{C}}(f))=(^\iota\uline{C}^{-1}\circ f\circ ^\iota\uline{B}(e_j)=^\iota\uline{C}^{-1}(f(b_j))=$der Spaltenvektor $\begin{pmatrix}
+	\mu_1\\
+	\vdots\\
+	\mu_m
+\end{pmatrix}\in V_m(K)$ mit $^\iota\uline{C}\begin{pmatrix}
+	\mu_1\\
+	\vdots\\
+	\mu_m
+\end{pmatrix}=\sum\limits_{i=1}^m \mu_i c_i=f(b_j)\stackrel{\uline{C}\:Basis}{\Rightarrow}\begin{pmatrix}
+	\mu_1\\
+	\vdots\\
+	\mu_m
+\end{pmatrix}=\begin{pmatrix}
+	a_{1j}\\
+	\vdots\\
+	a_{mj}
+\end{pmatrix}=$Spalte $j$ von $A$. \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ a) Sind $\uline{E}_n$ und $\uline{E}_m$ die Standardbasen von $V_n(K)$ bzw. $V_m(K)$, so gilt: $Mat=Mat_{\uline{E}_n}^{\uline{E}_m}$\\
+b) Formale Schreibweise in (7.8): $(f(b_1)...f(b_n))=f(\uline{B}=\uline{C}\cdot A$ ($A=Mat_{\uline{B}}^{\uline{C}}(f))$\\
+\\
+$\uline{Proposition\:7.9\:(Verkettung\:von\:Darstellungsmatrizen):}$ Seien $V,W,X$ K-VR'e und endlich-dimensional, mit geordneten Basen $\uline{B}$ von $V,\uline{C}$ von $W,\uline{D}$ von $X$. Dann gilt f\"ur $f\in Lin(V,W)$ und $g\in Lin(W,X)$: $\circledast\circledast=Mat_{\uline{B}}^{\uline{D}}(g\circ f)=Mat_{\uline{C}}^{\uline{D}}(g)\cdot Mat_{\uline{B}}^{\uline{C}}(f)=\circledast$\\
+\\
+$\uline{Beweis:}$ Betrachte \begin{tabular}{ccccc}
+	$V$ & $\stackrel{f}{\rightarrow}$ & $W$ & $\stackrel{g}{\rightarrow}$ & $X$ \\
+	$\simeq\uparrow ^\iota\uline{B}$ & & $\simeq\uparrow ^\iota\uline{C}$ & & $\simeq\uparrow ^\iota\uline{D}$\\
+	$V_n(K)$ & & $V_m(K)$ & & $V_l(K)$
+\end{tabular}.\\
+$\circledast=Mat(^\iota\uline{D}^{-1}\circ g\circ ^\iota\uline{C})\cdot Mat(^\iota\uline{C}^{-1}\circ f\circ ^\iota\uline{B})\stackrel{7.2}{=}Mat(^\iota\uline{D}^{-1}\circ g\circ ^\iota\uline{C}\circ^\iota\uline{C}^{-1}\circ f\circ^\iota\uline{B})=Mat(^\iota\uline{D}^{-1}\circ f\circ f\circ ^\iota\uline{B})=\circledast\circledast$ \hfill $\Box$\\
+\\
+$\uline{\dq Formaler\:Beweis\dq:}$ Schreibe $A=Mat_{\uline{B}}^{\uline{C}}(f),A'=Mat_{\uline{C}}^{\uline{D}}(g)\\
+f(B)=\uline{C}\cdot A\dq\stackrel{g\:anw.}{\Rightarrow}\dq g(f(\uline{B}))=g(\uline{C}\cdot A)\stackrel{\ddot{U}}{=} g(\uline{C})\cdot A\stackrel{7.8}{\Rightarrow} Mat_{\uline{B}}^{\uline{D}}(g\circ f)=A'\cdot A$ \hfill $\Box$\\
+\\
+$\uline{Spezialfall:}$ $V=W$ endlich-dimensionale VR'e mit Basen $\uline{B}$ und $\uline{C}$ von $V$. Dann hei\ss{}t $Mat_{\uline{B}}^{\uline{C}}(id_V)=:A$ $\uline{Basiswechselmatrix}$ (von $\uline{B}$ nach $\uline{C}$).\\
+\\
+$\uline{Proposition\:7.10:}$ Sei $n=dim V$. Schreibe $v\in V$ als $v=\sum\limits_{i=1}^n \lambda_i b_i=\sum\limits_{i=1}^n \mu_i c_i$. Dann gilt: $A\cdot \begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}=\begin{pmatrix}
+	\mu_1\\
+	\vdots\\
+	\mu_n
+\end{pmatrix}$\\
+\\
+$\uline{Beweis:}$ Schreibe $v=\begin{pmatrix}
+	b_1 & \dots & b_n
+\end{pmatrix}\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}$ (formal). Form gilt: $\uline{B}=id_V(\uline{B}=Mat_{\uline{B}}^{\uline{C}}(id_V)\cdot\uline{C}=\uline{C}\cdot A\Rightarrow v=\uline{B}\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}=\uline{C}\cdot(A\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix})=\uline{C}\cdot\begin{pmatrix}
+	\mu_1\\
+	\vdots\\
+	\mu_n
+\end{pmatrix}\stackrel{\uline{C}\:Basis}{\Rightarrow} A\cdot\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}=\begin{pmatrix}
+	\mu_1\\
+	\vdots\\
+	\mu_n
+\end{pmatrix}$ \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ Koordinatn (bzw. Koeffizienten) von $v$ sind Spaltenvektoren. Geordnete Basen sind \dq Zeilen-Tupel\dq.\\
+\\
+\subsection{Eigenschaften von Basiswechselmatrizen}
+
+$\uline{Proposition\:7.11:}$ F\"ur $A\in M_{nxn}(K)$ (quadratische Matrix), sind \"aquivalent: a) $Spaltenrang(A)=n$ \\
+b) $l_A:V_n(K)\rightarrow V_n(K),v\mapsto A\cdot v$ ist Isom.\\
+c) $\exists A'\in M_{nxn}(K):A\cdot A'=1_n$\\
+d) $\exists A'\in M_{nxn}(K):A'\cdot A=1_n$ f\"ur $1_n=\begin{pmatrix}
+	1 & \dots & 0\\
+	\vdots & \ddots & \vdots\\
+	0 & \dots & 1
+\end{pmatrix}\in M_{nxn}(K)$.\\
+Die Matrizen in c),d) sind eindeutig und dieselben.\\
+\\
+$\uline{Beweis:}$ a) $\Leftrightarrow Bild(l_A)=l_A(L(\{e_1,...,e_n\}))=L(\{Ae_1,...,Ae_n\})=V_n(K)$, da $A\cdot e_j=$Spalte $j$ von $A$.$\Leftrightarrow l_A$ ist Epim.$\stackrel{l_A\:Endom.}{\Leftrightarrow}l_A$ ist Isom.\\
+b) $\Rightarrow$ c)$\wedge$d): $l_A$ Isom. $\Rightarrow\exists g\in Lin(V_n(K),V_n(K)):g\circ l_A=id_{V_n(K)}=l_A\circ g\stackrel{Mat\:anw.}{\Rightarrow}Mat(g)\cdot Mat(l_A)\stackrel{7.2}{=}Mat(id_{V_n(K)})=1_n=A\cdot Mat(g)=A\cdot A'=A'\cdot A$\\
+d)$\Rightarrow$b): Aus d) folgt: $l_{A'}\circ l_A=l_{1n}=id_{V_n(K)}\Rightarrow$ inj.$\Rightarrow l_A$ ist injektiv, d.h. ein Monom. $\stackrel{l_A\:Endom.}{\Rightarrow}l_A$ ist Isom., d.h. b) gilt. c)$\Rightarrow$b) ist analog.\\
+Zusatz: Eindeutigkeit von $A'$ folgt aus b)$\Rightarrow$c)$\wedge$d), denn $A'=Mat(l_a^{-1})$ und $l_A^{-1}$ ist eindeutig. \hfill $\Box$\\
+\\
+$\uline{Definition\:7.12:}$ i) $A\in M_{nxn}(K)$ hei\ss{}t $\uline{invertierbar}\Leftrightarrow$ a)-d) aus 7.11 gelten.\\
+ii) Schreibe $A^{-1}$ f\"ur die Matrix $A'$ aus c) (oder d)).\\
+iii) $GL_n(K):=\{A\in M_{nxn}(K)|A\text{ ist invertierbar}\}$\\
+\\
+$\uline{ddot{U}:}$ $(GL_n(K),1_n,\cdot)$ ist eine Gruppe, nicht abelsch f\"ur $n\geq 2$\\
+\\
+$\uline{Satz\:7.13:}$ Sei $\uline{C}=(c_1,...,c_n)$ geordnete Basis von $V$. Dann gilt:\\
+a) F\"ur $\uline{B}$ eine geordnete Basis von $V$ ist $Mat_{\uline{B}}^{\uline{C}}(id_V)\in GL_n(K)$\\
+b) F\"ur $A\in GL_n(K)$ ist $\uline{C}\cdot A=:\uline{B}$ eine geordnete Basis von $V$.\\
+(\"U) c) $GL_n(K)\rightarrow\{\text{geordnete Basen von }V\},A\mapsto\uline{C}\cdot A$ ist eine Bijektion.\\
+\\
+$\uline{Lemma\:7.14:}$ Seien $V$,$W$ endlich-dimensionale K-VR'e mit geordneten Basen $\uline{B}$ und $\uline{C}$ und $f:V\rightarrow W$ linearer Isom. Dann ist $Mat_{\uline{B}}^{\uline{C}}(f)$ invertierbar.\\
+\\
+$\uline{Beweis:}$ Sei $n=dim V=dim W$. $Mat_{\uline{B}}^{\uline{C}}(f)\in M_{nxn}(K)$ und $Mat_{\uline{C}}^{\uline{B}}(f^{-1})\cdot Mat_{\uline{B}}^{\uline{C}}(f)\stackrel{7.9}{=} Mat_{\uline{B}}^{\uline{B}}(f^{-1}\circ f)=Mat_{\uline{B}}^{\uline{B}}(id_V)=1_n$ \hfill $\Box$\\
+\\
+$\uline{Beweis\:von\:7.13:}$ a) Wende 7.14 an auf $V=W$ und $f=id_V$\\
+b) $\uline{B}:=\uline{C}\cdot A\stackrel{\_\cdot A^{-1}}{\Rightarrow} \uline{B}\cdot (A^{-1})=\uline{C}\Rightarrow\{c_1,...,c_n\}\in L(\uline{B})\Rightarrow V=L(\{c_1,...,c_n\})$ ist Teilmenge von $L(\{b_1,...,b_n\})\subseteq V\Rightarrow \{b_1,...,b_n\}$ ist ES von $V$ mit $v> dim V$ Elementen.$\Rightarrow\{b_1,...,b_n\}$ ist Basis. \hfill $\Box$\\
+\\
+\newpage
+\section{Dualr\"aume und lineare Funktionale}
+
+Sei $V$ ein VR \"uber $K$, $K$ ein K\"orper.\\
+$\uline{Motivation:}$ Ein UVR $U\subseteq V$ l\"asst sich auf (mindestens) 2 Arten beschreiben:\\
+a) Als lineare H\"ulle einer Teilmenge $S\subseteq V$\\
+b) Falls $V=V_n(K)$ und $a_i=(a_{i1},...,a_{in})\in Z_n(K),i=1...m$,so ist die $\uline{Nullstellenmenge}$ linearer Gleichungen $\{v\in V_n(K)|a_i \cdot v=0,i=1...m\}\subseteq V$ ein UVR.\\
+\\
+$\uline{Definition:}$ i) $V^{\ast}:=Lin_K(V,K)$ hei\ss{}t $\uline{Dualraum}$ von $V$\\
+ii) Die Elemente $\xi\in V^{\ast}$ hei\ss{}en $\uline{lineare\:Funktionale}$ (Linearformen).\\
+\\
+$V^{\ast}$ \"ubernimmt \dq Funktion\dq von $Z_n(K)$ im Vergleich zu $V_n(K)$: Ist $S^{\ast}\subseteq V^{\ast}$, so ist $\{v\in V|\xi (v)=0\:\forall\xi\in S^{\ast}\}\subseteq V$ ein UVR.\\
+\\
+$\uline{Nachbemerkung\:zu\:Mat_{\uline{B}}^{\uline{C}}\:und\:GL_n(K):}$ i) Ess gibt keine Standard-Definition von $Mat_{\uline{B}}^{\uline{C}}$: Vorsicht!\\
+ii) $\uline{Bsp:}$ $V=W=V_n(K)$. $\uline{E}=(e_1,...,e_n)$ Standardbasis, $\uline{B}=(b_1,...,b_n)$ beliebige Basis $A=Mat_{\uline{B}}^{\uline{E}}(id_V)=?$ Spalte $j$ von $A=\begin{pmatrix}
+	a_{1j}\\
+	\vdots\\
+	a_{nj}
+\end{pmatrix}$ erf\"ullt: $b_j=id_V(b_j)=\sum\limits_{i=1}^n a_{ij}\cdot e_i=\begin{pmatrix}
+	a_{1j}\\
+	\vdots\\
+	a_{nj}
+\end{pmatrix}$, d.h. $A=(b_1...b_n)$. Frage nun: $Mat_{\uline{E}}^{\uline{B}}(id_V)=??=A^{-1}\leftarrow$ in 3. VL!\\
+\\
+$\uline{zu\:Dualr\ddot{a}umen:}$
+$\uline{Proposition\:8.2:}$ a) $V^{\ast}$ ist ein VR \"uber $K$, (denn $V^{\ast}=Lin_K(V,K)$)\\
+b) $dim V<\infty\Rightarrow dim V^{\ast}=dim V$\\
+c) $(V_n(K))^{\ast}=Lin (V_n(K),V_1(K))\stackrel{Mat\:\simeq}{\rightarrow}Mat_{1xn}(K)=Z_n(K)$ ist ein Isom.\\
+\\
+$\uline{Beweis:}$ b) $dim V^{\ast}=dim(Lin(V,K))\stackrel{7,7}{=}dim_K V\cdot dim_K K=dim V\cdot 1$\\
+c) Folgt direkt aus 7.1 \hfill $\Box$\\
+\\
+Funktional zu Zeilenvektor $z=(a_1...a_n)\in Z_n(K)$ unter 8,2c)?\\
+Sei $\xi \in V^{\ast}$ beliebig und $e_1...e_n$ Standardbasis von $V_n(K)\Rightarrow Mat(\xi)=(\xi(e_1)\dots \xi(e_n))\Rightarrow \xi(\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix})=\xi(\sum\limits_{i=1}^n \lambda_i e_i)\stackrel{\xi\:lin.}{=}\sum\limits_{i=1}^n \lambda_i \xi(e_i)\stackrel{falls\:Mat(\xi)=z}{=}\sum\limits_{i=1}^n \lambda_i a_i=(a_1...a_n)\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}$\\
+\\
+Sei $\uline{B}=(b_1,...,b_n)$ geordnete Basis von $V$ $\Rightarrow$ f\"ur $i=1...n\exists!$ lineare Abbildung $b_i^{\ast}:V\rightarrow K$, so dass $b_j\mapsto \begin{cases}
+	0 & i\neq j\\
+	1 & i=j
+\end{cases}$\\
+\\
+$\uline{Lemma\:6.25:}$ $\uline{Bsp:}$ Ist $e_1...e_n$ Standardbasis von $V_n(K)$, so gilt: $e_i^{\ast}=(0\dots 010\dots 0)$\\
+\\
+$\uline{Proposition\:8.3:}$ $\uline{B}^{\ast}:=(b_1^{\ast},...,b_n^{\ast})$ ist Basis von $V^{\ast}$, die $\uline{Dualbasis}$ zu $\uline{B}=(b_1,...,b_n)$ (Basis von $V$)\\
+\\
+$\uline{Beweis:}$ $dim V^{\ast}=n$, nach 8.2a) $\Rightarrow$ gen\"ugt zz: $b_1^{\ast},...,b_n^{\ast}$ sind l.u.\\
+Seien $\lambda_1,...,\lambda_n\in K$, so dass $\xi=\sum\limits_{i=1}^n \lambda_i b_i^{\ast}=0$ (d.h. $\xi$ ist die Null-Abbildung). Berechne $0=\xi(b_j)=\sum\limits_{i=1}^n \lambda_i b_i^{\ast}(b_j)=\lambda_j\cdot 1+0+...+0\Rightarrow $ alle $\lambda_j=0$ \hfill $\Box$\\
+\\
+$\uline{Definition\:8.4:}$ Der $\uline{Bidualraum}$ von $V$ ist $V^{\ast\ast}:=(V^{\ast})^{\ast}$.\\
+\\
+$\uline{\dq Bsp:\dq:}$ Der Dualraum von $Z_n(K)$ ist $V_n(K)$, indem man $\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\in V_n(K)$ das Funktional $Z_n(K)\rightarrow K;(a_1...a_n)\mapsto(a_1....a_n)\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}\Rightarrow$ Bidual von $V_n(K)\simeq$ Dual von $Z_n(K)\simeq V_n(K)$\\
+\\
+$\uline{Satz\:8.5:}$ (\"U) Sei $b_V:V\rightarrow Lin(V^{\ast},K)=V^{\ast\ast},v\mapsto(b_V(v):\xi\in V^{\ast}\mapsto \xi(v))$. Dann gelten: a) $b_V(v)$ ist in der Tat linear.\\
+b) $b_V:V\rightarrow V^{\ast\ast}$ ist linear.\\
+c) Gilt $dim < \infty$, so ist $b_V$ ein Isom.\\
+\\
+$\uline{Definition\:8.6:}$ Seien $S\subseteq V$ und $T \subseteq V^{\ast}$ Teilmengen. Definiere $Am(S)=\{\xi\in V^{\ast}|\xi(v)=0:\forall v\in S\};Null(T):=\{v\in V|\xi(v)=0:\forall\xi\in T\}$ als $\uline{Annulator}$ von $S$ bzw. $\uline{Nullraum}$ von $T$.\\
+\\
+$\uline{Bsp:}$ $U:=L(\{\begin{pmatrix}
+	1\\
+	0\\
+	-1
+\end{pmatrix},\begin{pmatrix}
+	1\\
+	-1\\
+	0
+\end{pmatrix}\})\subseteq V_3(K)\Rightarrow Ann(U)=L(\{\begin{pmatrix} 1&1&1\end{pmatrix}\})\subseteq Z_3(K)$. Sei $\xi=(\begin{pmatrix}\lambda_1&\lambda_2&\lambda_3\end{pmatrix})$, ben\"otigen $\xi\cdot\begin{pmatrix}
+	1\\
+	0\\
+	-1
+\end{pmatrix}=0$ und $\xi\cdot\begin{pmatrix}
+	1\\
+	-1\\
+	0
+\end{pmatrix}=0$\\
+\\
+$\uline{Lemma\:8.7:}$ (\"U) a) $Ann(S)\subseteq V^{\ast}$ und $Null(T)\subseteq V$ sind UVR'e.\\
+b) $S'\subseteq S\subseteq V\Rightarrow Ann(S')\supseteq Ann(S)$, analog f\"ur $T'\subseteq T\subseteq V^{\ast}:Null(T')\supseteq Null(T)$\\
+c) $Ann(S)=Ann(L(S))$ und $Null(T)=Null(L(T))$\\
+\\
+$\uline{Beweis:}$ $\uline{z.B.:}$ a) Teil 2: $\uline{Behauptung:}$ $Null(T)$ ist UVR von $V$.\\
+i) $0\in Null(T)$, denn $\xi(0)=0\:\forall\xi\in V^{\ast}$\\
+ii) Seien $v,w\in Null(T)$ und $\lambda\in K$. Sei $\xi\in T$ beliebig. $\uline{Dann\:gilt:}$ $\xi(\lambda\cdot v+w)=\lambda\cdot\xi(v)+\xi(w)=0+0\Rightarrow (\lambda\cdot v+w)\in Null(T)$ \hfill $\Box$\\
+\\
+Sei $X\subseteq V^{\ast}$. Gelte $dim V<\infty$. Wir haben: \begin{tabular}{ccc}
+	$V$ & $\supseteq$ & $Null(X)$\\
+	$b_V \downarrow$ &&\\
+	$V^{\ast\ast}$&$\supseteq$&$Ann(X)$
+\end{tabular} dann gilt: $X\subseteq V^{\ast}$. 
+\\
+$\uline{Lemma\:8.8:}$ Gelte $dim V<\infty$. Sei $X\subseteq V^{\ast}$. Dann gilt: a) $b_V(Null(X))=Ann(X)$\\
+b) $b_V|_{Null(X)}:Null(X)\rightarrow Ann(X)$ ist Isom.\\
+\\
+$\uline{Beweis:}$ a): $Ann(X)=\{w\in V^{\ast\ast}|w(\xi)=0\:\forall\xi\in X\}$. ($b_V:V\rightarrow V^{\ast\ast}$ ist Isom., also bijektiv)$\Rightarrow w=b_V(v)$ f\"ur eindeutiges $v\in V$)$\Rightarrow Ann(X)=\{b_V(v)|v\in V,(b_V(v))(\xi)=0\:\forall\xi\in X\}=\{b_V(v)|v\in V,\xi(v)=0\:\forall\xi\in X\}=b_V(\{v\in V|\xi(v)=0\:\forall\xi\in X\})$\\
+b) Abbildung surjektiv nach a). Abbildung ist Einschr\"ankung der injektiven Abbildung $b_V$, also injektiv. \hfill $\Box$\\
+\\
+$\uline{Satz\:8.9\:(\text{Dimensionsformeln f\"ur Nullraum und Annulator}):}$ Gelte $dim V<\infty$. Seien $U\subseteq V$ und $X\subseteq V^{\ast}$ UVR'e. Dann gilt:\\
+a) $dim U+dim Ann(U)=dim V$\\
+b) $dim X+dim(Null(X))=dim V(=dim V^{\ast})$\\
+c) $Null(Ann(U))=U$\\
+d) $Ann(Null(X))=X$\\
+\\
+$\uline{Beweis:}$ a) Sei $\uline{B}=(b_1,...,b_n)$ geordnete Basis von $V$, so dass $S=\{b_1,...,b_m\}$ eine Basis von $U$ (Basis-Erg\"anzungssatz). Sei $\uline{B}^{\ast}=(b_1^{\ast},...,b_n^{\ast})$ die Dualbasis zu $\uline{B}$ (von $V^{\ast}$).\\
+$\uline{Behauptung:}$ $T=\{b_{m+1}^{\ast},...,b_n^{\ast}\}$ ist Basis von $Ann(U)$:\\
+1.Schritt: $Ann(U)=Ann(S)$, denn 8.7c): $Ann(S)=Ann(L(S))$\\
+2.Schritt: Schreibe $\xi\in V^{\ast}$ als $\xi=\sum\limits_{j=1}^n \mu_j\cdot b_j^{\ast}$\\
+$\xi\in Ann(U)=Ann(S)\Leftrightarrow \forall i=1...m:\xi(b_i)=0\Leftrightarrow \forall i=1...m:0=\sum\limits_{i=1}^n \mu_j\cdot b_j^{\ast}(b_i)=\mu_i\Leftrightarrow \mu_1=\dots==\mu_m=0\Leftrightarrow \xi\in L(\{b_{m+1}^{\ast},b_n^{\ast}\})$. D.h. $T$ ist ES von $Ann(U)$. $T$ ist l.u., denn $T$ ist Teilmenge der Basis $b_1^{\ast},...,b_n^{\ast}$\\
+$\uline{Beh.}\Rightarrow dim U+dim Ann(U)=|S|+|T|=m+(n-m)=n=dim V$\\
+b) aus a) folgt: $dim X+dim Ann(X)=dim V^{\ast}=dim V$\\
+c) Wie in a) zeigt man: $\{b_{m+1}^{\ast},...,b_n^{\ast}\}$ ist Basis von $Ann(U)\Rightarrow\{b_1,...,b_m\}$ ist Basis von $Null(Ann(U))$ \hfill $\Box$\\
+\\
+\subsection{Die duale Abbildung}
+
+Sei $f:V\rightarrow W$ eine lineare Abbildung. Ist $\xi:W\rightarrow K$ ein lineares Funktional, so auch $\xi\circ f:V\rightarrow K$.\\
+\\
+$\uline{Lemma\:8.10:}$ $f^{\ast}:W^{\ast}\rightarrow V^{\ast},\xi\mapsto f^{\ast}(\xi):=\xi\circ f$ ist lineare Abbildung.\\
+\\
+$\uline{Beweis:}$ zz: $\forall\lambda\in K,\forall\xi,\eta\in W^{\ast}:f^{\ast}(\lambda\cdot\xi + n)\stackrel{!}{=}\lambda\cdot f^{\ast}(\xi)+f^{\ast}(\eta)$
+linke Seite$=f^{\ast}(\lambda\cdot\xi +\eta)=(\lambda\cdot\xi +\eta)\circ f\stackrel{7.4}{=}\lambda\cdot(\xi\circ f)+\eta\circ f=$rechte Seite. \hfill $\Box$\\
+\\
+$\uline{\dq Visualisierung\dq:}$ \begin{tabular}{cc}
+	$W$ & \\
+	$\downarrow\xi$ & $\stackrel{f^{\ast}}{\mapsto}f^{\ast}(\xi)=\xi\circ f$\\
+	$K$ & 
+\end{tabular}\\
+\\
+$\uline{Definition\:8.11:}$ $f^{\ast}$ hei\ss{}t die zu $f$ $\uline{duale\:Abbildung}$.\\
+\\
+$\uline{Lemma\:8.12:}$ F\"ur $f\in Lin(V,W)$ und $g\in Lin(W,X)$ gilt $(g\circ f)^{\ast}=f^{\ast}\circ g^{\ast}$\\
+\\
+$\uline{Beweis:}$ Sei $\xi\in X^{\ast}$. Dann gilt: $(g\circ f)^{\ast}(\xi)\stackrel{Def.}{=}\xi\circ(g\circ f)=(\xi\circ g)\circ f\stackrel{Def.}{=}f^{\ast}(\xi\circ g)\stackrel{Def.}{=}f^{\ast}(g^{\ast}(\xi))=(f^{\ast}\circ g^{\ast})(\xi)$ \hfill $\Box$\\
+\\
+$\uline{Darstellungsmatrix\:von\:f^{\ast}:}$ $\uline{Definition\:8.13:}$ Sei $A=(a_{ij})\substack{i=1...m\\j=1...m}\in M_{mxn}(K)$. Definiere $\tilde{a}_{ij}=a_{ji}$ f\"ur $substack{i=1...m\\j=1...n}$. Dann hei\ss{}t $A^t:=(\tilde{a}_{ij})\substack{i=1...m\\j=1...n}$ die zu $A$ $\uline{transponierte\:Matrix}$\\
+\\
+$\uline{Bsp:}$ $\begin{pmatrix}
+	1 & 2 & 3\\
+	4 & 5 & 6 
+\end{pmatrix}^t=\begin{pmatrix}
+	1 & 4\\
+	2 & 5\\
+	3 & 6
+\end{pmatrix}$\\
+\\
+$\uline{Lemma\:8.14:}$ Seien $\uline{B}=(b_1,...,b_n)$ bzw. $\uline{C}=(c_1,...,c_m)$ geordnete Basen von $V$ bzw. $W$ mit Dualbasen $\uline{B}^{\ast}$ von $V^{\ast}$ und $\uline{C}^{\ast}$ von $W^{\ast}$. Dann gilt f\"ur $f\in Lin(V,W):\tilde{A}=Mat_{\uline{C}^{\ast}}^{\uline{B}^{\ast}}(f^{\ast})=(Mat_{\uline{B}}^{\uline{C}}(f))^t=A^t$\\
+\\
+$\uline{Beweis:}$ $A=(a_{ij}\substack{i=1...m\\j=1...n}$ erf\"ulllt: $f(b_j)=\sum\limits_{k=1}^m a_{kj}\cdot c_k$ f\"ur $j=1...n. \tilde{A}=(\tilde{a}_{ij})\substack{i=1...n\\j=1...m}$ erf\"ullt: $f^{\ast}(c_i^{\ast})=\sum\limits_{k=1}^n \tilde{a}_{ki}\cdot b_k^{\ast}$ f\"ur $i=1...m$. Wende $c_i^{\ast}$ an: $c_i^{\ast}(f(b_j))=\sum\limits_{k=1}^m a_{kj}\cdot c_i^{\ast}(c_k)=a_{ij}+0+...+0$. Wende $f^{\ast}(c_i^{\ast})$ auf $b_j$ an: $f^{\ast}(c_i^{\ast}))(b_j)=c_i^{\ast}(f(b_j))$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:8.15:}$ F\"ur $A\in M_{mxn}(K)$ und $B\in M_{exm}(K)$ gilt: $(B\cdot A)^t=A^t\cdot B^t$\\
+\\
+$\uline{Beweis:}$ 1. M\"oglichkeit: Matrixeintr\"age vergleichen (Indexschlacht)\\
+2. Sei $\uline{E}$ die Standardbasis von $V_? (K)$ f\"ur $?\in \{l,m,n\}$. Sei $l_A:V_n(K)\rightarrow V_m(K),v\mapsto A\cdot v$ und $l_B:V_m(K)\rightarrow V_l(K),w\mapsto B\cdot w$. Dann gilt: $A=Mat_{\uline{E}_n}^{\uline{}_m}(l_A)$. $B=Mat_{\uline{E}_m}^{\uline{E}_n}(l_B)$, $B\cdot A=Mat_{\uline{E}_n}^{\uline{E}_l}(l_B\circ l_A)\Rightarrow (B\cdot A)^t=(Mat_{\uline{E}_n}^{\uline{E}_l}(l_B\circ l_A))^t=Mat_{\uline{E}_l^{\ast}}^{\uline{E}_n^{\ast}}((l_B\circ l_A)^{\ast})\stackrel{8.10}{=}Mat_{\uline{E}_l^{\ast}}^{\uline{E}_n^{\ast}}(l_A^{\ast}\circ l_B^{\ast})\stackrel{7.9}{=} Mat_{\uline{E}_m^{\ast}}^{\uline{E}_m^{\ast}}(l_B^{\ast}\stackrel{8.10}{=} A^t\cdot B^t$ \hfill $\Box$\\
+\\
+$\uline{Satz\:8.16:}$ F\"ur endlich-dimensionale VR'e $V,W$ und $f\in Lin(V,W)$ gelten: a) $Bild(F)=Null(Kern(f^{\ast}))$\\
+b) $Bild(^{\ast}=Ann(Kern(f))$\\
+c) $dim Bild(f)=dim Bild(f^{\ast})$\\
+\\
+$\uline{Vorbereitung:}\uline{Lemma\:8.17:}$ Unter den Voraussetzungen von 8.16 sei: $f^{\ast}:W^{\ast}\rightarrow V^{\ast}$ dual zu $f$ und $f^{\ast\ast}:V^{\ast\ast}\rightarrow W^{\ast\ast}$ dual zu $f^{\ast}$.\\
+Dann gelten: a) Im Diagramm \begin{tabular}{ccc}
+	$V$ & $\stackrel{f}{\rightarrow}$ & $W$\\
+	$b_V\downarrow$ & & $\downarrow b_W$\\
+	$V^{\ast\ast}$ & $\stackrel{f^{\ast\ast}}{\rightarrow}$ & $W^{\ast\ast}$
+\end{tabular} gilt $b_W\circ f=f^{\ast\ast}\circ b_V$\\
+b) (\"U) F\"ur $Kern(f)\subseteq V$ und $Kern(f^{\ast\ast})\subseteq V^{\ast\ast}$ gilt: $b_V|_{Kern(f)}:Kern(f)\rightarrow Kern(f^{\ast\ast})$ ist ein Isom.\\
+c) (\"U) Analog ist $b_W|_{Bild(f)}:Bild(f)\rightarrow Bild(f^{\ast\ast})$ ein Isom.\\
+\\
+$\uline{Beweis:}$ a) zz: $\forall\xi\in W^{\ast}:\forall v\in V:((b_W\circ f)(v))(\xi)\stackrel{!}{=}((f^{\ast\ast}\circ b_V)(v))(\xi)$. linke Seite$=(b_W(f(v))(\xi)\stackrel{Def.}{=}\xi(f(v))$. rechte Seite$=(f^{\ast\ast}(b_V(v))(\xi)=(b_V(v)\circ f^{\ast})(\xi)=b_V(v)(f^{\ast}(\xi))=(f^{\ast}(\xi))(v)=(\xi\circ f)(v)=\xi(f(v))$ \hfill $\Box$\\
+\\
+$\uline{Beweis\:zu\:8.16:}$ a) $\dq \subseteq \dq:$ Sei $f(v)\in Bild(f)$, d.h. $v\in V$, zz: $f(v)\in Null(Kern(f^{\ast}))$, also zz: $\forall\xi\in Kern(f^{\ast}):\xi(f(v))=0!$, aber: $\xi(f(v))=(\xi\circ f)(v)=(f^{\ast}(\xi))(v)\stackrel{\xi\in Kern(f^{\ast}}{=} 0(v)=0$\\
+c) $\dq \leq \dq$: $dim Bild(f) \leq dim Null(Kern(f^{\ast}))\stackrel{Satz\:8.9:}{=} dim V^{\ast} - dim Kern(f^{\ast})\stackrel{Satz\:6.23:}dim Bild(f^{\ast})$\\
+b) $\dq \subseteq \dq$: Analog zu a).\\
+c) $\dq \leq \dq$ folgt: $dim Bild(f)=dim(Null(Kern(f)))\stackrel{a)\subseteq}{\Rightarrow}Bild(f)=Null(Kern(f^{\ast}))$ (da $\dq\subseteq\dq$ bekannt).\\
+b) $\dq\supseteq\dq$: wie a) $\dq\supseteq \dq$. \hfill $\Box$\\
+\\
+$\uline{Definition\:8.18:}$ F\"ur $f\in Lin(V,W)$, definiere den $\uline{Rang}$ von $f$ als $Rang(f):=dim Bild(f)$\\
+\\
+$\uline{Bemerkung:}$ F\"ur $f\in Lin(V_n(K),V_m(K))$ mit $A=Mat(f)$ gilt $Rang(f)=$Spaltenrang$(A)$, denn der Spaltenraum von $A=L(\{A\cdot e_1,...,A\cdot e_n\})=L(\{f(e_1),...,f(e_n)\})=f(L(\{e_1,...,e_n\}))=f(V_n(K))=Bild(f)$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:8.19:}$ F\"ur $A\in M_{mxn}(K)$ gilt Spaltenrang($A$)=Zeilenrang($A$). (in Zukunft schreiben wir nur noch Rang$A$).\\
+\\
+$\uline{Beweis:}$ Spaltenrang($A$)$\stackrel{Bem.}{=}$Rang($l_A)=dim Bild(l_A)\stackrel{8.18}{=} dim Bild(l_a^{\ast})=$Spaltenrang$(A^t)=$Zeilenrang($A$) \hfill $\Box$\\
+\\
+\newpage
+\section{Lineare Gleichungssysteme}
+
+$\uline{Definition\:9.1:}$ Ein $\uline{Lineares\:Gleichungssystem}$ (LGS) in $m$ Gleichungen und $n$ Variablen $x_1,...,x_n$ (\"uber $K$) ist ein Schema: $\begin{matrix}
+	a_{11}x_1 +\dots + a_{1n}x_n=b_1\\
+	a_{21}x_1 +\dots + a_{2n}x_n=b_2\\
+	\vdots\\
+	a_{m1}x_1+\dots +a_{mn}x_n=b_m
+\end{matrix}=\circledast$ mit $b_i,a_{ij}\in K$ f\"ur $i=1...m,j=1...n$. Das LGS hei\ss{}t $\uline{homogen}\Leftrightarrow b_1=\dots=b_m=0$, sonst $\uline{inhomogen}$. Der $\uline{L\ddot{o}sungsraum}$ von $\circledast$ ist $\{\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+\end{pmatrix}\in V_n(K)|$ die Gleichungen $\circledast$ sind erf\"ullt f\"ur $x_1,...,x_n\}$.\\
+sei $A=(a_{ij})\substack{i=1...m\\j=1...n}\in M_{mxn}(K)$, sei $b=\begin{pmatrix}
+	b_1\\
+	\vdots\\
+	b_m
+\end{pmatrix}\in V_m(K)$. Dann gilt: $\circledast$ ist \"aquivalent zu $A\cdot\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+\end{pmatrix}=b$\\
+\\
+$\uline{Definition\:9.2:}$ $\mathbb{L}(A,b)=\{x\in V_n(K)|A\cdot x=b\}$ hei\ss{}t $\uline{L\ddot{o}sungsraum}$ von $\circledast$. Sei $l_A:V_n(K)\rightarrow V_m(K),v\mapsto A\cdot v$ und seien $z_1,...,z_m\in Z_n(K)$ die Zeilen von $A$ ($z_i=i$-te Zeile)\\
+\\
+$\uline{Satz\:9.3:}$ a) Ist $\circledast$ homogen, so gelten: $\mathbb{L}(A,0)\stackrel{i)}{=}Kern(l_A)\stackrel{ii)}{=}Null(\{z_1,...,z_m\})$\\
+iii) $dim \mathbb{L}(A,0)=n-Rang(A)=n-dim L(\{z_1,...,z_n\})$\\
+b) Sei $\circledast$ beliebig (im Allgemeinen homogen). Dann gelten:\\
+i) $\circledast$ hat L\"osung $\Leftrightarrow Rang(A)=Rang(A|b)$\\
+ii) Ist $x_0\in\mathbb{L}(A,b)$, so gilt $\mathbb{L}(A,b)=\{x+x_0|x\in\mathbb{L}(A,0)\}$\\
+\\
+$\uline{Notation:}$ Wir schreiben $A|b$ f\"ur die um die Spalte $b$ verl\"angerte Matrix $A$.\\
+\\
+$\uline{Beweis:}$ a) i) $\mathbb{L}(A,0)=\{x\in V_n(K)|A\cdot x=0\}=Kern(l_A)$\\
+ii) Definition von $Null(\{z_1,...,z_n\})=\{v\in V_n(K)|z_i\cdot v=0$ f\"ur $i=1...m\}$\\
+iii) $dim\mathbb{L}(A,0)\stackrel{i)}{=} dim Kern(l_A)=dim V_n(K)-dim Bild(l_A)=n- Rang(A)$. $Null(\{z_1,...,z_n\})=Null(L(\{z_1,...,z_n\})$. Nun Dimensionsformel f\"ur Nullraum.\\
+b) i) $\circledast$ hat L\"osung $\Leftrightarrow\exists x_1,...,x_n\in K$ mit $x_1 a_1+...+x_n a_n=b$ f\"ur $a_1...a_n$ die Spalten von $A\Leftrightarrow b\in L(\{a_1,...,a_n\})=$Spaltenraum($A$)$\Leftrightarrow$Spaltenraum($A|b)=$Spaltenraum($A)\Leftrightarrow$ Rang($A|b$)=Rang($A$)\\
+iii) zz: $x\in \mathbb{L}(A,0)\Leftrightarrow x+x_0\in\mathbb{L}(A,b)$\\
+$\dq\Rightarrow\dq A\cdot(x+x_0)=A\cdot x+A\cdot x_0=A\cdot x+b=b$ falls $x\in\mathbb{L}(A,0)$\\
+$\dq\Leftarrow\dq A\cdot x=A\cdot(x+x_0-x_0)=A\cdot(x+x_0)-A\cdot x_0=b-b=0$, falls $x+x_0\in\mathbb{L}(A,b)$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:9.4:}$ Falls $Rang A=n$. Dann gelten:\\
+i) $\mathbb{L}(A,0)=\{0\}(\subseteq V_n(K))$ und $|\mathbb{L}(A,b)|\leq 1\:\forall b\in V_m(K)$\\
+ii) Falls zus\"atzlich $m=n$, so gilt: $|\mathbb{L}(A,b)|=1\:\forall b\in V_n(K)=V_m(K)$\\
+\\
+$\uline{Beweis:}$ i) Folgt aus $dim\mathbb{L}(A,0)=n-Rang A=n-n=0$ und 9.3b) f\"ur $\mathbb{L}(A,b)$\\
+ii) Falls $m=n$: $n=Spaltenrang(A)\leq Spaltenrang(A|b)\leq n=Spaltenrang(A)$ \hfill $\Box$\\
+\\
+$\uline{Lemma\:9.5:}$ (\"U) a) F\"ur $C\in GL_m(K)$ gilt: $\mathbb{L}(C\cdot A,C\cdot b)=\mathbb{L}(A,b)$\\
+b) Elementare Zeilentransformationen angewandt auf $A$ (oder $A|b$) lassen sich durch Linksmultiplikation $C\cdot A$ (oder $C\cdot (A|b)$) f\"ur elementare Matrizen in $GL_n(K)$ beschreiben.\\
+\\
+$\uline{Bsp:}$ $K=\mathbb{R}$\\
+$\begin{matrix}
+	x_1 &  & +x_3 & = 2 & & =4\\
+	3x_1 & +4x_2 & +7x_3 & =0 & oder & =10\\
+	2x_1 & +4x_2 & +6x_3 & =0 & & =6
+\end{matrix}\leadsto A=\begin{pmatrix}
+	1 & 0 & 1\\
+	3 & 4 & 7\\
+	2 & 4 & 6
+\end{pmatrix}, b_1=\begin{pmatrix}
+	2\\
+	0\\
+	0
+\end{pmatrix}, b_2=\begin{pmatrix}
+	4\\
+	10\\
+	8
+\end{pmatrix}$\\
+$(A|b_1|b_2)=\begin{gmatrix}[p]
+	1 & 0 & 1 & | & 2 & | & 4\\
+	3 & 4 & 7 & | & 0 & | & 10\\
+	2 & 4 & 6 & | & 0 & | & 6
+	\rowops
+		\add[-3]{0}{1}\\
+		\add[-2]{0}{2}
+\end{gmatrix}\leadsto\begin{gmatrix}[p]
+	1 & 0 & 1 & | & 2 & | & 4\\
+	0 & 4 & 4 & | & -6 & | & -2\\
+	0 & 4 & 4 & | & -4 & | & -2
+	\rowops
+		\add[-1]{1}{2}
+\end{gmatrix}\\
+\leadsto\begin{pmatrix}
+	1 & 0 & 1 & | & 2 & | & 4\\
+	0 & 4 & 4 & | & -6 & | & -2\\
+	0 & 0 & 0 & | & 2 & | & 0
+\end{pmatrix}$\\
+I $Rang(A|b_1)=3 \geq Rang(A)\Rightarrow\mathbb{L}(A,b_1)=\emptyset$\\
+II $Rang(A|b_2)=2=Rang(A)\Rightarrow\mathbb{L}(A,b_2)\neq \emptyset$\\
+$\Rightarrow$ L\"osung finden in II: $\begin{pmatrix}
+	1 & 0 & 1 & | & 4 \\
+	0 & 1 & 1 & | & -\tfrac{1}{2}
+\end{pmatrix}$ eine L\"osung $\begin{pmatrix}
+	4\\
+	-\tfrac{1}{2}\\
+	0
+\end{pmatrix}=x_0;\mathbb{L}(-\begin{pmatrix}
+	1 & 0 & 1\\
+	0 & 1 & 1
+\end{pmatrix},\begin{pmatrix}
+	0\\
+	0
+\end{pmatrix})=L(\{\begin{pmatrix}
+	-1 \\
+	-1\\
+	1
+\end{pmatrix}\})\\
+\Rightarrow\mathbb{L}(A,b_2)=\{\begin{pmatrix}
+	4\\
+	-\tfrac{1}{2}\\
+	0
+\end{pmatrix}+\lambda\cdot\begin{pmatrix}
+	-1\\
+	-1\\
+	1
+\end{pmatrix}\} \lambda\in\mathbb{R}$\\
+\\
+$\uline{Lemma\:9.6:}$ Gelte $Rang(A)=n$ f\"ur $A\in M_{nxn}(K)$. Ist $(1_n|B)$ die reduzierte ZSF aus dem Gau\ss{}-Algorithmus zu $(A|1_n)$, so gilt $B=A^{-1}$\\
+\\
+$\uline{Beweis:}$ i) $Rang(A)=n\Rightarrow$ red. ZSF zu $A$ aus Gau\ss{}-Algorithmus ist $1_n\rightarrow$ wende Gau\ss{} auf $(A|1_n)$ an: erhalte red. ZSF der Form $(1_n|B)$\\
+ii) Nach 9.5 $\exists C\in GL_n(K)$ mit $C(A|1_n))=(1_n|B)\Rightarrow C\cdot A=1_n$ und $C\cdot 1_n=B$, d.h. $B\cdot A=1_n\stackrel{A\:quadratisch}{\Rightarrow}B=A^{-1}$\\
+alternativ: $(A|1_n)$ codiert das simultane LGS $A\cdot x_1=e_1,...,A\cdot x_n=e_n\Rightarrow(x_1,...,x_n)=A^{-1}$ \hfill $\Box$\\
+\\
+$\uline{Nachtrag:}$ Sei $C\in M_{nxn}(K)$. Dann gilt: $C$ invertierbar $\Leftrightarrow C^t$ invertierbar. Beweis 1. L\"osung: $C$ invertierbar $\Leftrightarrow Spaltenrang(C)=n\Leftrightarrow Zeilenrang(C^t)=n\Leftrightarrow (C^t)$\\
+2. L\"osung: $C$ invertierbar $\Leftrightarrow D\in M_{nxn}(K)$ mit $C\cdot D=1_n\Rightarrow D^t\cdot C^t=(C\cdot D)^t=1_n\Rightarrow C^t$ invertierbar.\\
+\\
+Man kann auch elementare $\uline{Spaltentransformationen}$ definieren:\\
+E1') Vertausche 2 Spalten\\
+E2') Addiere Vielfaches einer Spalte zu einer anderen.\\
+E3') Multiplikation einer Spalte mit Skalar $\lambda\neq 0$\\
+$\rightarrow$ damit kann man reduzierte Spaltenstufenform von Matrizen erhalten. (red.SSF)\\
+\\
+$\uline{Lemma\:9.5:}$ Elementare Spaltentransformationen lassen sich durch Rechtsmultiplikation mit invertierbaren Matrizen beschreiben.\\
+Warnung: Spaltenoperationen \"anderen die L\"osungsr\"aume LGS!\\
+\\
+$\uline{Definition\:9.7 \text{(\"Ahnlichkeit und \"Aquivalenz)}:}$ a) $A,A'\in M_{mxn}(K)$ hei\ss{}en \"aquivalent. (schreibe $A\sim A'$)$:\Leftrightarrow\exists B\in GL_n(K),C\in GL_m(K)$ mit $A'=C\cdot A\cdot B$\\
+b) $A,A'\in M_{nxn}(K)$ hei\ss{}en $\uline{\ddot{a}hnlich}$(schreibe $A\approx A')\Leftrightarrow \exists B\in GL_n(K)$ mit $A'=B^{-1}\cdot A\cdot B$\\
+\\
+$\uline{\ddot{U}bung:}$ \"Ahnlichkeit definiert eine \"Aquivalenzrelation auf $M_{nxn}(K)$ und \"Aquivalenz definiert eine \"Aquivalenzrelation auf $M_{mxn}(K)$\\
+\\
+$\uline{Satz\:9.8:}$ Seien $A,A'\in M_{mxn}(K)$. Dann gelten: a) $A\sim \begin{pmatrix}
+	1_r & \vdots & 0\\
+	\dots & \dots & \dots\\
+	0 & \vdots & 0
+\end{pmatrix}\in M_{mxn}(K)$ f\"ur $r=Rang(A)$\\
+b) $A\sim A'\Leftrightarrow Rang(A)=Rang(A')$\\
+\\
+$\uline{Beweis:}$  a) \"Aquivalenz bleibt erhalten unter elementaren Zeilen- und Spaltentransformationen (Lemma 9.5,9.5'). $A\stackrel{Gauss}{\leadsto} A''=\begin{pmatrix}
+	0 & \dots & 0 & 1 & X & \dots & \dots & \dots & X \\
+	0 & \dots & \dots & 0 & 1 & X & \dots & \dots & X \\
+	\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+	0 & \dots & \dots & \dots & 0 & 1 & X & \dots & X \\
+	0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0
+\end{pmatrix}\\
+\\
+\stackrel{E1'-E3'}{\leadsto}\begin{pmatrix}
+	0 & \dots & 0 & 1 & 0 & \dots & \dots & 0 \\
+	0 & \dots & \dots & 0 & 1 & 0 & \dots & 0 \\
+	\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+	0 & \dots & \dots & \dots & \dots & \dots & 1 & 0 \\
+	0 & \dots & \dots & \dots & \dots & \dots & \dots & 0
+\end{pmatrix}\stackrel{E1'}{\leadsto}$ $\begin{pmatrix}\begin{tabular}{c|c}
+	$\begin{pmatrix} 1 & & \\ & \ddots & \\ & & 1 \end{pmatrix}$ & \:\:\:\:\:0\:\:\:\:\: \\
+	\hline\\
+	0 & 0
+\end{tabular}\end{pmatrix}=A'''$. Damit wurde $A\sim A''$ gezeigt.\\
+b) $\dq \Leftarrow \dq$ folgt aus a). $\dq\Rightarrow\dq$ \"U.\\
+$Rang(C\cdot A)=Rang(A)=Rang(A\cdot B)$ f\"ur $B,C$ invertierbar, d.h. in \"Aquivalenzklassen ist der Rang konstant.\\
+\\
+$\uline{Korollar\:9.9:}$ Jede Matrix aus $GL_n(K)$, d.h. jede Matrix in $M_{nxn}(K)$ mit $Rang=n$ ist ein Produkt von Elementarmatrizen.\\
+\\
+$\uline{Proposition\:9.10\:\text{(Interpretation von \"Ahnlichkeit und \"Aquivalenz)}:}$ Seien $V,W$ VR'e (\"uber $K$) mit geordneten Basen $\uline{B}=(b_1,...,b_n)$ bzw. $\uline{C}=(c_1,...,c_m)$. Dann gilt:\\
+a) Sei $f\in Lin(V,W)$ und $A=Mat_{\uline{B}}^{\uline{C}}(f)\in M_{mxn}(K)$. Dann gilt: $A'\sim A$ (f\"ur $A'\in M_{mxn}(K))\Leftrightarrow \exists$Basen $\uline{B}',\uline{C}'$ von $V$ bzw. $W$: $A'=Mat_{\uline{B}'}^{\uline{C}'}(f)$\\
+b) Sei $f\in End(V)$ und sei $A=Mat_{\uline{B}}^{\uline{B}}(f)\in M_{nxn}(K)$. $A'\approx A$ (f\"ur $A'\in M_{nxn}(K))\Leftrightarrow\exists$ Basen $\uline{B}'$ von $V$ mit $A'=Mat_{\uline{B}'}^{\uline{B}'}(f)$.\\
+\\
+$\uline{Bemerkung:}$ Normalformen unter \"Ahnlichkeit sind nicht so leicht zu erhalten, siehe dann in LA2: \"uber $\mathbb{C}$: Jordanform zu $A$. F\"ur \dq einfache\dq $A$: erhalte \dq einfache \dq Normalfform $A\approx\begin{pmatrix}
+	d_1 & & 0\\
+	 & \ddots & \\
+	 0 & & d_n
+\end{pmatrix}, d_i\in K$ f\"ur $\uline{B}'$ Basis aus \dq Eigenvektoren \dq.\\
+\\
+$\uline{Beweis\:zu\:9.10:}$ Verkettungsformel: $Mat_{\uline{B}'}^{\uline{C}'}(f)=Mat_{\uline{C}}^{\uline{C}'}(id_W)\cdot Mat_{\uline{B}}^{\uline{C}}(f)\cdot Mat_{\uline{B}'}^{\uline{B}}(id_V)$\\
+a) $\dq\Leftarrow\dq$: Basiswechselmatrizen sind invertierbare Matrizen!\\
+$\dq\Rightarrow\dq$: Jede invertierbare Matrix definiert Basiswechselmatrix, z.B.: Sei $D\in GL_m(K)$, definiere $\uline{C}:=\uline{C}\cdot D^{-1}\Rightarrow \uline{C}=\uline{C}'\cdot D$ und daher $Mat_{\uline{C}}^{\uline{C}'}(id_V)=D$\\
+c) Spezialfall von Beweis von a) f\"ur $W=V, \uline{C}\dq =\uline{B}\dq$ und $\dq\uline{C}'=\dq \uline{B}'$, denn: $(Mat_{\uline{B}'}^{\uline{B}}(id_V))^{-1} =Mat_{\uline{B}}^{\uline{B}'}(id_V)$ \hfill $\Box$\\
+\\
+$\uline{\text{weitere Anwendungen des Gau\ss{}-Algorithmus}:}$\\
+Finde Basis zu i) $X=L(\{z_1,...,z_m\})\subseteq Z_n(K)$ zu gegebenen $z_1,...,z_m\in Z_n(K)$\\
+ii) $U=L(\{v_1,...,v_n\})\subseteq V_m(K)$ zu gegebenen $v_1,...,v_n\in V_m(K)$\\
+iii) $Kern(l_A)$ zu $l_A:V_n(K)\rightarrow V_m(K),v\mapsto A\cdot v; A\in M_{mxn}(K)$\\
+iv) $Bild(l_A)$ zu $l_A:V_n(K)\rightarrow V_m(K),v\mapsto A\cdot v; A\in M_{mxn}(K)$ \\
+v) $U+W$ f\"ur $W=L(\{w_1,...,w_s\})\subseteq V_n(K),U$ wie oben, $w_j\in V_n(K)$\\
+vi) $Null(X)\subseteq V_n(K)$\\
+vii) $Ann(U)\subseteq Z_m(K)$\\
+viii) $U\cap W\subseteq V_n(K)$\\
+Nochmals zu i): Sei $\tilde{A}$ die red. ZSF zu $A=(v_1|\dots|v_n)\in M_{nxn}(K)$. Seien $1\leq j_1 < j_2 < \dots < j_r \leq n$ die Indizes der Pivotspalten von $\tilde{A}$. $\Rightarrow \{v_{j_1},v_{j_2},...,v_{j_r}\}$ ist Basis von $U= Spaltenraum(A)$.\\
+\\
+\newpage
+\section{Determinanten}
+
+$\uline{Definition\:10.1:}$ Seien $V,W$ K-VR'e, $n\in\mathbb{N}$. a) $f:V^n=V\times\dots\times V\rightarrow W$ hei\ss{}t $\uline{n-linear}:\Leftrightarrow f$ ist in jedem Argument linear $:\Leftrightarrow\forall j=1...n\forall(v_1,...,v_{n-1})\in V^{n-1}$ ist die Abbildung $V\rightarrow W,v\mapsto f(v_1,...,v_{j-1},v,v_j,...,v_{n-1})$ linear.\\
+b) Eine n-lineare Abbildung $f:V^n\rightarrow W$ hei\ss{}t $\uline{n-linearform}:\Leftrightarrow W=K$\\
+c) Ist $f:V^n\rightarrow W$ n-linear, so hei\ss{}t $f\:\uline{alternierend}:\Leftrightarrow \forall(v_1,...,v_n)\in V$ gilt: $v_i=v_j$ f\"ur ein Paar $1\leq i<j\leq n$, so dass $f(v_1,...,v_n)=0$\\
+d) $Lin_n(V,W)$ sei die Menge aller n-linearen Abbildungen $f:V^n\rightarrow W$\\
+e) $Alt_n(V,W)$ sei die Menge aller alternierenden Abbildungen $f:V^n\rightarrow W$\\
+\\
+$\uline{Lemma\:10.2:}$ (\"U) $Alt(V,W)\subseteq Lin_n(V,W)$ sind UVR'e von $Abb(V^n,W)$\\
+$\uline{Motivation:}$ Sei $V=\mathbb{R}^n$ zu $(v_1,...,v_n)\in V^n$. Sei $PE(v_1,...,v_n)=\{\sum\limits_{i=1}^n \lambda_i\cdot v_i | 0\leq \lambda_i \leq 1 \forall i=1...n\}$ das zuge\"orige Parallelepided ($n=3$ Spat, $n=2$ Parallelogramm)\\
+\\
+$\uline{gesucht:}$ a) Eine Abbildung $D_{\uline{E}}:V^n\rightarrow\mathbb{R}$ mit $D_{\uline{E}}(v_1,...,v_n)=$\dq orientiertes\dq Volumen von $PE(v_1,...,v_n)$\\
+b) Eine Abbildung $det:End_{\mathbb{R}}(\mathbb{R}^n)\rightarrow\mathbb{R}$, so dass f\"ur jede $\mathbb{R}$-lineare Abbildung $f:\mathbb{R}^n\rightarrow\mathbb{R}^n$ der Wert $det(f)$ die Volumen\"anderung unter $f$ misst, d.h. $D_{\uline{E}}(f(v_1),...,f(v_n))=det(f)\cdot D_{\uline{E}}(v_1,...,v_n)=\pm \text{Volumen}(PE(f(v_1),...,f(v_n))$ $\forall(v_1,...,v_n)\in V^n$\\
+\\
+Eigenschaften von $D_{\uline{E}}:(n-2)$ i) $D_{\uline{E}}(\lambda\cdot v_1,v_2)=\lambda\cdot D_{\uline{E}}(v_1,v_2)=D_{\uline{E}}(v_1,\lambda\cdot v_2)$\\
+ii) $D_{\uline{E}}(v_1 +w_1,v_2)=D_{\uline{E}}(v_1,v_2)+D_{\uline{E}}(w_1,v_2)$ analog im 2. Argument.\\
+iii) $D_{\uline{E}}(v,v)=0$. Allgemeines $n$: $D_{\uline{E}}\in Alt_n(\mathbb{R}^n,\mathbb{R})$\\
+\\
+$\uline{Wiederholung:}$ $K$ ein K\"orper. $\uline{Charakteristik}$ von $K$ ist $Char(K):=min\{n\in\mathbb{N} | 1_K+...+1_K=0_K\}$, wobei: $min\emptyset:=0$\\
+In \"U: $Char(K)\neq 0\Rightarrow Char(K)$ ist Primzahl!\\
+\\
+$\uline{Lemma\:10.3:}$ Seien $V,W$ K-VR'e und $f\in Lin_n(V,W)$ a) $f\in Alt_n(V,W)\Rightarrow \circledast \forall\sigma\in S_n:\forall(v_1,...,v_n)\in V^n:f(v_{\sigma(1)},...,v_{\sigma(n)})=sgn(\sigma)\cdot f(v_1,...,v_n)$\\
+b) Falls $Char(K)\neq 2$, so gilt $Alt_n(V,W)=\{f\in Lin_n(V,W) | f\text{ erf\"ullt }\circledast\}$\\
+\\
+$\uline{Beweis:}$ a) \"U: Es gen\"ugt $\circledast$ f\"ur Nachbartranspositionen zu zeigen. ($S_n$ wird erzeugt durch Nachbartranspositionen). Sei also $\sigma=\tau_{(i,i+1)}$ f\"ur $i\in\{1,...,n-1\}$ $\uline{zz:}f(v_1,...,v_{i-1},v_{i+1},v_i,v_{i+2},...,v_n)=(-1)\cdot f(v_1,...,v_{i-1},v_i,v_{i+1},...,v_n).$ Fixiere $v_1,...,v_{i-1},v_{i+2},...,v_n$. Setze $g(v,w)=f(v_1,...,v_{i-1},v,w,v_{i+2},...,v_n)$.\\
+$g$ 2-linear (bilinear), da $f$ n-linear. $g$ ist alternierend, d.h. $\forall v\in V:g(v,v)=0$, denn $f$ ist alternierend.\\
+$\uline{zz:}g(v,w)=-g(w,v):=\stackrel{g\:altern.}{=}g(v+w,v+w)\stackrel{g\:2-lin.}{=}g(v,v+w)+g(w,v+w)\stackrel{g\:2-lin.}{=}g(v,v)+g(v,w)+g(w,v)+g(w,w)\stackrel{g\:altern.}{=}g(v,w)+g(w,v)=0\Rightarrow -g(w,v)=g(v,w)$ \hfill $\Box$\\
+b) Sei $(v_1,...,v_n)\in V^n$ mit $v_i=v_j$ und $1\leq i<j\leq n$. $f$ erf\"ullt $\circledast$.\\
+$\uline{zz:}$ $Char(K)\neq 2\Rightarrow f(v_1,...,v_n)=0$\\
+Dazu: Sei $\sigma=\tau_{(i,j)}:f(v_1,...,v_n)=f_{\sigma(1)},...,v_{\sigma(n)})=sgn(\tau_{(i,j)})\cdot f(v_1,...,v_n)\Rightarrow 2\cdot f(v_1,...,v_n)=0\stackrel{Char(k)\neq 2}{\Rightarrow}f(v_1,...,v_n)=0$ \hfill $\Box$\\
+\\
+$\uline{Lemma\:10.4:}$ Sei $\uline{B}=(b_1,...,b_n)$ Basis von $V$, f\"ur $(v_1,...,v_n)\in V^n$. Schreibe $v_i=\sum\limits_{i=1}^n \lambda_{ij} b_j$ f\"ur eindeutige $\lambda_{ij} \in K$. Dann gilt:\\
+a) F\"ur $f\i Lin_n(V,W)$ gilt: $f(v_1,...,v_n)=\sum\limits_{j_1 =1}^n \sum\limits_{j_2 =1}^n ... \sum\limits_{j_n =1}^n \lambda_{1_{j1}}\lambda_{2_{j2}}...\lambda_{n_{jn}}f(b_{j1},...,b_{jn})$\\
+b) F\"ur $f\in Alt_n(V,W)$ gilt: $f(v_1,...,v_n)=\sum\limits_{\sigma\in S_n}\lambda_1 \sigma(1)....\lambda_n\sigma(n)\cdot sgn(\sigma)f(b_1,...,b_n)$\\
+\\
+$\uline{Beweis:}$ a) Verwende n-Linearit\"at in allen Argumenten, z.B.: $f(v_1,...,v_{i-1},\sum\limits_{j=1}^n \lambda_i j_i f(v_1,...,v_{i-1},b_j,v_{i+1},...,v_n)$\\
+b) $f$ alternierend $\Rightarrow f(b_{j1},...,b_{jn})=0$, falls $j_1,...,j_n$ nicht paarweise verschieden sind! Falls $j_1,...,j_n$ paarweise verschieden $\Rightarrow \{1,...,n\}\rightarrow\{1,...,n\}$ ist Permutation und erhalten so alle Permutationen in $S_n$ genau 1-mal! Schreibe $j_1=\sigma(1),...,j_n=\sigma(n)$ f\"ur $\sigma\in S_n\Rightarrow f(v_1,...,v_n)=\sum\limits_{\sigma\in S_n} \lambda_1 \sigma(1)\lambda_2\sigma(2)...\lambda_n\sigma(n)f(b_{\sigma(1)},...,b_{\sigma(n)})=sgn(\sigma)f(b_1,...,b_n)$ \hfill $\Box$\\
+\\
+$\uline{Lemma\:10.4\tfrac{1}{2}:}$ Sei $A_n:=Kern(sgn:S_n\rightarrow\{\pm 1\}$ und sei $\tau\in S_n$ eine Transposition und $n\geq 2$. Dann (\"U!): i) $A_n\rightarrow A_n\cdot\tau,\sigma\mapsto\sigma\cdot\tau$ ist bijektiv.\\
+ii) $S_n=A_n\mathbin{\dot{\cup}} A_n\cdot\tau$\\
+iii) $|S_n|=n!,|A_n|=\tfrac{1}{2} n!$\\
+\\
+$\uline{Korollar\:10.5:}$ Sei $\uline{B}=(b_1,...,b_n)$ Basis von $V$. F\"ur $(v_1,...,v_n)\in V^n$ definiere $(\lambda_{ij})\in M_{nxn}(K)$ durch $\sum\limits_{j=1}^n \lambda_{ij}\cdot b_j=v_i$. Dann:\\
+a) $D_{\uline{B}}:V^n\rightarrow K,(v_1,...,v_n)\mapsto\sum\limits_{\sigma\in S_n} sgn(\sigma)\lambda_{1\sigma(1)}...\lambda_{n\sigma(n)}$ liegt in $Alt_n(V,K)$\\
+b) $D_{\uline{B}}$ ist Basis des K-VR $Alt_n(V,K)$ und $D_{\uline{B}}(b_1,...,b_n)=1\leadsto$ L\"osung der 1. Frage der Motivation zu Kapitel 10.\\
+\\
+$\uline{Korollar\:10.6:}$ $d\in Alt_n(V,K)\setminus\{0\}$, und $n=dim V,(b_1,...,b_n)\in V^n$. Dann gilt: $(b_1,...,b_n)$ ist Basis von $V\Leftrightarrow d(b_1,...,b_n)\neq 0$\\
+\\
+$\uline{Beweis:}$ $\dq\Rightarrow\dq:$ Sei $(b_1,...,b_n)$ Basis $\Rightarrow d=d(b_1,...,b_n)\cdot D_{\uline{B}}$ (siehe obiger Beweis). Wissen $d,D_{\uline{B}}\neq 0\Rightarrow d(b_1,..,b_n)\neq 0$\\
+$\dq\Leftarrow\dq:$ (\"U) $f\in Alt_n(V,W)$ und $v_1,...,v_n$ l.a. $\Rightarrow f(v_1,...,v_n)=0$ (also $d(b_1,...,b_n)\neq 0\Rightarrow b_1,...,b_n$ sind l.u.) \hfill $\Box$\\
+\\
+$\uline{Definition\:10.7:}$ F\"ur $d\in Alt_n(V,K)$ sind $f\in Lin(U,V)$. Definiere $f^{\circ}(d):U^n\rightarrow K,(u_1,...,u_n)\mapsto d(f(u_1),...,f(u_n))$\\
+\\
+$\uline{Bemerkung:}$ $f^{\circ}(D_{\uline{B}})(v_1,...,v_n)=D_{\uline{B}}(f(v_1),...,f(v_n))=...\cdot D_{\uline{B}}(v_1,...,v_n)$\\
+\\
+$\uline{Lemma\:10.8:}$ a) $f^{\circ}(d)\in Alt_n(U,K) \forall d\in Alt_n(V,K)$\\
+b) $f^{\circ}:Alt_n(V,K)\rightarrow Alt_n(U,K),d\mapsto f^{\circ}(d)$ ist linear.\\
+c) Ist $g:X\rightarrow U$ linear, so gilt: $g^{\circ}(f^{\circ}(d))=(f\circ g)^{\circ}(d)$\\
+\\
+$\uline{Beweis:}$ a) $f^{\circ}(d)$ n-linear, denn: Seien $u_1,...,u_{i-1},u_{i+1},...,u_n\in U$ fest. $u\in U$ variabel.$\Rightarrow u\mapsto f()$ und $v\mapsto d(f(u_1),...,f(u_{i-1}),v,f(u_{i+1}),...,f(u_n))$ sind linear $\Rightarrow$ deren Verkettung:\\
+$u\mapsto d(f(u_1),...,f(u_{i-1}),f(u),f(u_{i+1}),...,f(u_n))$ d.h. $u\mapsto (f^{\circ}(d))(u_1,...,u_{i-1},u,u_{i+1},...,u_n)$ ist lienar.\\
+alternierend: Seien $u_1,...,u_n\in U$ mit $u_i=u_j$ f\"ur ein Paar $1\leq i<j\leq n\Rightarrow f(u_1),...,f(u_n)\in V$ und $f(u_i)=f(u_j)\Rightarrow 0=d(f(u_1),...,f(u_n))=(f^{\circ}(d))(u_1,...,u_n)$\\
+b),c) \"U. \hfill $\Box$\\
+\\
+$\uline{Korollar\:10.9:}$ Gelte $dim V=n\Rightarrow$ F\"ur $f\in End(V)$ und $d\in Alt_n(V,K)\setminus\{0\}$ gelten:\\
+a) $f^{\circ}(d)\in Alt_n(V,K)=K\cdot d$, d.h. $\exists!\lambda_f\in K$ mit $\lambda_f\cdot d$\\
+b) $\lambda_f$ ist unabh\"angig von $d$.\\
+\\
+$\uline{Definition\:10.10:}$ Die $\uline{Determinante}$ von $f\in End(V)$ ist $det(f):=\lambda_f$, d.h. $det:End_K(V)\rightarrow K$\\
+\\
+$\uline{Beweis:}$ a) $f^{\circ}(d)\in Alt_n(V,K)$ nach 10.8. $d\neq 0\Rightarrow d\in Alt_n(V,K)$ ist Basis nach 10.5$\Rightarrow$ erhalte eindeutiges $\lambda\cdot f$\\
+b) Sei $d\in Alt_n(V,K)\setminus\{0\}$ beliebig $\Rightarrow\exists\mu\in K:d'=\mu\cdot d\Rightarrow f^{\circ}(d')=f^{\circ}(\mu\cdot d)\stackrel{f^{\circ}\:lin.}{=}\mu\cdot f^{\circ}(d)\stackrel{a)}{=}\mu\cdot\lambda_f\cdot d=\lambda_f\cdot d'$ \hfill $\Box$\\
+\\
+$\uline{Proposition\:10.11:}$ Sei $\uline{B}=(b_1,...,b_n)$ geordnete Basis von $V$, seien $f,g\in End(V)$ und $\lambda\in K$. Dann gelten: a) $det(f\circ g)=det(f)\cdot det(g)$\\
+b) $det(f)=D_{\uline{B}}(f(b_1),...,f(b_n))$\\
+c) $det(\lambda\cdot f)=\lambda^n\cdot det(f)$\\
+d) $f\in Aut(V)\Leftrightarrow det(f)\neq 0$\\
+e) $det|_{Aut(V)}:Aut(V)\rightarrow K$ ist Gruppenhomom.\\
+\\
+$\uline{Beachte:}$ b) $\Rightarrow det(id_V)=1,$ e) $\Rightarrow det(f^{-1})=det(f)^{-1}$\\
+\\
+\subsection{Die Determinante einer quadratischen Matrix}
+
+Zu $A=(a_{ij})\in M_{nxn}(K)$ betrachte $f=l_{A^t}:V_n(K)\rightarrow V_n(K),v\mapsto A^t\cdot v$\\
+\\
+$\uline{Definition\:10.12:}$ $det(A):=|A|:=det(l_{A^t}$ hei\ss{}t $\uline{Determinante}$ von $A$.\\
+\\
+$\uline{Proposition\:10.13:}$ Es gelten: a) $det(AB)=det(A)\cdot det(B)$ f\"ur $A,B\in M_{nxn}(K)$\\
+b) $det(A)=\sum\limits_{\sigma\in S_n} sgn(\sigma)\cdot a_{1\sigma(1)}...a_{n\sigma(n)}$\\
+\\
+$\uline{Beweis:}$ a) $|A\cdot B|=det(l_{(AB)^t})=det(l_{B^t}\circ l_{A^t})\stackrel{10.11a)}{=}det(l_{B^t})\cdot det(l_{A^t})=|A\cdot B|$ \hfill $\Box$\\
+b) $|A|=det(f)\stackrel{10.11b)}{=}D_{\uline{E}}(f(e_1),...,f(e_n))=D_{\uline{E}}(\sum\limits_{i_k =1}^n a_{1_{i1}}e_{i1},...,\sum\limits_{i_n  =1}^n a_{n_{in}}e_{in})\stackrel{10.4}{=}\sum\limits_{\sigma\in S_n} a_{1\sigma(1)}\cdot ...\cdot a_{n\sigma(n)}\cdot sgn(\sigma)\cdot D_{\uline{E}}(e_1,...,e_n)$ \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ Im weiteren und auch zuvor: $\sum =$Standardbasis von $V_n(K)$ (Spaltenvektoren) und $\uline{E}^{\ast}$ ist Dualbasis von $Z_n(K)$.\\
+\\
+$\uline{Lemma\:10.14:}$ Seien $z_1,...,z_n$ die Zeilen von $A$. Dann gilt $det\begin{pmatrix}
+	z_1\\
+	\vdots\\
+	z_n
+\end{pmatrix}=D_{\uline{E}}\ast(z_1,...,z_n)$, insbesondere ist $(z_1,...,z_n)\mapsto det\begin{pmatrix}
+	z_1\\
+	\vdots\\
+	z_n
+\end{pmatrix}$ alternierend und (K-)n-linear.\\
+\\
+$\uline{Beweis:}$ $det(z_1,...,z_n)^t=det(l_{(z_1 t...z_n t)})\stackrel{10.5}{=}D_{\uline{E}}(z_1 ^t,...,z_n ^t)$. Sei $g:Z_n(K)\rightarrow V_n(K),z\mapsto z^t$ (VR-Isom.)$\Rightarrow \circledast=(g^{\circ}(D_{\uline{E}}))(z_1,...,z_n)$. Behauptung: $g^{\circ}(D_{\uline{E}}=D_{\uline{E}^{\ast}}$ in $Alt_n(Z_n(K),K)$ gen\"ugt zu zeigen: $(g^{\circ}(D_{\uline{E}}))(e_1^{\ast},...,e_n^{\ast}\stackrel{!}{=}D_{\uline{E}^{\ast}}(e_1^{\ast},...,e_n^{\ast})=1$, da $g^{\circ}(D_{\uline{E}})=\mu\cdot D_{\uline{E}^{\ast}}$ f\"ur $\mu\in K$\\
+zu ! : $(g^{\circ}(D_{\uline{E}}))(e_1^{\ast},...,e_n^{\ast})=D_{\uline{E}}((e_1^{\ast})^t,...,(e_n^{\ast})^t)=D_{\uline{E}}(e_1,...,e_n)=1$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:10.15:}$ Entsteht $\tilde{A}$ aus $A$ durch anwenden von E1-E3 (Zeilentransformationen) so gilt:\\
+$det(\tilde{A})=\begin{cases}
+	-det(A) & \text{f\"ur E1 (vertausche verschiedene Zeilen)}\\
+	det(A) & \text{f\"ur E2}\\
+	\lambda\cdot det(A) & \text{f\"ur E3 (Mult. 1Zeile mit }\lambda\neq 0)
+\end{cases}$\\
+\\
+$\uline{Beweis:}$ a) Tausche Zeile $i$ mit Zeile $j,i\neq j$. Sei $\tau=\tau_{(i,j)}$. Dann gilt: $det(\tilde{A})=D_{\uline{E}^{\ast}}(z_1,...,z_i+z_j\cdot\mu,...,z_n)=D_{\uline{E}^{\ast}}(z_1,...,z_n)=(-1)\cdot det(A)$\\
+b) E2: Addiere Zeile $j\cdot\mu$ zu Zeile $i$. $det(\tilde{A})=D_{\uline{E}^{\ast}}(z_1,...,z_i+z_j\cdot\mu,...,z_n)=D_{\uline{E}^{\ast}}(z_1,...,z_n)+D_{\uline{E}^{\ast}}(z_1,...,z_i,...,z_j,....,z_n)\cdot\mu=det(A)$ etc. \hfill $\Box$\\
+\\
+$\uline{Korollar\:10.16:}$ F\"ur $A\in M_{nxn}(K)$ gilt $|A^t|=|A|$\\
+\\
+$\uline{Beweis:}$ 1) Die Aussage gilt f\"ur elementare Matrizen. (wegen 10.15) z.B: $det(S^{(i,j)})=-1=det(S^{(j,i)^t})$ oder $(S^{(i,j)^t}=S^{(i,j)}!$ Analog f\"ur \"ubrige $A_{\lambda}^{(i,j)}$ bzw. $M_{\lambda}^{(i)}$. Beachte $det(A_{\lambda}^{(i,j)})\stackrel{10.15}{=} 1$ (E2 in 10.15)\\
+2) Falls $A$ in $GL_n(K)$, schreibe $A=A_1\cdot ...\cdot A_5$ mit $A_i$ elementar. $det(A^t)=det(A_5^t\cdot A_{5-1}^t\cdot ...\cdot A_1^t)=det(A_5^t)\cdot ...\cdot det(A_1^t)\stackrel{1)}{=}det(A_1)\cdot ....\cdot det(A_5)=det(A)$\\
+3) F\"ur $A\in M_{nxn}(K)\setminus GL_n(K):\Rightarrow A$ und $A^t$ haben nicht vollen Rang $\Rightarrow l_{A^{\circ}},l_A$ nicht invertierbar $\Rightarrow det(A)=det(l_{A^t})=0=det(l_A)=det(A^t)$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:10.17:}$ (\"U) a) $V^n\rightarrow K,(v_1,...,v_n)\mapsto det(v_1,...,v_n)$ ist in $Alt_n(V_n(K),K)$\\
+b) Analogen zu 10.15 gilt f\"ur elementare Spaltentransformationen.\\
+c) (wie im Bsp.) $det\begin{pmatrix}
+	a_1 & & \ast \\
+	 & \ddots &\\
+	 0 & & a_n
+\end{pmatrix}=a_1\cdot ...\cdot a_n$ (auch falls ein $a_i=0!$)\\
+\\
+\subsection{Laplace-Entwicklung}
+
+F\"ur $A\in M_{nxn}(K)$ und $i,j\in\{1,...,n\}$. Sei $A_{i,j}\in M_{n-1xn-1}(K)$ die durch Streichen von Zeile $i$ und Spalte $j$ entstehende Matrix.\\
+\\
+$\uline{Lemma\:10.18:}$ (\"U) Sei $A\in M_{nxn}(K)$ mit Zeile $i$ von der Form $\begin{pmatrix}
+	0 & \dots & 0 & 1 & 0 & \dots & 0
+\end{pmatrix}\Rightarrow det(A)=(-1)^{i+j}det(A_{i,j})$\\
+\\
+$\uline{Satz\:10.19\text{ Laplace'scher Entwicklungssatz}:}$ F\"ur $i,j\in\{1,...,n\}$ gelten a) $det(A)=\sum\limits_{j=1}^n a_{ij}(-1)^{i+j}|A_{ij}|$ (Zeilenentwicklung)\\
+b) $det(A)=\sum\limits_{i=1}^n a_{ij}(-1)^{i+j}|A_{ij}|$ (Spaltenentwicklung)\\
+\\
+$\uline{Beweis:}$ nur a): Sei $A=\begin{pmatrix}
+	z_1\\
+	\vdots\\
+	z_n
+\end{pmatrix}$ ($z_1$ ist Zeile $l$ von $A$)$\Rightarrow |A|=D_{\uline{E}^{\ast}}(z_1,...,z_{i-1},\sum\limits_{j=1}^n a_{ij}\cdot e_j^{\ast},z_{i+1},...,z_n)=\sum\limits_{j=1}^n a_{ij}\cdot D_{\uline{E}^{\ast}}(z_1,....,z_{i-1},e_j^{\ast},z_{i+1},...,z_n)=\sum\limits_{j=1}^n a_{ij}|\circledast_j |\stackrel{\ddot{U}}{=}\sum\limits_{j=1}^n (-1)^{i+j}|A_{ij}|\cdot a_{ij}$ \hfill $\Box$\\
+\\
+$\uline{Korollar\:10.20:}$ F\"ur $k\neq i$ gilt  $\sum\limits_{j=1}^n a_{kj}(-1)^{i+j}det(A_{i,j})=0$\\
+\\
+$\uline{Beweis:}$ Schreibe $A=\begin{pmatrix}
+	z_1\\
+	\vdots\\
+	z_n
+\end{pmatrix}$, d.h. $z_j=$Zeile $l$ von $A$. $det\begin{pmatrix}
+	z_1\\
+	\vdots\\
+	z_{i-1}\\
+	z_k\\
+	z_{i+1}\\
+	\vdots\\
+	z_n
+\end{pmatrix}=\sum\limits_{j=1}^n a_{kj}(-1)^{i+j}det(A_{i,j})$. Zeile $i=$Zeile $k$ (und $k\neq i$) und $Z_n(K)^n\rightarrow K,(w_1,...,w_n)\mapsto det\begin{pmatrix}
+	w_1\\
+	\vdots\\
+	w_n
+\end{pmatrix}$ ist alternierend. \hfill $\Box$\\
+\\
+$\uline{Definition\:10.21:}$ F\"ur $A\in M_{nxn}(K)$ sei die $\uline{Adjunkte}\:Adj(A)\in M_{nxn}(K)$ die Matrix $((-1)^{i+j}det(A_{j,i}))_{i,j=1...n}$\\
+\\
+$\uline{Satz\:10.22:}$ $A\cdot Adj(A)=det(A)\cdot 1_n$. Gilt also $det(A)\neq 0$, so erh\"alt man $A^{-1}=\tfrac{1}{det(A)}\cdot Adj(A)$\\
+\\
+$\uline{Korollar\:10.23\text{ (Regel von Cramer)}:}$ Sei $A\in M_{nxn}(K)$ mit Spalten $a_1,...,a_n\in V_n(K)$. Sei $b\in V_n(K)$. Falls $det(A)\neq 0$, so gelten: a) $|\mathbb{L}(A,b)|=1$\\
+b) Ist $x=\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+\end{pmatrix}$ die L\"osung aus a), so gilt $x_i=\tfrac{det(a_1...a_{i-1}b a_{i+1}....a_n)}{det(a_1...a_n)}$\\
+\\
+$\uline{Beweis:}$ a) $det(A)\neq 0\Rightarrow Rang(A)=n\stackrel{9.4b)}{\Rightarrow}|\mathbb{L}(A,b)|=1$\\
+b) $A\cdot x=b$ bedeutet: $x_1 a_1+x_2 a_2+...+x_n a_n=b$ $\circledast\Rightarrow det(a_1...a_{i-1} b a_{i+1} ... a_n)=\sum\limits_{j=1}^n x_j det(a_1...a_{i-1} a_j a_{i+1} ... a_n)=x_i\cdot 0+...+0 x_{i-1}+ x_j\cdot det(A)+0+...+0$ \hfill $\Box$\\
+\\
+$\uline{Proposition\:10.24:}$ Sei $V$ K-VR mit geordneter Basis $\uline{B}=(b_1,...,b_n)$ und sei $f\in End(V)$. Dann gilt: $det(f)=det(Mat_{\uline{B}}^{\uline{B}}(f))$\\
+\\
+$\uline{Korollar\:10.25:}$ a) $det(Mat_{\uline{B}}^{\uline{B}}(f))$ ist unabh\"angig von $\uline{B}$. (Klar!)\\
+b) \"Ahnliche Matrizen haben dieselbe Determinante. (Klar!) (\"U)\\
+\\
+$\uline{Beweis\:10.24:}$ Betrachte \begin{tabular}{ccc}
+	$V$ & $\stackrel{f}{\rightarrow}$ & $V$ \\
+	$\uparrow ^{\iota}\uline{B}$ & & $\downarrow ^{\iota}\uline{B}^{-1}$\\
+	$V_n(K)$ & $\stackrel{g}{\rightarrow}$ & $V_n(K)$
+\end{tabular} und beachte $d:=(^{\iota}\uline{B}^{-1})^{\circ}(D_{\uline{E}})\in Alt_n(V,K)$.\\
+1) $det(f)=det(g)$: $det(g)\cdot D_{\uline{E}}=g^{\circ}(D_{\uline{E}})=(^{\iota}\uline{B}^{-1}\circ f\circ ^{\iota}\uline{B})^{\circ}(D_{\uline{E}})=^{\iota}\uline{B}^{\circ}\circ f^{\circ} \circ (^{\iota}\uline{B}^{-1})^{\circ}(D_{\uline{E}})=^{\iota}\uline{B}^{\circ} \circ f^{\circ}(d)=^{\iota}\uline{B}^{\circ}(det(f)\cdot d)=det(f)\cdot ^{\iota}\uline{B}^{\circ}(^{\iota}\uline{B}^{-1})^{\circ}(D_{\uline{E}})=det(f)\cdot D_{\uline{E}}$\\
+2) Sei $A:=Mat_{\uline{B}}^{\uline{B}}(f)=Mat(g)$, so dass $g=l_A$. Dann $det(A)=det(A^t)=det(l_{(A^t)^t})=det(l_A)=det(g)=det(f)$ \hfill $\Box$\\
+\\
+\newpage
+\section{Das Charakteristische Polynom und Eigenwerte}
+
+Sei $K$ ein K\"orper.\\
+$\uline{Definition\:11.1:}$ a) Ein $\uline{Polynom}$ \"uber $K$ ist eine Folge $(a_n)_{n\geq 0}$ mit $a_n\in K$. $\forall n$ und $\exists n_0 :\forall n\geq n_0: a_n=0$\\
+b) $P=(0,0,0,...)$ hei\ss{}t $\uline{Nullpolynom}$ (schreibe $P=0$)\\
+c) F\"ur Polynome $P=(a_n)_{n\geq 0}$ und $Q=(b_n)_{n\geq 0}$ \"uber $K$ seien $P+Q:=(a_n +b_n)_{n\geq 0}$. $P\cdot Q:=(\sum\limits_{k=0}^n a_k\cdot b_{n-k})_{n\geq 0}$\\
+$\uline{Grad}P:=\begin{cases}
+	-\infty & P=0 \\
+	max\{n\in\mathbb{N}_0 | a_n\neq 0\} & P\neq 0
+\end{cases}$\\
+Falls $P\neq 0$ nenne $a_{Grad\:P}$ den $\uline{Leitkoeffizienten}$ von $P$, nenne $P$ $\uline{normiert}$, wenn Leitkoeffizient=1.\\
+d) Schreibe $K[T]$ f\"ur die Menge aller Polynome \"uber $K$ (in den Variablen $T$)$\leadsto$ alternative Notation f\"ur $(a_n)_{n\geq 0}$ ist $\sum\limits_{n\geq 0} a_n T^n =a_0 + a_1 T+...+a_m T^m$\\
+\\
+$\uline{Bemerkung:}$ $(K[T],0,1,+,\cdot)$ $(1=(1,0,0,...,0))$ ist ein $\uline{Ring}$: Es gelten Axiome eines K\"orpers, bis auf Elemente in $K[T]\setminus\{0\}$ m\"ussen kein Inverses bez\"uglich $\cdot$ haben.\\
+\\
+$\uline{Definition\:11.2:}$ Sei $P=(a_n)\in K[T]$ a) $P(.):K\rightarrow K,\lambda\mapsto\sum\limits_{n\geq 0} a_n\lambda^n$ hei\ss{}t $\uline{Auswertungsabbildung}$ zu $P$.\\
+b) $\lambda\in K$ hei\ss{}t $\uline{Nullstelle}$ von $P:\Leftrightarrow P(\lambda)=0$\\
+\\
+$\uline{Lemma\:11.3:}$ (\"U) seien $P,Q$ (Polynome) $\in K[T]$ und $\lambda\in K$. Dann: a) $(P+Q)(\lambda)=P(\lambda)+Q(\lambda)$\\
+b) $Grad P\cdot Q=Grad P+Grad Q$, hierbei gelte $-\infty +x=x+(-\infty)=-\infty +(-\infty)=-\infty\:(x\in \mathbb{N}_0)$\\
+c) $P\cdot Q=0\Leftrightarrow P=0 \vee Q=0$\\
+d) $\exists !$Polynom $S\in K[T]$, so dass $P=(T-\lambda)\cdot S+P(\lambda)$\\
+e) $Grad P>Grad Q\Rightarrow$ Leitkoeffizient von $P+Q=$Leitkoeffizient von $P$.\\
+\\
+$\uline{Bemerkung:}$ Polynomdivision gilt f\"ur Polynome $P,Q$ beliebig.\\
+\\
+$\uline{Satz\:11.4:}$ Sei $P\in K[T]\setminus\{0\}$. Dann existiert $k\in\mathbb{N}_0,\lambda_1,...,\lambda_k\in K$ paarweise verschieden, $n_1,...,n_k\in\mathbb{N}$ und $Q\in K[T]$, so dass $P=Q\cdot\prod_{j=1}^k (T-\lambda_j)^{n_j}$ und $Q$ hat keine Nullstelle in $K$. Dabei ist $Q$ eindeutig und $(\lambda_1 n_1),...,(\lambda_k n_k)$ sind eindeutig bis auf Permutationen.\\
+\\
+$\uline{Definition\:11.5:}$ $n_i$ hei\ss{}t $\uline{Vielfachheit}$ der Nullstellen $\lambda_i$.\\
+\\
+$\uline{Beweis:}$ Existenz: Indukton \"uber $Grad P$. $Grad P=0\Rightarrow P=a_0=Q,k=0$. $n=Grad P,n\mapsto n+1:$ $P$ hat keine Nullstellen in $K\Rightarrow Q:=P,k=0$.\\
+Fall: $P$ hat Nullstellen in $K$, diese seien $\lambda\stackrel{11.3}{\Rightarrow}P=(T-\lambda)\cdot P_1 +0$ f\"ur eindeutiges Polynom $P_1$ vom $Grad n$. Nun Ind.Vor: auf $P_1$ anwenden und sauber \dq Buch halten\dq.\\
+Eindeutigkeit; (\"U)\\
+\\
+$\uline{Korollar\:11.5:}$ a) Sei $P\in K[T]\setminus\{0\}$. Dann ist die Zahl der Nullstellen von $P$ in $K$ h\"ochstens $Grad P$.\\
+b) Ist $K$ ein unendlicher K\"orper, so gibt f\"ur $P,Q\in K[T]:P=Q\Leftrightarrow P(.)=Q(.)(\Leftrightarrow P(\lambda)=Q(\lambda) \forall\lambda\in K)$\\
+\\
+$\uline{Beweis:}$ a) Schreibe $P=Q\cdot\prod_{i=1}^k (T-\lambda_i)^{k_i}$ wie in 11.4 $\Rightarrow$ Nullstellen von $P$ sind $\lambda_1,...,\lambda_k$ und $Grad P=Grad Q+\sum\limits_{i=1}^k n_i\geq 0+\sum\limits_{i=1}^k 1=k=$Anzahl der Nullstellen.\\
+b) $P=Q\Leftrightarrow P-Q=0$. Also zz: $P=0\Leftrightarrow P(.)$ ist die Nullabbildung.\\
+$\dq\Rightarrow\dq$ Klar. $\dq\Leftarrow\dq$ Annahme: $P\neq 0\stackrel{a)}{\Rightarrow} P$ hat h\"ochstens $Grad P$ Nullstellen. Andererseits: $P=$Nullabbildung.$\Rightarrow$ alle Elemente von $K$ sind Nullstellen von $P\Rightarrow |K|\leq Grad P$ ist Widerspruch zu $K$ unendlich. \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ $\cdot$ Gilt $Grad P,Grad Q\leq n$ und $|K|>n$, so folgt $P=Q\Leftrightarrow P(.)=Q(.)$\\
+$\cdot$ Eventuell in LA 2: $L[T]\rightarrow Abb(K,K),p\mapsto p(.)$ ist ein Ringhomomorphismus.\\
+\\
+$\uline{Satz\:11.7:}$ (ohne Beweis) a) $\mathbb{C}$ ist algebraisch abgeschlossen (auch in Funktheo 1)\\
+b) Jeder K\"orper ist Unterk\"orper eines algebraisch abgeschlossenen K\"orpers\\
+c) Jeder algebraisch abgeschlossene K\"orper ist unendlich.\\
+\\
+$\uline{Definition\:11.12\text{ Charakteristisches Polynom)}:}$ Sei $V$ ein K-VR mit Basis $\uline{B},f\in End(V),A=Mat_{\uline{B}}^{\uline{B}}(f)$. Definiere $P_{ij}:=\begin{cases}
+	T-a_{ii} & i=j\\
+	-a_{ij} & i\neq j
+\end{cases}$ in $K[T]$ und $P_f:=P_A:=\sum\limits_{\sigma\in S_n}sgn(\sigma)\cdot P_{1\sigma(1)}\cdot...\cdot p_{n\sigma(n)}\stackrel{11.3e)}{\Rightarrow} Grad P_f=$Grad von Summand f\"ur $\sigma=id=n$ und Leitkoeffizient von $P_f=$Leitkoeffizient von $sgn(\sigma)\cdot P_{11}\cdot ...\cdot P_{nn}=$Leitkoeffizient von $1\cdot(T-a_{11})\cdot ...\cdot (T-a_{nn})=1$\\
+b) $P_{ij}(\lambda)=$Koeffizient an $(i,j)$ von $C:=Mat_{\uline{B}}^{\uline{B}}(\lambda\cdot id_V -f)=\lambda\cdot Mat_{\uline{B}}^{\uline{B}}(id_V)-Mat_{\uline{B}}^{\uline{B}}(f)\stackrel{11.3}{\Rightarrow}P_f(\lambda)=\sum\limits_{\sigma\in S_n} sgn(\sigma)\cdot P_{1\sigma(1)}(\lambda)\cdot ...\cdot P_{n\sigma(n)}(\lambda)=\sum\limits_{\sigma\in S_n}sgn(\sigma)\cdot c_{1\sigma(1)}\cdot...\cdot c_{n\sigma(n)}\stackrel{Leibniz}{=}det(C)=det(\lambda id_V-f)$\\
+c) Beweis nur f\"ur $K$ mit $|K|>n$. Nach b) und a): $P_f\in K[T], Grad P=n$ und $P_f(\lambda)=det(\lambda\cdot id_V-f)\forall\lambda\in K$. Sei jetzt $A'=Mat_{\uline{B}'}^{\uline{B}'}(f)$ bez\"uglich Basis $\uline{B}'$ von $V\stackrel{a),b)}{\Rightarrow} P_{A'}\in K[T], Grad P_{A'}=n,P_{A'}(\lambda)=det(\lambda id_V-f) \forall\lambda\in K\Rightarrow P_f(\lambda)=P_{A'}(\lambda)\forall\lambda\in K$ $(|K|\geq n+1)$ und $Grad P_{A'}=Grad P_f=n\Rightarrow P_{A'}=P_f$\\
+d) Folgt aus b) und 10.4, da $\lambda\cdot id_V -f\in End(V)$ ist invertierbar$\Leftrightarrow det(\lambda id_V -f)\neq 0\stackrel{b)}{\Leftrightarrow}P_f(\lambda)\neq 0$ \hfill $\Box$\\
+\\
+$\uline{Berechnung\:von\:P_f:}$ Berechne allgemeine Formel von $P_f(\lambda)$ f\"ur $\lambda\in K$ beliebig (unter der Annahme, dass $K$ unendlich ist) mit Gau\ss{} (oder Sarrus oder...). Ersetze $\lambda$ durch $T$. Tats\"achlich berechne direkt mit $T$. $P_f(\lambda)=det(\lambda id_V-f)!$\\
+\\
+$\uline{Definition\:11.15:}$ Sei $V$ ein VR der Dimension $n\in\mathbb{N},f\in End(V)$. $v\in V$ hei\ss{}t $\uline{Eigenvektor}$ zu $f\Leftrightarrow v\neq 0,\exists\lambda\in K$ mit $f(v)=\lambda\cdot v$\\
+\\
+$\uline{Definition\:11.16:}$ a) $A=(a_{ij})\in M_{nxn}(K)$ hei\ss{}t $\uline{Diagonalmatrix}\Leftrightarrow a_{ij}=0\:\forall i\neq j\Leftrightarrow A=\begin{pmatrix}
+	a_{11} & 0 & 0\\
+	0 & \ddots & 0\\
+	0 & 0 & a_{nn}
+\end{pmatrix}$\\
+b) $f\in End(V)$ hei\ss{}t $\uline{diagonalisierbar}\Leftrightarrow\exists$Basis $\uline{B}$ von $V$, so dass $Mat_{\uline{B}}^{\uline{B}}(f)$ ist Diagonalmatrix.\\
+\\
+$\uline{Satz\:11.17:}$ $f\in End(V)$ ist diagonalisierbar$\Leftrightarrow V$ besitzt Basis $\uline{B}$ aus Eigenvektoren.\\
+\\
+$\uline{Beweis:}$ $\dq\Rightarrow\dq$ sei $\uline{B}$ Basis, so dass $Mat_{\uline{B}}^{\uline{B}}(f)=\begin{pmatrix}
+	\lambda_1 & & 0\\
+	& \ddots & \\
+	0 & & \lambda_n
+\end{pmatrix}$ gilt $(\lambda_1,...,\lambda_n\in K)\Rightarrow$ Betrachte $i$-te Spalte $\Rightarrow f(b_i)=\lambda_i b_i$, da $b_i\neq 0$, haben Basis aus Eigenvektoren.\\
+$\dq\Leftarrow\dq$ Sei $\uline{B}=(b_1,...,b_n)$ Basis aus Eigenvektoren. Gelte $f(b_i)=\lambda_i b_i$ f\"ur geeignetes $\lambda_i\in K\Rightarrow Mat_{\uline{B}}^{\uline{B}}(f)=\begin{pmatrix}
+	\lambda_1 & \dots & 0 & \dots & 0\\
+	\vdots & \ddots & 0 & \vdots & \vdots \\
+	\vdots & \vdots & \lambda_i & \vdots & \vdots \\
+	\vdots & \vdots & \vdots & \ddots & \vdots \\
+	0 & \dots & 0 & \dots & \lambda_n
+\end{pmatrix}$ ist Diagonalmatrix. \hfill $\Box$\\
+\\
+$\uline{Beachte:}$ i) $v\in V$ ist Eigenvektor $\Leftrightarrow v\neq 0\wedge \exists\lambda\in K$. $f(v)=\lambda\cdot id_V(v)\Leftrightarrow v\neq 0\wedge\exists\lambda\in K$ mit ($\lambda\cdot id_V -f)(v)=0\Leftrightarrow\exists\lambda\neq 0:v\in Kern(\lambda id_V-f)\setminus\{0\}$\\
+ii) $Kern(\lambda id_V-f)\supset\{0\}\Leftrightarrow \lambda\cdot id_V -f$ kein Monomorphismus $\Leftrightarrow \lambda id_V -f$ ist nicht invertierbar$\Leftrightarrow 0=det(\lambda id_V-f)=P_f(\lambda)$\\
+\\
+$\uline{Lemma\:11.18:}$ a) $v\in V$ ist EV zu $f\Rightarrow\exists!$ EW $\lambda$ von $f$ mit $f(v)=\lambda\cdot v$\\
+b) Ist $\lambda$ ein EW von $f$ in $K$, so existiert ein EV $v$ zu $f$ mit $f(v)=\lambda\cdot v$\\
+\\
+$\uline{Definition\:11.19:}$ $E_f(\lambda):=\{v\in V|f(v)=\lambda v\}=Kern(\lambda id_V-f)$ hei\ss{}t $\uline{Eigenraum}$ zu $\lambda\in K$\\
+\\
+$\uline{Bemerkung:}$ a) $E_f(\lambda)\supset\{0\}\Leftrightarrow \lambda$ ist EW zu $f$\\
+b) Menge aller EV'en zu $f=\stackrel{\cup}{\lambda\in K,EW\:zu\:f}(E_f(\lambda)\setminus\{0\})\Rightarrow$Bestimmung aller EV'en: i) Berechne $P_f$\\
+ii) Berechne die Nullstellen von $P_f$ in $K$.\\
+iii) $\forall EV'e\lambda$ von $f$ berechne $Kern(\lambda id_V-f)$\\
+\\
+$\uline{Definition\:11.20:}$ $\mu_f(\lambda):=\uline{Vielfachheit}$ von $\lambda$ als Nullstelle von $P_f$\\
+\\
+$\uline{Bemerkung:}$ $\mu_f(\lambda)=0$ falls $\lambda$ kein EW zu $f$, sonst: $1\leq \mu_f(\lambda)\leq n$\\
+\\
+$\uline{Lemma\:11.21:}$ $dim E_f(\lambda)\leq \mu_f(\lambda)$\\
+\\
+$\uline{Satz\:11.22:}$ F\"ur $f\in End(V)$. $V$ endlich-dimensionaler K-VR, sind \"aquivalent:\\
+a) $f$ ist diagonalisierbar\\
+b) i) $P_f$ zerf\"allt in Linearfaktoren (in $K[T])\wedge$ ii) $\forall$ EW$\lambda$ von $f$ gilt $dim E_f(\lambda)=\mu_f(\lambda)$\\
+c) $\sum\limits_{\lambda\in K} dim E_f(\lambda)=dim V$\\
+\\
+$\uline{Definition\:11.23:}$ a) UVR'e$U_1,...,U_k$ von $V$ hei\ss{}en l.u. $:\Leftrightarrow \forall(u_1,...,u_k)\in U_1\times...\times U_k:u_1+...u_k=0\Rightarrow(u_1,...,u_k)=(0,...,0).$ in Diesem Fall schreiben wir $U_1\oplus U_2\oplus...\oplus U_k$ f\"ur $L(U_1\cup U_2\cup....\cup U_k)$\\
+b) UVR'e $U_1,...,U_k$ von $V$ bilden $\uline{Zerlegung}$ von $V\Leftrightarrow U_1,...,U_k$ sind k.u. und $U_1\oplus...\oplus U_k=V$\\
+\\
+$\uline{Bemerkung:}$ Sind $u_1,...,u_n\in V$ l.u.,, so sind $U_1=K\cdot u_1,...,U_k=K\cdot u_k$ l.u.. Bilden $u_1,...,u_k$ Basis von $V$, so bilden $K\cdot u_1,...,K\cdot u_k$ eine Zerlegung von $V$.\\
+\\
+$\uline{Lemma\:11.24:}$ Seien $U_1,...,U_k$ l.u. UVR'e von $V$, sei $B_i$ Basis von $U_i,i=1...k$. Dann gelten:\\
+a) $B_1,...,B_k$ sind paarweise disjunkt und $B=\bigcup\limits_{i=1}^k B_i$ ist Basis von $U_1\oplus...\oplus U_k$\\
+b) Bilden $U_1,...,U_k$ eine Zerlegung von $V$, so ist $B$ (aus a)) Basis von $V$.\\
+\\
+$\uline{Beweis:}$ b) folgt direkt aus a) under der Definition von Zerlegung.\\
+a) $B$ ist ES von $U_1\oplus...\oplus U_k$: Denn $L(U_1\cup...\cup U_k)=L(B_1\cup...\cup B_k)$.\\
+$B$ ist l.u. (und $B_i$ paarweise disjunkt): Gelte $0=\sum\limits_{b\in B_i}\lambda_b\cdot b=0$ f\"ur $i=1...k\Rightarrow \lambda_b=0\forall b\in B_i \forall i=1...k\Rightarrow$ Behauptung. \hfill $\Box$\\
+\\
+$\uline{Korollar\:11.25:}$ Seien $U_1,...,U_k$ l.u. UVR'e von $V$. Dann gelten:\\
+a) $dim U_1\oplus...\oplus U_k=\sum\limits_{i=1}^k dim U_i$ (denn $|B|=\sum\limits_{i=1}^k |B_i|$ im Lemma)\\
+b) $U_1,...,U_k$ bilden Zerlegung von $V\Leftrightarrow\sum\limits_{i=1}^k dim U_i=dim V$\\
+\\
+$\uline{Lemma\:11.26:}$ F\"ur $f\in End(V)$ ($dim V<\infty$) seien $\lambda_1,...,\lambda_k\in K$ paarweise verschiedene Eigenwerte von $f$. Dann sind $E_f(\lambda_1),...,E_f(\lambda_k)$ l.u. UVR'e von $V$.\\
+\\
+$\uline{Beweis:}$ Sei $v_i\in E_f(\lambda_i)$ f\"ur $i=1...k$. Gelte $v_1+...+v_k=0$. zz: $v_1=...=v_n=0$\\
+Definiere $f_i\in End(V)$ durch $f_i:=(\lambda_1\cdot id_V -f)\circ ...\circ (\lambda_{i-1} id_V-f)\circ(\lambda_{i+1}id_V-f)\circ ...\circ(\lambda_k id_v -f)\Rightarrow$F\"ur einen EV $w$ zu $f$ mit $f(w)=\lambda\cdot W$ gilt $f_i(w)=(\lambda_1-\lambda)...(\lambda_{i-1}-\lambda)(\lambda_{i+1}-\lambda)...(\lambda_k-\lambda)\cdot w\Rightarrow 0=f_i(0)=f_i(v_1+...+v_k)=\sum\limits_{l=1}^k f_i(v_l)=\sum\limits_{l=1}^k (\lambda_1 -\lambda_l)...(\lambda_{i-1}-\lambda_l)(\lambda_{i+1}-\lambda_l)...(\lambda_k-\lambda_l)\cdot v_l=0+...+0+(\lambda_1-\lambda_i)...(\lambda_{i-1}-\lambda_i)(\lambda_{i+1}-\lambda_i)...(\lambda_k-\lambda_i)v_i+0+...+0+0$. D.h. $0=(Skalar\neq 0)\cdot v_i\Rightarrow v_i=0$ \hfill $\Box$\\
+\\
+$\uline{Beachte:}$ $f_i|_{E_f(\lambda_1)\oplus...\oplus E_f(\lambda_k)}$ ist surjektive lineare Abbildung. $E_f(\lambda_1)\oplus...\oplus E_f(\lambda_k)\rightarrow E_f(\lambda_i)$\\
+\\
+$\uline{Beweis\:von\:Satz:}$ a)$\Rightarrow$b): W\"ahle $\uline{B}$ Basis von $V$ mit $Mat_{\uline{B}}^{\uline{B}}(f)=\begin{pmatrix}
+	\mu_1 & & 0\\
+	& \ddots &\\
+	0 & & \mu_n
+\end{pmatrix}$. Umordnen der $\mu_i\Rightarrow Mat_{\uline{B}}^{\uline{B}}(f)=Diag(\lambda_1,...,\lambda_1,\lambda_2,...,\lambda_2,...,\lambda_k,...,\lambda_k)$ wobei $\lambda_1,...,\lambda_k$ paarweise verschieden. $n_i=$Vielfachheit mit der $\lambda_i$ in der Diagonalmatrix auftritt und $n_1+...+n_k=n\\
+\Rightarrow P_f=det\begin{pmatrix}
+	T-\lambda_1 & & & & & & \\
+	& \ddots & & & & &\\
+	& & T-\lambda_1 & & & &\\
+	& & & \ddots & & & \\
+	& & & & T-\lambda_k  & &\\
+	& & & & & \ddots & \\
+	& & & & & & T-\lambda_k
+\end{pmatrix}=(T-\lambda_1)^{n_1}\cdot...\cdot(T-\lambda_k)^{n_k}\Rightarrow \mu_f(\lambda_i)=n_i$ zerf\"allt in Linearfaktoren und $E_f(\lambda)=Kern(Diag(\lambda_i-\lambda_1,...,\lambda_i-\lambda_1,...,\lambda_i-\lambda_{i-1},\lambda_i-\lambda_{i-1},0,...,0,$Eintr\"age $\neq 0)$. $\Rightarrow dim E_f(\lambda)=\mu_f(\lambda_i\:\forall i=1...k)$\\
+b)$\Rightarrow$c): $\sum\limits_{\lambda\in K} dim E_f(\lambda)=\sum\limits_{\lambda\in K} dim E_f(\lambda)=\sum\limits_{i=1}^k \mu_f(\lambda_i)=Grad P_f=dim V$\\
+c)$\Rightarrow$a): Seien $\lambda_1,...,\lambda_n$ die paarweise verschiedenen EW'e von $f$. Sei $B_i$ Basis von $E_f(\lambda_i)$. c)$\Rightarrow\sum dim(E_f(\lambda_i)=dim V$. 11.26: $\Rightarrow E_f(\lambda_1),...,E_f(\lambda_k)$ sind l.u.$\stackrel{11.25}{\Rightarrow} v=E_f(\lambda_1)\oplus...\oplus E_f(\lambda_k)$ und 11.24: $B=B_1\mathbin{\dot{\cup}}B_2\mathbin{\dot{\cup}}...\mathbin{\dot{\cup}}B_k$ ist Basis von $V$ von EV'en zu $f\Rightarrow f$ diagonalisierbar. \hfill $\Box$\\
+\\
+$\uline{Bemerkung:}$ $det(f-\lambda\cdot id_V)=(-1)^{dim V}\cdot det(\lambda\cdot id_v -f)$\\
+\\
+$\uline{Bemerkung:}$ Es gilt stets $\sum\limits_{\lambda\in K} dim E_f(\lambda)\leq dim V$ (zu 11.22). Denn: $\sum\limits_{\lambda\in K}dim E_f(\lambda\leq \sum\limits_{\lambda\in K}\mu_f(\lambda)=\sum\limits_{\lambda\in K}\mu_f(\lambda)\leq Grad(P_f)=dim V$\\
+\\
+$\uline{Korollar\:11.27:}$ F\"ur $f\in End(V)$ ($dim V<\infty)$ gilt: Hat $f$ $dim V$ verschiedene Eigenwerte, so ist $f$ diagonalisierbar.\\
+\\
+$\uline{Beweis:}$ Ist $\lambda\in K$ ein EW zu $f$, so gilt $dim E_f(\lambda)\geq 1\Rightarrow \sum\limits_{\lambda\in K} dim E_f(\lambda)\geq\sum\limits_{\lambda\in K} 1\geq dim V\Rightarrow f$ ist diagonalisierbar. \hfill $\Box$\\
+\\
+\newpage
+\section{Euklidische und unit\"are Vektorr\"aume}
+
+Sei $K\in\{\mathbb{R},\mathbb{C}\}$. $\uline{Ziel:}$ Zusatzstruktur eines Skalarproduktes auf einem K-VR $\leadsto$anschaulich: K\"onnen L\"angen und Winkel \dq messen\dq.\\
+$\uline{Wiederholung:}$ $\cdot$ $\mathbb{R}\subseteq\mathbb{C}=\mathbb{R}+i\cdot\mathbb{R}$ identifiziere $a\in\mathbb{R}$ mit $a+i\cdot0\in\mathbb{C}$\\
+$\cdot$ $\overline{}:\mathbb{C}\rightarrow\mathbb{C},z=a+i\cdot b\mapsto\overline{z}=a-i\cdot b$ ist komplexe Konjugation, wobei $\mathbb{R}=\{z\in\mathbb{C}|\overline{z}=z\}$\\
+F\"ur $z=a+i\cdot b$, mit $a,b\in\mathbb{R}$. i) $|z|=\sqrt{a^2+b^2}$ und $|z|^2=z\cdot\overline{z}$\\
+ii) $|z|=0\Leftrightarrow z=0$\\
+iii) $Re(z):=a=\tfrac{1}{2}(z+\overline{z})$ und $Im(z):=b=\tfrac{1}{2i}(z-\overline{z})$\\
+\\
+$\uline{Lemma\:12.1:}$ (\"U) Seien $z,w\in\mathbb{C}$ beliebig, dann gilt: a) $|z\cdot w|=|z|\cdot|w|$\\
+b) Ist $\uline{arg(z)}$ der Winkel zwischen $z$ und $\mathbb{R}_{\geq 0}$, so gilt $arg(z\cdot w)=arg(z)+arg(w)-\begin{cases}
+	0 & arg(z)\neq arg(w)<2\pi\\
+	2\pi & arg(z)\neq arg(w)\geq 2\pi
+\end{cases}$\\
+c) $\forall z\in\mathbb{C}\exists\lambda\in\mathbb{C}$ mit $|\lambda|=1$, so dass $|z|=\lambda\cdot z$ (falls $z\neq 0:\lambda=\tfrac{\overline{z}}{|z|}$)\\
+\\
+$\uline{Definition\:12.2:}$ Seien $V,W$ K-VR'e, $K\in\{\mathbb{R},\mathbb{C}\}$. Eine Abbildung $f:V\rightarrow K$ hei\ss{}t $\uline{c-linear}:\Leftrightarrow\forall v_1,v_2\in V$ und $\lambda\in K:f(v_1+v_2)=f(v_1)+f(v_2)\wedge f(\lambda\cdot v_1)=\overline{\lambda}\cdot f(v_1)$\\
+\\
+$\uline{Bemerkung:}$ F\"ur $K=\mathbb{R}$ gilt linear=c-linear.\\
+\\
+$\uline{Definition\:12.3:}$ Sei $V$ ein K-VR. Eine Abbildung $<.,.>:V\times V\rightarrow K,(v,w)\mapsto <v,w>$ hei\ss{}t:\\
+a) $\uline{symmetrische\:Bilinearform}$ (SBF), falls $K=\mathbb{R}$; $\uline{Hermitesche\:Form}$ (HF) falls $K=\mathbb{C}$ sofern gelten:\\
+(S-H-1): $\forall w\in V$ ist $V\rightarrow K,v\mapsto <v,w>$ linear\\
+(S-H-2): $\forall v\in V$ ist $V\rightarrow K,w\mapsto <v,w>$ c-linear\\
+(S-H-3) $\forall v,w\in V:<v,w>=\overline{<v,w>}$\\
+b) $\uline{Skalarprodukt}\Leftrightarrow <.,.>$ ist SBF bzw. HF und es gilt $(P)$ $\forall v\in V\setminus\{0\}:<v,v>\in\mathbb{R}_{\geq 0}=\{r\in\mathbb{R}|r>0\}$\\
+c) Ist $<.,.>$ ein Skalarprodukt auf $V$, so hei\ss{}t $(V,<.,.>)$ $\uline{Euklidischer}\:(K=\mathbb{R})$ bzw. $\uline{unit\ddot{a}rer}\:(K=\mathbb{C})$ Vektorraum. Falls $dim V<\infty$, nennen wir $(V,<.,.>)$ einen endlich-dimensionalen $\uline{Hilbertraum}$ (HR).\\
+\\
+$\uline{Beispiel:}$ $V=V_n(K),<.,.>:V_n(K)\times V_n(K)\rightarrow K,(v,w)\mapsto v^t\cdot \overline{w}$ ist ein Skalarprodukt.\\
+\\
+Sei im weiteren stets $(V,<.,.>)$ ein unit\"arer/Euklidischer Vektorraum.\\
+$\uline{Definition\:12.4:}$ a) F\"ur $v\in V$ hei\ss{}t $||v||=\sqrt{<v,v>}$ die $\uline{Norml\ddot{a}nge}$ von $V$.\\
+b) Ist $(V,<.,.>)$ ein Euklidischer Vektorraum und sind $u,w\in V\setminus\{0\}$, so hei\ss{}t $\varphi\in[0,\pi]$ der $\uline{Winkel}$ zwischen $v$ und $w\Leftrightarrow cos\varphi=\tfrac{<v,w>}{||v||\cdot||w||}\in [-1,1]$\\
+c) $v,w\in V$ hei\ss{}en $\uline{orthogonal}\Leftrightarrow <v,w>=0$\\
+\\
+$\uline{Lemma\:12.5:}$ F\"ur $v,w\in V$ und $\lambda\in K$ gelten: a) $||\lambda\cdot v||=|\lambda|\cdot||v||$\\
+b) $v=0\Leftrightarrow ||v||=0$\\
+c) $v\neq 0\Rightarrow ||\tfrac{1}{||v||}\cdot v||=1$\\
+d) $||v\pm w||^2=||v||^2+||w||^2\pm 2\cdot Re<v,w>$\\
+\\
+$\uline{Beweis:}$ a) $||\lambda\cdot v||=\sqrt{<\lambda v,\lambda v>}\stackrel{SH1}{=}\sqrt{\lambda <v,\lambda v>}\stackrel{SH2}{=}\sqrt{\lambda\overline{\lambda}<v,v>}=\sqrt{|\lambda |^2||v||^2}=|\lambda|||v||$\\
+b) folgt aus $(P)$ und $<0,0>=0$\\
+c) folgt aus a) und b)\\
+d) $||v\pm w||^2=<v\pm w,v\pm w>\stackrel{SH1,SH2}{=}<v,v>\pm <v,w>\pm <w,v>+<w,w>=||v||^2+||w||^2\pm(<v,w>+\overline{<v,w>})=||v||^2 +||w||^2\pm 2\cdot Re<v,w>$\hfill $\Box$\\
+\\
+$\uline{Satz\:12.6:}$ a) (Cauchy-Schwartz-Ungleichung): $\forall v,w\in V:|<v,w>|\leq ||v||\cdot ||w||$\\
+b) (Dreiecksungleichung) $\forall v,w\in V: ||v+w||\leq ||v||+||w||$\\
+\\
+$\uline{Beweis:}$ $\uline{a)\Rightarrow b):}$ 12.5$\Rightarrow ||v+w||^2=||v||^2+||w||^2+2\cdot Re<v,w>\leq ||v||^2+||w||^2+2|<v,w>|\leq ||v||^2+||w||^2+2\cdot||v||\cdot||w||=(||v||+||w||)^2\stackrel{\sqrt{}}{\Rightarrow} ||v+w||\leq ||v||+||w||$\\
+a) Falls $<v,w>=0\Rightarrow$ Aussage klar. Im weiteren $<v,w>\neq 0\Rightarrow v,w\neq 0\Rightarrow ||v||,||w||>0$. Dividiere Ungleichung durch $||v||\cdot||w||(>0)\Rightarrow\tfrac{|<v,w>|}{||v||\cdot||w||}\leq 1\Rightarrow|<\tfrac{1}{||v||}\cdot v,\tfrac{1}{||w||}\cdot w>|\leq 1\Rightarrow\uline{zz:}$ $\forall v,w\in V$ mit $||v||=||w||=1$ gilt $|<v,w>|\leq 1$.\\
+W\"ahle $\lambda\in\mathbb{C}$ mit $|\lambda|=1$,so dass $\lambda\cdot <v,w>=|<v,w>|\in\mathbb{R}_{\geq 0}$, d.h. $|<v,w>|=<\lambda\cdot v,w>=Re<\lambda\cdot v,w>\Rightarrow 0\leq ||\lambda\cdot v-w||^2=||\lambda\cdot v||^2-2\cdot Re<\lambda v,w>+||w||^2\Rightarrow 2|<v,w>|=2\cdot Re<\lambda v,w>\leq ||v||^2+||w||^2=2\Rightarrow |<v,w>|\leq 1$\hfill $\Box$\\
+\\
+$\uline{Definition\:12.7 \text{(Darstellungsmatrizen zu einem Skalarprodukt)}:}$ Sei $V$ ein endlich-dimensionaler K-VR mit Basis $\uline{B}=(b_1,...,b_n)$ und sei $<.,.>$ eine SBF/HF. Dann hei\ss{}t $Mat_{\uline{B}}(<.,.>)=(<b_i,b_j>)_{i,j\in\{1,...,n\}}\in M_{nxn}(K)$ Darstellungsmatrix von $<.,.>$ bez\"uglich $\uline{B}$\\
+\\
+$\uline{Proposition\:12.8:}$ Haben $v,w\in V$ die Koordinaten $(\lambda_1,...,\lambda_n)$ bzw. $(\mu_1,...,\mu_n)$ bez\"uglich $\uline{B}$ (d.h. $v=\sum\limits_{i=1}^n \lambda_i b_i,w=\sum\limits_{i=1}^n \mu_i b_i$), so gilt $<v,w>=(\lambda_1,...,\lambda_n)\cdot Mat_{\uline{B}}(<.,.>)(\overline{\mu_1},...,\overline{\mu_n})^t$\\
+\\
+$\uline{Beweis:}$ $<\sum\limits_{i=1}^n \lambda_i b_i,\sum\limits_{j=1}^n \mu_j b_j>=\sum\limits_{i=1}^n \sum\limits_{j=1}^n \lambda_i \overline{\mu_j}<b_i,b_j>=$ rechte Seite. \hfill $\Box$\\
+\\
+$\uline{Definition\:12.9:}$ Sei $A=(a_j)\in M_{nxn}(K)$. a) $A$ hei\ss{}t $\uline{symmetrisch}:\Leftrightarrow A=A^t(\Leftrightarrow a_{ij}=a_{ji}, \forall i,j\in\{1...n\})$\\
+b) $\overline{A}=(\overline{a}_{ij})\in M_{nxn}(K),A^{\ast}=A^{-t}(\Rightarrow A^{\ast}=A^t$ falls $K=\mathbb{R}$)\\
+c) $A$ hei\ss{}t $\uline{hermitesch}\Leftrightarrow A=A^{\ast}$\\
+\\
+$\uline{Beispiel:}$ $\begin{pmatrix}
+	1 & i \\
+	-i & 1
+\end{pmatrix}$ ist hermitesch, nicht symmetrisch.\\
+\\
+$\uline{Proposition\:12.10:}$ Sei $V$ ein K-VR mit Basis $\uline{B}=(b_1,...,b_n)$. Dann ist die folgende Abbildung wohl-definiert und bijektiv: $\{<.,.>:V\times V\rightarrow K|<.,.>$ eine $\stackrel{SBF}{HF}\}\rightarrow\{A\in M_{nxn}(K)|A=A^{\ast}\},<.,.>\mapsto Mat_{\uline{B}}(<.,.>)$. Umkehrabbildung: ($<.,.>:(\sum \lambda_i b_i,\sum \mu_j b_j)\mapsto(\lambda_1,...,\lambda_n)\cdot A\cdot \begin{pmatrix}
+	\overline{\mu_1}\\
+	\vdots\\
+	\overline{\mu_n}
+\end{pmatrix})\leftarrow\joinrel\mapstochar A$\\
+\\
+$\uline{Beweis:}$ (\"U) wohl-definiert: $\uline{zz:}$ $Mat_{\uline{B}}(<.,.>)$ ist hermitesch! \hfill $\Box$\\
+\\
+$\uline{Proposition\:12.11:}$ Sei $V$ ein K-VR mit Basis $\uline{B}=(b_1,...,b_n)$. Sei $(a_{ij}\in M_{nxn}(K)$ hermitesch. Dann gilt: $<.,.>_A$ ist Skalarprodukt$\Leftrightarrow \forall k=1,...,n$ gilt $det((a_{ij})_{i,j=1...k})\in\mathbb{R}_{\geq 0}$\\
+\\
+$\uline{Lemma\:12.12:}$ Sei $V$ ein VR \"uber $K$ mit Basen $\uline{B}=(b_1,...,b_n)$ und $\uline{C}$ und sei $<.,.>$ SBF/HF und sei $T:=Mat_{\uline{B}}^{\uline{C}}(id_V)$, dann gilt: $Mat_{\uline{B}}(<.,.>)=T^t\cdot Mat_{\uline{C}}(<.,.>)\cdot \overline{T}$\\
+\\
+$\uline{Beweis:}$ Schreibe $v,w\in V$ als $v=(b_1,...,b_n)\begin{pmatrix}
+	\lambda_1\\
+	\vdots\\
+	\lambda_n
+\end{pmatrix}=\sum \lambda_i b_i,w=(b_1,...,b_n)\begin{pmatrix}
+	\mu_1\\
+	\vdots\\
+	\mu_n
+\end{pmatrix}=\uline{mu}$. Definition von $T$: $\uline{B}=\uline{C}\cdot T\Rightarrow v=\uline{B}\cdot\uline{\lambda}=\uline{C}\cdot(T\cdot\uline{\lambda},
+w=\uline{B}\cdot\uline{\mu}=\uline{C}\cdot(T\cdot\uline{\mu})$, d.h. $v,w$ haben die Koordinaten $T\cdot\uline{\lambda}$ bzw. $T\cdot\uline{\mu}$ bez\"uglich $\uline{C}$.\\
+Wir erhalten: $<v,w>=\uline{\lambda}^t\cdot Mat_{\uline{B}}(<.,.>)\cdot\uline{\overline{\mu}}$ und $<v,w>=(T\cdot\lambda)^t\cdot Mat_{\uline{C}}(<.,.>)\cdot(T\cdot\uline{\mu})=(\lambda^t(T^tMat_{\uline{C}}(<.,.>)\overline{T})\overline{\uline{\mu}})\Rightarrow$ Behauptung. \hfill $\Box$\\
+\\
+$\uline{Lemma\:12.13:}$ (\"U) $det(\overline{A})=\overline{det(A)}$ f\"ur $A\in M_{nxn}(K)$\\
+\\
+$\uline{Korollar\:12.14:}$ (\"U) Unter den Voraussetzungen von 12.12 gilt: $det(Mat_{\uline{B}}(<.,.>))=det(Mat_{\uline{C}}(<.,.>))\cdot |det(T)|^2$\\
+\\
+$\uline{Bemerkung:}$ $det(Mat_{\uline{B}}(<.,.>))$ hei\ss{}t $\uline{Diskriminante}$ von $<.,.>$ bez\"uglich $\uline{B}$.\\
+\\
+Sei ab nun $(V,<.,.>)$ ein endlich-dimensionaler Hilbertraum.\\
+$\uline{Definition\:12.15:}$ Vektoren $v_1,...,v_r\in V$ hei\ss{}en i) $\uline{orthogonal}\Leftrightarrow\forall i\neq j:v_i\perp v_j(:\Leftrightarrow <v_i,v_j>=0)$\\
+ii) $\uline{orthonormal}:\Leftrightarrow v_1,...,v_r$ sind orthogonal und $||v_i||=1$ f\"ur $i=1...r$\\
+iii) $\uline{Orthonormalbasis}$(ONB)$:\Leftrightarrow v_1,...,v_r$ sind orthonormal und bilden Basis.\\
+\\
+$\uline{Lemma\:12.16:}$ Ist $\uline{C}$ eine Basis von $V$, so gilt: $\uline{C}$ ist ONB$\Leftrightarrow\forall i,j\in\{1...n\}:<c_i,c_j>=\begin{cases}
+	1 & i=j\\
+	0 & i\neq j
+\end{cases}\Leftrightarrow Mat_{\uline{C}}(<.,.>)=1_n$\\
+\\
+$\uline{Lemma\:12.17:}$ Sind $v_1,...,v_r\in V$ orthonormal, so sind sie l.u.\\
+\\
+$\uline{Beweis:}$ Setze an: $\sum\limits_{i=1}^r \lambda_i v_i=0$ f\"ur $\lambda_1,...,\lambda_r\in K$ (zz:alle $\lambda_i=0$). Bilde $<.,v_j):0=\sum\limits_{i=1}^r \lambda_i<v_i,v_j>=\lambda_j\Rightarrow$ Behauptung. \hfill $\Box$\\
+\\
+$\uline{Lemma\:12.18\text{ (Gram-Schmidt-Verfahren)}:}$ Sei $\uline{B}=(b_1,...,b_n)$ Bassi von $V$. Definiere rekursiv: $c_i':=b_i-\sum\limits_{j=1}^{i-1} <b_i,c_j>\cdot c_j$ und $c_j=\tfrac{1}{||c_i'||}\cdot c_i'$ f\"ur $i=1...n$. Dann sind $c_1,...,c_n$ wohl-definiert und bilden ONB von $V$.\\
+\\
+$\uline{Korollar\:12.19:}$ Jeder endlich-dimensionale HR besitzt eine ONB.\\
+\\
+$\uline{Korollar\:12.20:}$ Ist $\uline{B}$ Basis von $V$, so gilt $det(Mat_{\uline{B}}(<.,.>))\in\mathbb{R}_{\geq 0}$\\
+\\
+$\uline{Korollar\:12.21:}$ Voraussetzungen wie in 12.20. Sei $A:=Mat_{\uline{B}}(<.,.>)=:(a_{ij})$. Dann gilt $det((a_{ij})_{i,j=1...k})\in\mathbb{R}_{\geq 0}$ $\forall k=1...n$\\
+\\
+$\uline{Beweis:}$ Definiere $V_k:=L(\{b_1,...,b_k\})\subseteq V$ (UVR),$<.,.>_k :=<.,.>|_{V_k\times V_k}:V_k\times V_k\rightarrow K$\\
+(\"U) $<.,.>_k$ Skalarprodukt auf $V_k$.\\
+Sei $\uline{B}_k=(b_1,...,b_k)$ von $V_k\Rightarrow Mat_{\uline{B}_k}(<.,.>_k)=(a_{ij})_{i,j=1...k}\Rightarrow$ Behauptung. \hfill $\Box$\\
+\\
+$\uline{Beweis\:von\:12.18:}$ Induktion \"uber $i\in\{1...n\}$ zeige: $c_i'\neq 0,c_1,...,c_i$ sind orthonormal, bilden ONB von $L(\{b_1,...,b_i\})=:V_i$ (UVR von $V$)\\
+IA: i=1: $c_1'=b_1\neq 0$ (da $\uline{B}$ Basis). $c_1=\tfrac{1}{||b_1||}\cdot b_1\Rightarrow ||c_1||=1$ und $c_1$ ist ONB von $V_1$\\
+IS: i$\mapsto$i+1: $c_{i+1}'=b_{i+1}-\sum\limits_{j=1}^i <b_{i+1},c_j>\cdot c_j$. Falls $c_{i+1}'=0$, so folgt $b_{i+1}\in L(\{c_1,...,c_n\})\stackrel{IV}{=}L(\{b_1,...,b_i\})=V_i$. Widerspruch zu $b_1,..,b_n$ l.u.!\\
+$\Rightarrow$ wir k\"onnen $c_{i+1}$ bilden.\\
+Orthonormalit\"at? $<c_{i+1},c_{i+1}>=1$ nach Def. $<c_j,c_j'>=\begin{cases}
+	1 & j=j'\\
+	0 & j\neq j'
+\end{cases}$ f\"ur $1\leq j,j'\leq i$ nach IV. Nun: f\"ur $1\leq j'\leq i:<c_{i+1}',c_j>=<b_{i+1},c_j'>-\sum\limits_{j=1}^i <b_{i+1},c_j>\cdot <c_j,c_j'>=<b_{i+1},c_j'>-<b_{i+1},c_j'><c_j,c_j'>=0$. D.h. $c_{i+1}'\perp c_j$ f\"ur $j=1...i$, d.h. $c_1,...,c_{i+1}$ sind orthonormal in $V_{i+1}\Rightarrow c_1,...,c_{i+1}$ ist Basis von $V_{i+1}$ \hfill $\Box$\\
+\\
+$\uline{Beweis\:von\:12.11:}$ Sei $V$ ein K-VR mit Basis $\uline{B}=\{b_1,...,b_n\}$, erf\"ulle $A=(a_{ij})\in M_{nxn}(K)$ die Bedingung der rechten Seite von 12.11. Sei $<.,.>:=<.,.>_{A,B}$, d.h. $<\sum\limits_{i=1}^n \lambda_i b_i,\sum\limits_{j=1}^n \mu_j b_j>=\sum\limits_{i,j=1}^n \lambda_i\overline{\mu_i}a_{ij}$.\\
+Induktion \"uber $n=dim V:$ IA: n=1: $A=(a_{11}$ mit $a_{11}\in\mathbb{R}_{\geq 0}$. Neue Basis $c_1:=\tfrac{1}{\sqrt{a_{11}}}b_1\Rightarrow Mat_{\uline{C}}(<.,.>)=(1)\Rightarrow <.,.>$ ist positiv definit.\\
+IS: n$\mapsto$ n+1: IV$\Rightarrow$ F\"ur $V_n:=L(\{b_1,...,b_n\})$ ist $<.,.>|_{V_n\times V_n}:V_n\times V_n\rightarrow K$ ist positiv definit.\\
+Denn: $Mat_{(b_1,...,b_n)}(<.,.>_n)=(a_{ij})_{i,j=1...n}(\Rightarrow$K\"onnen IV anwenden)\\
+W\"ahle ONB $c_1,...,c_n$ von $V_n$, erg\"anze durch $c_{n+1}:=b_{n+1}$ zu Basis von $V$.\\\
+Basiswechsel: $Mat_{\uline{C}}(<.,.>)=\begin{pmatrix}
+	1 & & 0 & a_{1,n+1}\\
+	 & \ddots & & \vdots \\
+	 0 & & 1 & \vdots\\
+	 a'_{n+1,1} & \dots &\dots & a_{n+1,n+1}
+\end{pmatrix}=:A'$. Wissen: $A'=T^t\cdot A\cdot \overline{T}$f\"ur $T\in GL_{n+1}(K)\Rightarrow (A')^{\ast}=A'$ (d.h. $A'$ ist hermitesch).\\
+Alternativ: $<.,.>$ ist HF bzw. SBF $\Rightarrow$ Darstellungsmatrix ist hermitesch. $A'$ hermitesche$\Rightarrow a'_{n+1,n+1}\in\mathbb{R}$ und $a'_{n+1,i}=\overline{a'_{i,n+1}}$ f\"ur $i=1...n+1$\\
+Induktion mit Laplace (\"U): $det(A')=a'_{n+1,m+1}-\sum\limits_{j=1}^n|a_{n+1,j}|^2$\\
+Sei $v=\sum\limits_{i=1}^{n+1} \lambda_i c_i\Rightarrow <v,v>=(\lambda_1,...,\lambda_{n+1})A'\begin{pmatrix}
+	\overline{\lambda_1}\\
+	\vdots\\
+	\overline{\lambda_{n+1}}
+\end{pmatrix}=\sum\limits_{i=1}^n |\lambda_i|^2 +a'_{n+1,n+1}|\lambda_{n+1}|^2 +\sum\limits_{i=1}^n(\lambda_{n+1}\overline{\lambda_i}a_{n+1,i}+\lambda_i\overline{\lambda_{n+1}}
+\overline{a_{n+1,i}})=\sum\limits_{i=1}^n|\lambda_i+\lambda_{n+1}a_{n+1,i}|=0$ f\"ur $i=1...n$ und $|\lambda_{n+1}|=0\Leftrightarrow\lambda_1=...=\lambda_{n+1}=0$ \hfill $\Box$\\
+\vfill
+\uline{Ende}
+
+Und viel Spa\ss{} und Erfolg in LA 2! ;)
+\end{document}
