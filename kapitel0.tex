@@ -1,0 +1,155 @@
+% !TEX encoding = UTF-8 Unicode
+
+Auch in der Mathematik ist die Sprache die Grundlage von allem. Die Sprache der Mathematik besteht aus \imp{Aussagen}. Aussagen sind Sätze, denen man das Prädikat \imp{wahr(w)} oder \imp{falsch(f)} zuordnen kann. Das nennt man den \imp{Wahrheitsgehalt} der Aussage. \\
+\\
+Beachte: Sätze oder Alltagssprache sind oft keine Aussagen (\anf{Wie ist das Wetter heute?}) \\
+\\
+Oft wird von \imp{Axiomen} (Grundaussagen) ausgegangen. Aus diesen kann man nach bestimmten Regeln neue Aussagen bilden. Um diese Regeln einzuführen, verwenden wir \imp{Definitionen} (Vereinbarungen).
+
+\begin{defi}
+	Seien $A$ und $B$ Aussagen. Dann sind folgende Sätze Aussagen:
+	\begin{itemize}
+		\item[a)] $\neg A$  \anf{nicht $A$} (die Negation von A)
+		\item[b)] $A\wedge B$  \anf{$A$ und $B$}
+		\item[c)] $A\vee B$  \anf{$A$ oder $B$} (einschließendes oder)
+	\end{itemize}
+\end{defi} 
+Der Wahrheitsgehalt dieser Aussagen ist durch Wahrheitstabellen beschrieben.\\
+
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		$A$ & $\neg A$ \\
+		\hline
+		w & f \\
+		f & w \\
+		\hline
+	\end{tabular}
+	\hspace{2cm}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$A$ & $B$ & $A\wedge B$ & $A\vee B$ \\
+		\hline
+		w & w & w & w \\
+		w & f & f & w \\
+		f & w & f & w \\
+		f & f & f & f \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\begin{bsp}
+	\begin{itemize}
+		\item[]
+		\item[] 3 ist eine Primzahl (w)
+		\item[] 3 ist keine Primzahl (f)
+	\end{itemize}
+	\textbf{Vorsicht}: $B$: alle Primzahlen sind ungerade (f) \par
+	$\neg B$: nicht alle Primzahlen sind ungerade (w) oder: wenigstens eine Primzahl ist gerade (w)\par
+	falsch ist: $\neg B$: keine Primzahl ist ungerade (f)
+\end{bsp}
+
+\begin{defi}
+	Sind $A$ und $B$ Aussagen, so auch folgende Sätze:
+	\begin{itemize}
+		\item[d)] $A\Rightarrow B$: \anf{$A$ impliziert $B$} oder \anf{aus $A$ folge $B$} oder \anf{wenn $A$ gilt, dann auch $B$}
+		\item[e)] $A\Leftrightarrow B$: \anf{$A$ ist äquivalent zu $B$} oder \anf{$A$ gilt genau dann, wenn $B$ gilt}
+	\end{itemize}
+\end{defi} 
+Die zugehörige Wertetabellen:
+\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$A$ & $B$ & $A\Rightarrow B$ & $A\Leftrightarrow B$ \\
+		\hline
+		w & w & w & w \\
+		w & f & f & f \\
+		f & w & w & f \\
+		f & f & w & w \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\textbf{Merke}: 
+\begin{itemize}
+	\item Aus einer falschen Aussage folgt alles.
+	\item \anf{Man kann Implikationen und Äquivalenzen mit Wahrheitstafeln nachprüfen} (, im Sinn der folgenden Proposition..)
+\end{itemize}
+
+\begin{prop}
+	Für Aussagen $A,B,C$ gelten:
+	\begin{itemize}
+		\item[i)] $(A\wedge B) \Leftrightarrow (B\wedge A)$ ; $(A\vee B) \Leftrightarrow (B\vee A)$, d.h. \anf{und} und \anf{oder} sind \imp{kommutativ}.
+		\item[ii)] $(A\wedge B)\wedge C \Leftrightarrow A\wedge (B\wedge C)$; $(A\vee B)\vee C\Leftrightarrow A\vee (B\vee C)$, d.h. \anf{und} und \anf{oder} sind \imp{assoziativ}.
+		\item[iii)] $A\wedge(B\vee C) \Leftrightarrow (A\wedge B)\vee(A\wedge C)$; $A\vee(B\wedge C) \Leftrightarrow (A\vee B)\wedge(A\vee C)$ (\imp{Distributivität}
+		\item[iv)] $\neg(\neg$A$)\Leftrightarrow A$
+		\item[v)] $\neg(A\vee B)\Leftrightarrow (\neg A)\wedge (\neg B)$; $\neg(A\wedge B) \Leftrightarrow (\neg A)\vee (\neg B)$ (\imp{deMorgansche Regel})
+	\end{itemize}
+\end{prop}
+
+\begin{bew}[zum Teil]
+	\textbf{i)} 1. Teil
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$A$ & $B$ & $A\wedge B$ & $B\wedge A$ \\
+			\hline
+			w & W & w & w \\
+			w & f & f & f \\
+			f & w & f & f \\
+			f & f & f & f \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\textbf{v)} 1. Teil
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			$A$ & $B$ & $A\vee B$ & $\neg(A\vee B)$ & $\neg A$ & $\neg B$ & $(\neg A)\wedge(\neg B)$ \\
+			\hline
+			w & W & W & f & f & f & f \\
+			w & f & w & f & f & w & f \\
+			f & w & w & f & w & f & f \\
+			f & f & f & w & w & w & w\\
+			\hline
+		\end{tabular}
+	\end{center}
+	Alles Übrige mit Wahrheitstafeln. \hfill $\Box$\
+\end{bew}
+
+\begin{prop}
+	Für Aussagen $A$ und $B$ gelten:
+	\begin{itemize}
+		\item[i)] $(A\Rightarrow B)\Leftrightarrow (\neg A\vee B)$
+		\item[ii)] $(A\Rightarrow B) \Leftrightarrow (\neg B \Rightarrow \neg A)$ (\imp{Kontraposition})
+		\item[iii)] $\neg(A\Rightarrow B) \Leftrightarrow A\wedge\neg B$ (\imp{Widerspruchsbeweis})
+	\end{itemize}
+\end{prop}
+
+\begin{inter}
+	\begin{itemize}
+		\item[]
+		\item[ii)] Um zu zeigen, dass $B$ aus $A$ folgt, kann man alternativ zeigen, dass aus $\neg B$ die Aussage $\neg A$ folgt.
+		\item[iii)] Um $A\Rightarrow B$ zu zeigen, kann man wie folgt vorgehen: $A$ gelte und man nimmt an, dass $B$ falsch ist und dann folgt $\neg(A\Rightarrow B)$ ist falsch, dann folgt $A\Rightarrow B)$ gilt. (Widerspruchsbeweis)
+	\end{itemize}
+\end{inter}
+
+\begin{prop}
+	Für Aussagen $A,B$ und $C$ gelten:
+	\begin{itemize}
+		\item[i)] $(A\Rightarrow B)\wedge(B\Rightarrow C)\Rightarrow(A\Rightarrow C)$
+		\item[ii)] $(A\Leftrightarrow B)\Leftrightarrow((A\Rightarrow B)\wedge(B\Rightarrow A))$
+	\end{itemize}
+\end{prop}
+
+\begin{bew}
+	Wahrheitstafeln,
+\end{bew}
+
+\begin{inter}
+	ii) sagt: gehe in 2 Schritten vor, um $\Leftrightarrow$ nachzuweisen!
+\end{inter}
+
+\begin{bew}[von 0.4ii)]
+	$(A\Rightarrow B) \Leftrightarrow \neg A\vee B \Leftrightarrow B\vee\neg A \Leftrightarrow \neg(\neg B)\vee(\neg A) \Leftrightarrow (\neg B \Rightarrow \neg A)$\hfill $\Box$
+\end{bew}

@@ -1,0 +1,314 @@
+% !TEX encoding = UTF-8 Unicode
+
+Sei $K$ ein Körper, $m,n\in\NN$
+\begin{defi}
+	\itemizea{
+		\item[]
+		\item Eine $m\times n$-Matrix $A$ über $K$ ist eine Tabelle mit $m$ Zeilen und $n$ Spalten und Einträgen aus $K$: \\
+		\[A=\begin{pmatrix}
+		a_{11} & a_{12} & \dots & a_{1n} \\
+		a_{21} & \ddots & \ddots & a_{2n} \\
+		\vdots & \ddots & \ddots & \vdots \\
+		a_{m1} & \dots & \dots & a_{mn}
+		\end{pmatrix}\]
+		\item Der Eintrag $a_{ij}$ heißt \imp{Matrixkoeffizienten} an der Stelle $(i,j)$
+		\item Die Menge aller $m\times n$-Matrizen ist $M_{m\times n}(K)$
+		\item Eine $1\times n$-Matrix heßt \imp{Zeilenvektor} der Länge $n$ $\begin{pmatrix}
+		a_1 & a_2 &\dots & a_n
+		\end{pmatrix}$. $Z_n (K):=M_{1\times n}(K)$. Eine $m\times 1$-Matrix heißt \imp{Spaltenvektor} der Länge $m$ $\begin{pmatrix}
+		a_1 \\
+		a_2 \\
+		\vdots \\
+		a_m
+		\end{pmatrix}$. $V_m (K) =M_{m\times 1}(K)$
+		\item Für $A=(a_{ij})$ aus a) heißt $(a_{i1} \dots a_{in})$ die $i$-te Zeile von $A$ ($i=1...m$). Für $j=1...n$ heißt $\begin{pmatrix}
+		a_{1j}\\
+		\vdots\\
+		a_{mj}
+		\end{pmatrix}$
+		der $j$-te Spaltenvektor von $A$.
+	}
+\end{defi}
+
+\begin{ub}
+	$M_{m\times n}(K)$ ist ein VR über $K$ (der Dimension $m\cdot n$) mit: $(a_{ij})_{i=1...m\\ j=1...n}+(b_{ij})_{\substack{i=1...m\\ j=1...n}}=(a_{ij}+b_{ij})_{\substack{i=1...m\\ j=1...n}}$ und $\lambda\cdot(a_{ij}):=(\lambda\cdot a_{ij})$ für $\lambda\in K$. $(a_{ij}),(b_{ij})\in M_{m\times n}(K)$.
+\end{ub}
+
+\noindent\textbf{Hinweis}: $M_{m\times n}(K)=Abb(\{1,...,m\}\times\{1,...,n\},K)$\\
+
+\begin{bem}
+	$Z_n (K) \anf{=} K^n ((a_1 ...a_n))\widehat{=}(a_1 ,...,a_n))$
+\end{bem}
+
+\begin{defi}
+	Für $A=(a_{ij})\in M_{e\times m}(K), B=(b_{jk})\in M_{mxn}(K)$ definiert man $A\cdot B=(c_{ik})_{\substack{i=1...l\\ k=1...n}}\in M_{exn}(K)$ durch $c_{ik}:=\sum\limits_{j=1}^m a_{ij}\cdot b_{jk}$. D.h. $c_{ik}$ berechnet sich aus Zeile $i$ von $A$ und Spalte $k$ von $B$: $c_{ik}=(a_{i1}\dots a_{im})\cdot\begin{pmatrix}
+	b_{1k}\\
+	\vdots\\
+	b_{mk}
+	\end{pmatrix}= a_{i1}\cdot b_{1k}+ a_{i2}\cdot b_{2k}+a_{im}\cdot b_{mk}$
+\end{defi}
+
+\begin{bsp}
+	$\begin{pmatrix}
+	1 & -3 & 2\\
+	3 & -5 & 1
+	\end{pmatrix}\cdot
+	\begin{pmatrix}
+	2 & 2\\
+	1 & -1\\
+	0 & 1
+	\end{pmatrix}=
+	\begin{pmatrix}
+	-1 & 7\\
+	1 & 12
+	\end{pmatrix} \: c_{12}=
+	\begin{pmatrix}
+	1 & -3 & 2
+	\end{pmatrix}\cdot
+	\begin{pmatrix}
+	2\\
+	-1\\
+	1
+	\end{pmatrix}$
+\end{bsp}
+
+\begin{bem}
+	$A\cdot B$ für $A\in M_{exm_1}(K),B\in M_{m_2 \times n}(K)$ ist nicht definiert, falls $m_1\neq m_2$
+\end{bem}
+
+\subsection{Anwendung von Matrizen}
+
+Gegeben: $S=\{w_1 ,...,w_m\}\subseteq K^n$\\
+Finde a) \anf{einfache Basis} von $L(S)$  b) eine maximale l.u. Teilmenge $S'\subseteq S$\\
+Gegeben $S$ wie oben, definiere $A:=\begin{pmatrix}
+w_1\\
+\vdots\\
+w_m
+\end{pmatrix}$, d.h. $i$-te Zeile von $A$ ist der Vektor $w_i$ (als Zeilenvektor)\\
+
+\begin{defi}
+	\itemizea{
+		\item[]
+		\item $A=(a_{ij})\in M_{m\times n}(K)$ ist in \imp{Zeilenstufenform} (ZSF) $:\Leftrightarrow \exists r\in\{0,...,m\},\exists 1\leq j_1 < j_2 < \dots < j_r \leq n$, so dass für $i>r$ und $j\in\{1...n\}$ gilt $a_{ij}=0$ und für $i\in\{1...r\}$ gilt $a_{ij_i}\neq 0$ und $a_{ij}=0$ für $1\leq j\leq j_i$\\
+		\stepcounter{MaxMatrixCols} %ich brauche 11 Spalten.
+		\[ \begin{pmatrix}
+		0 & \dots & 0 & a_{1j_1} & \ast & \dots & \dots & \dots & \dots & \dots & \ast \\
+		0 & \dots & \dots & 0 & a_{2j_2} & \ast & \dots & \dots & \dots & \dots & \ast \\
+		\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
+		0 & \dots & \dots & \dots & \dots & \dots & 0 & a_{rj_r} & \ast & \dots & \ast \\
+		0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0 \\
+		\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\
+		0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0 \\
+		\end{pmatrix}\]
+		\item $A$ wie in a) heißt \imp{reduzierte Zeilenstufenform} (red. ZSF) $:\Leftrightarrow A$ hat ZSF (wie in a)) und Pivot-Elemente $a_{ij_i}, i=1...r$, sind $1$ und $a_{kj_i}=0$ für $k\neq i$ ($i\in\{1...r\}, k\in\{1...m\}$)
+	}
+\end{defi}
+
+\begin{bsp}
+	\[\begin{pmatrix}
+	1 & 2 & 1 & 0 & 1\\
+	0 & 0 & 2 & 1 & 1\\
+	0 & 0 & 0 & 4 & 0
+	\end{pmatrix}\text{ hat ZSF. }\\
+	\begin{pmatrix}
+	1 & 2 & 0 & 0 & \tfrac{1}{2} \\
+	0 & 0 & 1 & 0 & \tfrac{1}{2} \\
+	0 & 0 & 0 & 1 & 0
+	\end{pmatrix}\text{ hat reduzierte ZSF (für }K=\RR)\]
+\end{bsp}
+
+\begin{lem}
+	Sei $A\in M_{m\times n}(K)$ mit Zeilen $w_1,...,w_m$ aus $K^n$. Ist $A$ in ZSF mit $r$ Zeilen $\neq\uline{0} (\uline{0}=(0...0))$, so ist $w_1,...,w_r$ eine Basis von $L(\{w_1,...,w_m\})$
+\end{lem}
+
+\begin{bew}
+	Übung.
+\end{bew}
+
+\noindent\textbf{Gauß-Elimination:} Überführt eine beliebige $m\times n$-Matrix durch \anf{elementare Zeilentransformationen} E1-E3 (s.u.) in reduzierte ZSF.
+
+\begin{defi}
+	E1-E3 sind wie folgt definiert:
+	\itemizeNUM{E}{
+		\item Vertausche zwei Zeilen der Matrix.
+		\item Addition des Vielfachen einer Zeile zu einer anderen.
+		\item Multiplikation einer Zeile mit einem Skalar $\lambda\in K\setminus\{0\}$.
+	}
+\end{defi}
+
+\begin{bsp}
+	\[\begin{pmatrix}
+	2 & 3 & 0\\
+	1 & 1 & 0
+	\end{pmatrix}\stackrel{E1}{\rightarrow}
+	\begin{pmatrix}
+	1 & 1 & 0\\
+	2 & 3 & 0
+	\end{pmatrix}\stackrel{E2}{\rightarrow}
+	\begin{pmatrix}
+	1 & 1 & 0\\
+	0 & 1 & 0
+	\end{pmatrix}\stackrel{E3}{\rightarrow}
+	\begin{pmatrix}
+	2 & 2 & 0\\
+	0 & 1 & 0
+	\end{pmatrix}\]
+\end{bsp}
+
+\begin{lem}
+	Seien $A,\tilde{A}\in M_{m\times n}(K)$ mit Zeilen $w_1,...,w_m$ bzw. $\tilde{w}_1,...,\tilde{w}_m$. Entsteht $\tilde{A}$ aus $A$ durch wiederholtes Anwenden von E1,E2,E3, so gilt $L(\{w_1,...,w_m\})=L(\{\tilde{w}_1,...,\tilde{w}_m\})$ $\circledast$
+\end{lem}
+
+\begin{bew}
+	Induktion über die Anzahl der Anwendungen von E1,E2,E3, es genügt zz: $\circledast$ gilt beim einmaligem Anwenden von E1,E2 oder E3.\\
+	zu E1: Vertauschen zweier Zeilen führt zu $S=\tilde{S}$. Die Zeilen insgesamt sind dieselben Mengen.\\
+	zu E2: z.B. Addiere $\lambda\cdot$ Zeile $i$ zu Zeile $j\neq i$. $\tilde{w}_k =w_k$ für $k\neq j$, $\tilde{w}_j=w_j +\lambda\cdot w_i (i\neq j)\Rightarrow \tilde{S}\subseteq L(S)\Rightarrow L(\tilde{S})\subseteq L(L(S))=L(S)$. umgekehrt: $w_k=\tilde{w}_k$ für $k\neq j, w_j=\tilde{w}_j -\lambda\tilde{w}_i$, wie eben $S\subseteq L(\tilde{S})\Rightarrow L(S)=L(\tilde{S})$..., E3) analog. \hfill $\Box$
+\end{bew}
+
+\begin{satz}
+	Jede Matrix $A\in M_{m\times n}(K)$ lässt sich durch endlich viele Anwendungen von E1 und E2 (bzw. E1-E3) in (reduzierte) ZSF überführen; durch den Gauß-Algorithmus.
+\end{satz}
+
+\begin{bew}
+	Gauß-Algorithmus nur für ZSF mit Induktion über $m$. $m=1$ ist klar.\\
+	$\uline{m\mapsto m+1:}$ Fall 1: alle $a_{ij_i}=0$.\\
+	Fall 2: Sei $j_1$ der kleinste Index einer Spalte $\neq\begin{pmatrix}
+	0\\
+	\vdots\\
+	0
+	\end{pmatrix}$. Sei $i\in\{1...m\}$, so dass $a_{ij_1}\neq 0$. Vertausche Zeilen 1 und $i$. So erhalten wir die Matrix
+	\[\tilde{A}=\begin{pmatrix}
+	0 & \dots & 0 & \tilde{a}_{1j_1} & \dots & \ast \\
+	\vdots & \dots & \vdots & \ast & \dots & \vdots \\
+	\vdots & \dots & \vdots & \vdots & \dots & \vdots \\
+	0 & \dots & 0 & \ast & \dots & \ast
+	\end{pmatrix}\]
+	für $i=2...m$. Addiere $(-\tfrac{\tilde{a}_{ij_1}}{\tilde{a}_{1j_1}})\cdot$ Zeile 1 zu Zeile $i$ (E2) $\rightarrow$ Wir erhalten:
+	\[\tilde{B}=\begin{pmatrix}
+	0 & \dots & 0 & \tilde{a}_{1j_1} & \ast & \dots & \ast \\
+	\vdots & \dots & \vdots & 0 & \vdots & \dots & \vdots \\
+	\vdots & \dots & \vdots & \vdots & \vdots & \dots & \vdots \\
+	0 & \dots & 0 & 0 & \ast & \dots & \ast
+	\end{pmatrix}\] 
+	Sei $B$ die $(m-1)\times n$-Matrix bestehend aus den Zeilen $2...m$ von $\tilde{B}$. Wende Induktionsvoraussetzung an, d.h. Gauß-Algorithmus für $B$. Beachte: Algorithmus für $B$ erhält Nullen der Einträge $(i,j)\:i=2...m, j=1...j_1$ \hfill $\Box$
+\end{bew}
+
+\begin{bsp}
+	$K=\QQ$
+	\begin{align*}
+	\begin{gmatrix}[p]
+	0 & 3 & 3\\
+	2 & 4 & 7\\
+	1 & 2 & 5
+	\rowops
+	\swap{0}{2}
+	\end{gmatrix}
+	\leadsto \begin{gmatrix}[p]
+	1 & 2 & 5 \\
+	2 & 4 & 7 \\
+	0 & 3 & 3
+	\rowops
+	\add[-2]{0}{1}
+	\end{gmatrix}
+	\leadsto \begin{gmatrix}[p]
+	1 & 2 & 5 \\
+	0 & 0 & -3 \\
+	0 & 3 & 3
+	\rowops
+	\swap{1}{2}
+	\end{gmatrix}
+	\leadsto \begin{gmatrix}[p]
+	1 & 2 & 5\\
+	0 & 3 & 3 \\
+	0 & 0 & -3
+	\rowops
+	\mult{1}{\cdot\tfrac{1}{3}}
+	\mult{2}{\cdot-\tfrac{1}{3}}
+	\end{gmatrix}\\
+	\leadsto\begin{gmatrix}[p]
+	1 & 2 & 5\\
+	0 & 1 & 1\\
+	0 & 0 & 1
+	\rowops
+	\add[-1]{2}{1}
+	\add[-5]{2}{0}
+	\end{gmatrix}
+	\leadsto\begin{gmatrix}[p]
+	1 & 2 & 0\\
+	0 & 1 & 0\\
+	0 & 0 & 1
+	\rowops
+	\add[-2]{1}{0}
+	\end{gmatrix}
+	\leadsto\begin{gmatrix}[p]
+	1 & 0 & 0\\
+	0 & 1 & 0\\
+	0 & 0 & 1
+	\end{gmatrix}
+	\end{align*}
+\end{bsp}
+
+\begin{prop}
+	Seien $A,\tilde{A}\in M_{mxn}(K)$ mit Zeilen $w_1,...,w_m$ bzw. $\tilde{w}_1,...,\tilde{w}_m$. Sei $\tilde{A}$ in ZSF, entsanden aus $A$ durch den Algorithmus im obigen Beweis.\\
+	Dann gelten:
+	\itemizea{
+		\item $\tilde{w}_1,...,\tilde{w}_r$ ist Basis von $L(\{w_1,...,w_m\})$ für $r=$Anzahl der Zeilen $\neq(0...0)$ in $\tilde{A}$.
+		\item Seien $i_1...i_r$ die Nummern der Zeilen, die unter Anwendung von E1 in die Zeilen $1,...,r$ getauscht wurden. Dann sind $w_{i_1},...,w_{i_r}$ eine Basis von $L(\{w_1,...,w_m\})$
+	}
+\end{prop}
+
+\begin{bew}
+	\itemizea{
+		\item[]
+		\item Lemma5.4 + Lemma5.6
+		\item Skizze: Führe Algorithmus durch. Danach streiche alle Zeilen bis auf $i_1,...,i_r$ in $A$, und die entsprechenden Zeilen in den Matrizen \dq zwischen \dq $A$ und $\tilde{A}$. Man beobachtet, dass die Zeilen $\tilde{w}_1,...,\tilde{w}_r$ Linearkombinationen von $w_{i1},...,w_{ir}$ sind. \hfill $\Box$
+	}
+\end{bew}
+
+\begin{bsp}
+	\begin{align*}
+	\begin{gmatrix}[p]
+	1 & 2 & 3\\
+	2 & 4 & 6\\
+	1 & 2 & 4
+	\rowops
+	\add[-2]{0}{1}
+	\add[-1]{0}{2}
+	\end{gmatrix}
+	\leadsto\begin{gmatrix}[p]
+	1 & 2 & 3\\
+	0 & 0 & 0\\
+	0 & 0 & 1
+	\rowops
+	\swap{1}{2}
+	\end{gmatrix}
+	\leadsto\begin{gmatrix}[p]
+	1 & 2 & 3\\
+	0 & 0 & 1\\
+	0 & 0 & 0
+	\end{gmatrix}
+	\end{align*}
+	$r=2\Rightarrow\{\begin{pmatrix} 1 & 2 & 3 \end{pmatrix}=w_1$ und $w_3=\begin{pmatrix} 1 & 2 & 4 \end{pmatrix}\}$ ist Basis von $L(\{w_1,w_2,w_3\})$
+\end{bsp}
+
+\noindent$A\in M_{m\times n}(K)$ haben Zeilen $w_1,...,w_m$ und Spalten $v_1,...,v_n$.
+
+\begin{defi}
+	\itemizea{
+		\item[]
+		\item $L(\{w_1,...,w_m\})\subseteq Z_m (K)$ heißt \imp{Zeilenraum} von $A$.
+		\item $dim(L(\{w_1,...,w_m\}))$ heißt \imp{Zeilenrang} von $A$.
+		\item $L(\{v_1,...,v_n\})\subseteq V_n (K)$ heißt \imp{Spaltenraum} von $A$.
+		\item $dim(L(\{v_1,...,v_n\}))$ heißt \imp{Spaltenrang} von $A$.
+	}
+\end{defi}
+
+\noindent Demnächst: Spaltenrang $A$ = Zeilenrang $A$
+
+\begin{prop}[schon gezeigt!]
+	\itemizea{
+		\item[]
+		\item Der Zeilenrang von $A\in M_{m\times n}(K)$ ist unverändert (invariant) unter Anwendung von E1,E2,E3.
+		\item Der Zeilenrang ist die maximale Anzahl linear unabhängiger Vektoren unter $w_1,...,w_m.$
+	}
+\end{prop}

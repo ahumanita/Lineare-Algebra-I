@@ -1,0 +1,207 @@
+% !TEX encoding = UTF-8 Unicode
+
+\begin{defi}
+	Sei $(K,0_{K},1_{K},+_{K},\cdot_{K})$ ein Körper. Ein \imp{Vektorraum} (VR) über $K$, oder ein $K$-VR, ist ein Quadrupel $(V,0_{V},+{V},\cdot_{V})$ bestehend aus einer Menge $V$ (Menge der Vektoren), einem Element $0_{V}\in V$ (Nullvektor) und Verknüpfungen
+	\[+_{V}:V\times V\rightarrow V,(v,w)\mapsto v+w \\
+	\cdot_{V}:K\times V\rightarrow V,(\lambda,v)\mapsto\lambda\cdot_{V} v,\]
+	sodass gelten:
+	\begin{itemize}
+		\item[V1)] $(V,0_{V},+_{V})$ ist eine abelsche Gruppe.
+		\item[V2)] $\forall\lambda,\mu\in K:\forall v\in V:(\lambda\cdot_{K}\mu)\cdot_{V} v=\lambda\cdot_{V}(\mu\cdot_{V} v)$ \hfill (Assoziativität von $\cdot_{V}$)
+		\item[V3)] Distributivgesetze:
+		\begin{itemize}
+			\item $\forall\lambda,\mu\in K:\forall v\in V:(\lambda+_{V}\mu)\cdot_{V} v=\lambda\cdot_{V} v+_{V}\mu\cdot_{V} v$
+			\item $\forall\lambda\in K:\forall v,w\in V:\lambda\cdot v(v+_{V} w)=\lambda\cdot_{V} v+_{V}\lambda\cdot_{V} w$
+		\end{itemize}
+		\item[V4)] $\forall v\in V:1_{K}\cdot_{V} v=v$
+	\end{itemize}
+\end{defi}
+
+\begin{nota}
+	Ab nun meist $+,\cdot$ statt $+_{K},\cdot_{K}$ oder $+_{V},\cdot_{V}$ und $\lambda v$ statt $\lambda\cdot v$. Multiplikation bindet enger als Addition (\anf{Punkt vor Strich}).
+\end{nota}
+
+\begin{lem}
+	Sei $K$ ein Körper und $V$ ein $K-VR$. Dann gelten $\forall v\in V,\forall\lambda\in K:$
+	\begin{itemize}
+		\item[a)] $0_{K}\cdot_{V} v=0_{V}$
+		\item[b)] $\lambda\cdot_{V} 0_{V}=0_{V}$
+		\item[c)] $\lambda\cdot_{V} v=0\Rightarrow \lambda=0_{K}\cdot_{V} v=0_{V}$
+		\item[d)] $(-1)\cdot_{V} v =-v$
+	\end{itemize}
+\end{lem}
+
+\begin{bew}
+	\itemizea{
+		\item[]
+		\item $0_{K}\cdot_{V} v=(0_{K}+0_{K})\cdot_{V} v\stackrel{V3}{=} 0_{K}\cdot_{V} v+_{V}0_{K}\cdot_{V} v$. \\
+		Addiere $-(0_{K}\cdot_{V} v)$ und erhalte: $0_{V}=...=0_{K}\cdot_{V} v$
+		\item wie a).
+		\item Gelte $\lambda\cdot_{V} v=0_{V}$ und $\lambda\neq0_{K}$. Multipliziere mit $\lambda^{-1}$:
+		\[0_{V}\stackrel{b)}{=}\lambda^{-1}\cdot_{V}0_{V}=\lambda^{-1}\cdot_{V}(\lambda\cdot_{V} v)\stackrel{V2}{=}(\lambda^{-1}\cdot_{K}\lambda)\cdot_{V} v=1_{K}\cdot v\stackrel{V4}{=} v\]
+		\item Übung. \hfill $\Box$
+	}
+\end{bew}
+
+\begin{bsp}
+	Sei $K$ ein Körper.
+	\itemizeNUM{}{
+		\setcounter{enumi}{-1}
+		\item $V=\{0_{V}\},+_{V}$ und $\cdot_{V}$ die einzig möglichen Verknüpfungen $\rightarrow$ \imp{Null-VR}.
+		\item $(K^{n},\uline{0},+,\cdot)$ $(n\in\NN)$ ist ein $K$-VR für:
+		\begin{align*}
+		\uline{0}&=(0_{K},...,0_{K})\text{ (n-Tupel) }\\
+		(\lambda_{1},...,\lambda_{n})+(\mu_{1},...,\mu_{n}):&=(\lambda_{1}+\mu_{1},...,\lambda_{n}+\mu_{n}) \\
+		\lambda\cdot(\mu_{1},...,\mu_{n})&=(\lambda\cdot\mu_{1},...,\lambda\cdot\mu{n})\text{ für } \lambda,\mu\in K
+		\end{align*}
+	}
+	\textbf{Prüfe:}
+	\itemizeNUM{V}{
+		\item $(K^{n},\uline{0},+)$ ist abelsche Gruppe (gilt, da $K0,+)$ ist abelsche Gruppe).
+		\item \[(\lambda\cdot\mu)(\nu_{1},...,\nu_{n})\stackrel{Def.}{=}((\lambda\cdot\mu)\cdot\nu_{1},...,(\lambda\cdot\mu)\cdot\nu_{n})=(\lambda\cdot(\mu\cdot\nu_{1},...,\lambda\cdot(\mu\cdot\nu_{n}))\stackrel{Def.}{=}\lambda\cdot((\mu\cdot\nu_{1},...,\mu\cdot\nu_{n}))\stackrel{Def.}{=}\lambda(\mu(\nu_{1},...,\nu_{n}))\]
+		D.h. $(\lambda\cdot\mu)\cdot\nu=\lambda\cdot(\mu\cdot\nu)$
+		\item[] V4 und V3 analog.
+	}
+\end{bsp}
+
+\begin{bsp}
+	Seien $(V,0_{V},+_{V},\cdot_{V})$ und $(W,0_{W},+_{W},\cdot_{W})$ zwei Vektorräume über $K$. So erhält man einen Vektorraum $V\oplus W$ über $K$, definiert durch $V\oplus W=(V\times W,\uline{0},+,\cdot)$ mit
+	\begin{align*}
+	\uline{0}&=(0_{V},0_{W}) \\
+	(v,w)+(v',w'):&=(v+_{V}v',w+_{W}w')\\
+	\lambda\cdot(v,w):&=(\lambda\cdot_{V}v,\lambda\cdot_{W}w)\text{ für }v,v'\in V,w,w'\in W,\lambda\in K
+	\end{align*}
+\end{bsp}
+\noindent Demnächst: $(K^{m},0,+,\cdot)\oplus(K^{n},0,+,\cdot)\anf{=}(K^{m+n},0,+,\cdot)$
+
+\subsection{Unterobjekte}
+
+\begin{defi}
+	Sei $(G,e,\cdot_{G})$ eine Gruppe $H\subseteq G$ heißt \imp{Untergruppe} $\Leftrightarrow$
+	\itemizei{
+		\item $e\in H$
+		\item $\forall g,h\in H:(g^{-1}\cdot_{G}h)\in H$
+	}
+\end{defi}
+
+\begin{lem}
+	Sei $H\subseteq G$ eine Untergruppe. Dann gelten:
+	\itemizea{
+		\item $\forall h\in H:h^{-1}\in H$
+		\item  $\forall g,h\in H:(g\cdot_{g}h)\in H$
+		\item $(H,e,\cdot_{G})$ ist eine Gruppe
+	}
+\end{lem}
+
+\begin{bew}
+	\itemizea{
+		\item Sei $h\in H$. Wegen $e\in H$, folgt aus ii): $h^{-1}\cdot_{G}e=h^{-1}\in H$
+		\item Seien $g,h\in H:\stackrel{a)}{\Rightarrow}g^{-1}\in H,h\in H\stackrel{ii)}{\Rightarrow}(g^{-1})^{-1}\cdot h=(g\cdot h)\in H$
+		\item Aus b) folgt: $H$ ist abgeschlossen unter $\cdot_{G}$, d.h. $\dq\cdot\dq:H\times H\rightarrow H,(g,h)\mapsto g\cdot_{G}h$ ist wohldefiniert. \\
+		Axiome:
+		\itemizei{ %WARUM GEHT NICHT ITEMIZENUM?
+			\item gilt in $G$, d.h. $\forall g,h,k\in G:(g\cdot h)\cdot k=g\cdot (h\cdot k)\stackrel{H\subseteq G}{\Rightarrow} \forall g,h,k\in H:(g\cdot h)\cdot k=g\cdot(h\cdot k)$.
+			\item $g\cdot e=g\:\forall g\in G\stackrel{H\subseteq G}{\Rightarrow} h\cdot e=h\:\forall h\in H$
+			\item (Rechtsinverses) Wurde in a) gezeigt. \hfill $\Box$
+		}
+	}
+\end{bew}
+
+\noindent\textbf{Merke:} Axiome, die nur den Allquantor ($\forall$) enthalten, \anf{vererben sich} auf Teilmengen. Für $\exists$ geht das nicht! Das muss man prüfen!
+
+\begin{bsp}
+	\itemizeNUM{}{
+		\setcounter{enumi}{-1}
+		\item[]
+		\item Ist $G$ eine Gruppe, so ist $H:=\{e\}\subseteq G$ eine Untergruppe.
+		\item Ist $G$ eine geliebige Gruppe, so ist $g\in G$ bel. $\Rightarrow H=\{g^{n}|n\in\ZZ\}\subseteq G$ ist Untergruppe.
+		\item $\{\sigma\in S_{n}|\sigma(n)=n\}\subseteq S_{n}$ ist Untergruppe (und $\anf{=} S_{n-1}$)
+	}
+\end{bsp}
+
+\begin{nota}
+	Sei $f:M\rightarrow N$ eine Abbildung und $L\subseteq M$. Die Einschränkung $f|_{L}$ von $f$ auf (dem Teildefinitionsbereich) $L$ ist die Abbildung $f|_{L}:L\rightarrow f(L),l\mapsto f(l)$.
+\end{nota}
+
+\begin{bsp}
+	$H\subseteq G$ Untergruppe $\Rightarrow \cdot_{G}|_{H\times H}:H\times H\rightarrow H$
+\end{bsp}
+
+\begin{defi}
+	Sei $(K,0,1,+,\cdot)$ ein Körper. $L\subseteq K$ heißt \imp{Unterkörper} $\Leftrightarrow$
+	\itemizei{
+		\item $L$ ist Untergruppe von $(K,0,+)$ 
+		\item $L\setminus\{0\}$ ist Untergruppe von $(K\setminus\{0\},1,\cdot)$
+	}
+\end{defi}
+
+\begin{prop}
+	Ist $L\subseteq K$ ein Unterkörper, so gelten:
+	\itemizea{
+		\item $+_{K}(L\times L)=L$ (oder $L+_{K}L=L$) und $\cdot_{K}(L\times L)=L$ (oder $L\cdot_{K} L=L$)
+		\item $(L,0,1,+_{L}|_{L\times L},\cdot_{K}|_{L\times L})$ ist ein Körper.
+	}
+\end{prop}
+
+\begin{bew}
+	\itemizea{
+		\item Verwende Lemma 3.4 für $(K,0,+),(K\setminus\{0\},1,\cdot)$ und $\forall l\in L:0\cdot l=l\cdot 0=0$.
+		\item Axiome K1,K2 folgen aus Lemma 3.4. Distributivgesetze in $L$: Vererben sich von $K$ nach $L$.
+	}
+\end{bew}
+
+\begin{bsp}
+	$\QQ\subseteq\RR$ und $\RR\subseteq\CC$ sind Unterkörper.
+\end{bsp}
+
+\begin{defi}
+	Sei $K$ ein Körper und $V$ ein $K-VR$. $U\subseteq V$ heißt \imp{Untervektorraum} (UVR) $:\Leftrightarrow$:
+	\itemizei{
+		\item $0\in U$
+		\item $\forall\lambda\in K:\forall u\in U:(\lambda\cdot u)\in U$
+		\item $\forall u,v\in U:(u+v)\in U$
+	}
+\end{defi}
+
+\begin{bsp}
+	\itemizeNUM{}{
+		\setcounter{enumi}{-1}
+		\item[]
+		\item $\{0_{V}\}\subseteq V$ ist ein Untervektorraum.
+		\item Für $u\in V$ ist $\{\lambda\cdot v|\lambda\in K\}$ ein Untervektorraum (verwende $0\cdot v=0$ und V2 und V3)).
+	}
+\end{bsp}
+
+\begin{prop}
+	Seien $K$ ein Körper, $V$ ein $K$-VR, $U\subseteq V$ ein Untervektorraum. Dann gelten:
+	\itemizea{
+		\item $+_{V}(U\times U)=U$ und $\cdot_{V}(K\times U)=U$
+		\item $(U,0,+_{V}|_{U\times U},\cdot_{V}|_{K\times U})$ ist ein $K$-VR
+	}
+\end{prop}
+
+\begin{bew}
+	\itemizea{
+		\item $+_{V}:$ es genügt zu zeigen: $(U,0,+_{V}|_{U\times U})$ ist eine abelsche Gruppe. Dazu genügt zu zeigen: $U\subseteq V$ und $((V,0,+))$ ist eine Untergruppe.\\
+		Dazu: $u,v\in U\stackrel{ii)}{\Rightarrow}(-1)\cdot u=-u,v\in U\stackrel{iii)}{\Rightarrow}((-u)+v)\in U$ und $0\in U$ wegen i).
+		\item V1 wurde im Beweis von a) gezeigt. zu V2-V4: Axiome enthalten nur $\anf{\forall}\Rightarrow$ Sie vererben sich auf $U$. \hfill $\Box$
+	}
+\end{bew}
+
+\begin{prop}
+	Seien $K$ ein Körper, $V$ ein $K-VR$, $U,W\subseteq V$ Untervektorräume. Dann gelten:
+	\itemizea{
+		\item $U\cap W$ ist ein UVR von $V$
+		\item $U+W=\{u+w|u\in U,w\in W\}$ ist ein UVR von $V$
+		\item $U\cup W$ ist ein UVR $\Leftrightarrow U\subseteq W$ oder $W\subseteq U$
+	}
+\end{prop}
+
+\begin{bew}[nur b)]
+	\itemizei{
+		\item $0=(0+0)\in U+W$
+		\item[ii)+iii)] Seien $v,v'\in U+w$, d.h. $v=u+w,v'=u'+w'$ mit $u,u'\in U,w,w'\in W$ \\
+		$\Rightarrow v+v'=(u+w)+(u'+w')=(u+u')+(w+w')\in U+W$. Sei $\lambda\in K$, dann: \\
+		$\lambda\cdot v=\lambda(u+w)=\lambda\cdot u+\lambda\cdot w\in U+W$ \hfill $\Box$
+	}
+\end{bew}

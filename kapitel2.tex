@@ -1,0 +1,328 @@
+% !TEX encoding = UTF-8 Unicode
+
+\begin{defi}
+	Eine \imp{Gruppe} ist ein Tripel $(G,e,\odot)$ bestehend aus eine Menge $G$, einem Element $e\in G$ und einer Abbildung $\odot:G\times G\rightarrow G$ (einer Verknüpfung), sodass gelten:
+	\begin{align*}
+	&G1) && \forall g\in G:g\odot e=g & \text{(Assoziativität)}\\
+	&G2) && \forall g\in G:\exists h\in G:g\odot e=g & \text{(Rechtseins)}\\
+	&G3) && \forall g\in G:\exists h\in G:g\odot h=e & \text{(Rechtsinverses)}
+	\end{align*}
+	Gilt zusätzlich
+	\begin{align*}
+	&G4) && \forall g,h\in G:g\odot h=h\odot g & \text{(Kommutativität)}
+	\end{align*}
+	so heißt $G$ \imp{abelsche Gruppe}. \\
+	Wir schreiben oft $G$ für $(G,e,\odot)$. $e$ heißt \imp{neutrales Element} oder (kurz) Eins von $G$.
+\end{defi}
+
+\begin{bsp}
+	\begin{itemize}
+		\item[a)] $(\ZZ,0,+)$ ist eine abelsche Gruppe. Das bedeutet: $+:\ZZ\times\ZZ\rightarrow\ZZ,(a,b)\mapsto a+b\\
+		\forall a,b,c\in\ZZ$:
+		\begin{align*}
+		G1)\ & (a+b)+c=a+(b+c)\\
+		G2)\ & a+0=a \\
+		G3)\ & \forall a\in\ZZ:\exists a'\in\ZZ: a+a'=0 &  \text{(schreibe }-a\text{ für }a) \\
+		G4)\ & a+b=b+a
+		\end{align*}
+		\item[b)] $(\RR,0,+)$ ist eine abelsche Gruppe.
+		\item[c)]  $(\RR^{n},\uline{0},+)$ ist eine abelsche Gruppe für $\uline{0}=(0,...,0)$ (n-Tupel): $(a_{1},...,a_{n})+(b_{1},...,b_{n}):=(a_{1}+b_{1},...,a_{n}+b_{n})$
+		\item[d)] Sei $\RR^{x}=\RR\setminus\{0\}$, dann ist $(\RR^{x},1,\cdot)$ eine abelsche Gruppe.
+		\item[e)] $(\{\pm 1\},1,\cdot)$ ist eine abelsche Gruppe. \\
+		Verknüpfungstafel:
+		\[
+		\begin{tabular}{|c|cc|}
+		\hline
+		$\cdot$ & 1 & -1\\
+		\hline
+		1 & 1 & -1\\
+		-1 & -1 & 1\\
+		\hline
+		\end{tabular}
+		\]
+	\end{itemize}
+\end{bsp}
+
+\begin{defi}
+	Für eine Menge $M$ definiere $Bij(M):=\{f:M\rightarrow M|f\:ist\:bijektiv\}$
+\end{defi}
+
+\begin{prop}
+	$(Bij(M),id_{M},\circ)$ ist eine Gruppe. ($\circ$ ist Verkettung von Abbildungen)
+\end{prop}
+
+\begin{bew}
+	G1 gilt: $(f\circ g)\circ h=f\circ(g\circ h)$ gilt $\forall f,g,h\in Bij(M)$ nach Lemma 1.10.\\
+	G2: $f\circ id_{M}=f\:\:\:\forall f\in Bij(M)$\\
+	G3: Satz 1.12 $\Rightarrow f\circ f^{-1}=id_{M}$ \hfill $\Box$
+\end{bew}
+
+\begin{defi}
+	Für $n\in\NN$ sei $S_{n}:=Bij(\{1,...,n\})$. $S_{n}$ heißt auch \imp{Gruppe der Permutationen} von $\{1,...,n\}$.
+\end{defi}
+
+\begin{ub}
+	\begin{itemize}
+		\item[]
+		\item[i)] $|M|\geq 3 \Rightarrow$ Die Gruppe $Bij(M)$ ist nicht abelsch.
+		\item[ii)] $M$ endlich, $|M|=n$. Dann: $|Bij(M)|=n!=1\cdot 2\cdot ... \cdot n$
+	\end{itemize}
+\end{ub}
+
+\begin{prop}
+	Für eine Gruppe $(G,e,\odot)$ gelten:
+	\begin{itemize}
+		\item[a)] $g\odot h=e\Rightarrow h\odot g=e$ für $g,h\in G$
+		\item[b)] $\forall g\in G:e\odot g=g$
+		\item[c)] $\forall g\in G:\exists !h\in G$ mit $g\odot h=e$ (Schreibe später $g^{-1}$ anstelle von diesem eindeutigen $h$; $g^{-1}$ heißt Inverses zu $g$)
+		\item[d)] $e$ ist das einzige Element von $G$, sodass G2 und G3 gelten.
+		\item[e)] $\forall g,h\in G$ gilt: die Gleichung $g\odot x=h$ hat eine eindeutige Lösung, nämlich $x=g^{-1}\odot h$
+	\end{itemize}
+\end{prop}
+
+\begin{bew}
+	\textbf{a)} Gelte $g\odot h=e$. Sei $k\in G$ rechtsinvers zu $h$, d.h. $h\odot k=e$. Betrachte nun\\
+	$h\odot g\stackrel{G1+G2}{=} h\odot(g\odot(h\odot k))\stackrel{G1}{=} h\odot((g\odot h)\odot k) \stackrel{G3}{=} h\odot(e\odot k)\stackrel{G1}{=} (h\odot e)\odot k\stackrel{G2}{=} h\odot k\stackrel{G3}{=} e$\\
+	\\
+	\textbf{b)} Sei $h$ rechtsinvers zu $g$, d.h. $g\odot h=e$, dann gilt: $e\odot g=(g\odot h)\odot g\stackrel{G1}{=} g\odot(h\odot g)\stackrel{a)}{=} g\odot e\stackrel{G2}{=} g$\\
+	\\
+	\textbf{c)} Seine $h,h'$ rechtsinvers zu $g$. \\
+	\zz $h=h$'\\
+	Dazu: $g\stackrel{G2}{=} h\odot e\stackrel{G3}{=} h\odot(g\odot h')\stackrel{G1}{=}(h\odot g)\odot h')\stackrel{a)}{=} e\odot h'\stackrel{b)}{=} h'$\\
+	\\
+	\textbf{d)} Seine $e,e'\in G$ Elemente für die G2 und G3 gilt: $e\stackrel{G2}{=} e\odot e'\stackrel{b)}{=} e'$\\
+	\\
+	\textbf{e)} \textbf{$\mathbf{g^{-1}\odot h}$ ist Lösung:} $g\odot (g^{-1}\odot h)\stackrel{G1}{=}(g\odot g^{-1}\odot h\stackrel{G3}{=} e\odot h\stackrel{b)}{=} h$\\
+	\textbf{$\mathbf{\exists!}$ Lösung:} Gelte $g\odot x=g\odot x'(=h)$. Verknüpfe von links mit $g^{-1}$. Nun folgt mit G1 und G2 und b), dass $x=x'$. \hfill $\Box$
+\end{bew}
+
+\begin{nota}
+	\begin{itemize}
+		\item[]
+		\item[a)] Wir schreiben meist
+		\begin{itemize}
+			\item[i)] $G$ statt $(G,e,\odot)$
+			\item[ii)] $\cdot$ statt $\odot$, z.B: $gh=g\cdot h=g\odot h$
+			\item[iii)] Falls $G$ abelsch ist: schreibe $+$ statt $\odot$, dann auch $-g$ statt $g^{-1}$
+		\end{itemize}
+		\item[b)] Sei $a\in G$ und $n\in\ZZ$, schreibe $a^{n}$ für
+		\[
+		\begin{cases}
+		a\cdot...\cdot a & \text{falls }n>0\\
+		a^{-1}\cdot...\cdot a^{-1} & \text{falls }n<0\\
+		e & \text{falls } n=0
+		\end{cases}
+		\]
+		Falls $\odot=+$, so gilt $n\cdot a$ statt $a^{n}$
+	\end{itemize}
+\end{nota}
+
+\begin{ub}
+	Für alle $m,n\in\ZZ$ gilt $a^{m}\cdot a^{n}=a^{m+n}$
+\end{ub}
+
+\begin{defi}
+	Ein \imp{Körper} ist ein Quintupel $(K,0,1,+,\cdot)$, oder einfach $K$, bestehend aus einer Menge $K$, Elementen $0,1\in K$ und Verknüpfungen $+,\cdot:K\times K\rightarrow K$, so dass gelten:
+	\begin{align*}
+	& K1) && (K,0,+)\text{ ist eine abelsche Gruppe.} \\
+	& K2) && (K\setminus\{0\},1,\cdot)\text{ ist eine abelsche Gruppe.}\\
+	& K3) && \forall a,b,c\in K:(a+b)\cdot c=a\cdot c+b\cdot c & \text{(Distributivgesetz)}
+	\end{align*}
+\end{defi}
+
+\begin{bsp}
+	\begin{align*}
+	(\RR,0,1,+,\cdot) &\text{ ist ein Körper} \\
+	(\QQ,0,1,+,\cdot) &\text{ ist ein Körper} \\
+	(\ZZ,0,1,+,\cdot) &\text{ ist kein Körper} \\
+	(\mathbb{F}_{2},0,1,+,\cdot) &\text{ ist ein Körper für }\mathbb{F}_{2}=\{0,1\}
+	\end{align*}
+	\[
+	\begin{tabular}{|c|cc|}
+	\hline
+	$+_{\mathbb{F}_{2}}$ & 0 & 1 \\
+	\hline
+	0 & 0 & 1\\
+	1 & 1 & 0\\
+	\hline
+	\end{tabular}
+	\]
+\end{bsp}
+
+\begin{lem}
+	Für einen Körper $K$ gelten:
+	\begin{itemize}
+		\item[a)] $0\neq 1$
+		\item[b)] $\forall x\in K: 0\cdot x=x\cdot 0=0$
+		\item[c)] $\forall x\in K: 1\cdot x=x\cdot1=x$
+		\item[d)] $\forall a,b\in K: a\cdot b=b\cdot a$\
+	\end{itemize}
+\end{lem}
+
+\begin{bew}
+	\textbf{a)} $1\in K\setminus\{0\}\Rightarrow 0\neq 1$\\
+	\\
+	\textbf{b)} $0\cdot x\stackrel{K1}{=}(0+0)\cdot x\stackrel{K3}{=}0\cdot x+0\cdot x\stackrel{\text{addiere }-(0\cdot x)}{\Rightarrow} 0=0\cdot x$. $x\cdot 0=0$ ist analog.\\
+	\\
+	\textbf{c)} alls $x\neq0:$ verwende $K2\Rightarrow1\cdot x=x\cdot1=x$. Falls $x=0$: wende b) an.\\
+	\\
+	\textbf{d)} Falls $a\neq0\neq b:$ wende $K2$ an. Falls $a=0\vee b=0$, wende b) an. \hfill $\Box$
+\end{bew}
+
+\begin{nota}
+	Manchmal schreiben wir $0_{K},1_{K},+_{K},\cdot_{K}$ an Stelle von $0,1,+,\cdot$ (analog für Gruppen).
+\end{nota}
+
+\subsection{Primkörper}
+
+Ziel: zu jeder Primzahl $p$ existiert ein Körper mit $p$ Elementen. (später: Körper ist eindeutig)
+\begin{defi}
+	Sei $n\in\NN$. Eine \imp{Restklasse} modulo $n$ ist eine Teilmenge $m\subseteq\ZZ$, so dass gelten:
+	\begin{itemize}
+		\item[i)] $\forall a,b\in M$: $n$ teilt $b-a$
+		\item[ii)] $\forall a\in M:\forall b\in\ZZ:$ $(n$ teilt $(b-a)\Rightarrow b\in M)$
+		\item[iii)]  $M=\emptyset$
+	\end{itemize}
+	Die Elemente von M heißen \imp{Vertreter} von $M$.
+\end{defi}
+
+\begin{nota}
+	\begin{itemize}
+		\item[]
+		\item Schreibe $n|x$ für \anf{$n$ teilt $x$}
+		\item Für Restklassen $M,N$ modulo $n$ seien $M\oplus N:=\{a+b|a\in M,b\in N\}$ und $M\odot N:=\{a\cdot b+k\cdot n|a\in M,b\in N\text{ und }k\in\ZZ\}$\
+	\end{itemize}
+\end{nota}
+
+\begin{satz}
+	Sei $n\in\NN$. Schreibe \anf{Restklasse} für \anf{Restklasse modulo $n$}.
+	\begin{itemize}
+		\item[a)] Je 2 Restklassen $M,N$ sind disjunkt oder identisch.
+		\item[b)] Jedes $x\in\ZZ$ liegt in der Restklasse $x+n\cdot\ZZ:=\{x+n\cdot k|k\in\ZZ\}$.
+		\item[c)] Es gibt genau $n$ Restklassen (modulo $n$).
+		\item[d)] Sind $M,N$ Restklassen, so auch $M\oplus N$ und $M\odot N$.
+		\item[e)] Sei $\ZZ/n$ die Menge aller Restklassen. Dann ist $(\ZZ/n,0+n\cdot\ZZ,\oplus)$ eine abelsche Gruppe.
+		\item[f)] Ist $n$ Primzahl, so ist $(\ZZ/n,0+n\cdot\ZZ,1+n\cdot\ZZ,\oplus,\odot)$ ein Körper.
+	\end{itemize}
+\end{satz}
+
+\begin{kor}
+	Zu jeder Primzahl $p$ gibt es einen Körper mit $p$ Elementen.
+\end{kor}
+
+\begin{bsp}
+	Restklassen modulo 3 ($n=3$):
+	\begin{align*}
+	\overline{0}=0+3\cdot\ZZ &=\{...,-6,-3,0,3,6,...\}\\
+	\overline{1}=1+3\cdot\ZZ &=\{...,-5,-2,1,4,7,...\}\\
+	\overline{2}=2+3\cdot\ZZ &=\{...,-4,-1,2,5,8,...\} \\
+	&\begin{tabular}{|c|ccc|}
+	\hline
+	+&$\overline{0}$&$\overline{1}$&$\overline{2}$\\
+	\hline
+	$\overline{0}$ & $\overline{0}$ &$ \overline{1}$ & $\overline{2}$\\
+	$\overline{1}$ &$ \overline{1}$ & $\overline{2}$ & $\overline{0}$\\
+	$\overline{2}$ &$ \overline{2}$ & $\overline{0}$ & $\overline{1}$\\
+	\hline
+	\end{tabular}
+	\end{align*}
+\end{bsp}
+
+\begin{bew}
+	\textbf{a)} \zz $M\cap N\neq\emptyset\Rightarrow M=N$.\\
+	Sei $x\in M\cap N$.\\
+	$\mathbf{N\subseteq M:}$ Sei $y\in N\stackrel{\text{i) für } N}{\Rightarrow}\:n|y-x\stackrel{\text{ii) für }M}{\Rightarrow} y\in M$\\
+	$\mathbf{M\subseteq N:}$ analog. \\
+	\\
+	\textbf{b)} \zz $M:=x+n\cdot\ZZ$ ist Restklasse.\\
+	iii): $x\in M\Rightarrow M\neq\emptyset$\\
+	i): Seien $a=x+k\cdot n,b=x+l\cdot n\in M\:(k,l\in\ZZ)\:\Rightarrow b-a=(l-k)\cdot n$. Wird von $n$ geteilt.\\
+	ii): Seien $a=x+k.\cdot n\in M$ und $b\in\ZZ$, so dass $n|b-a\:\Rightarrow\:b-a=l\cdot n$ für $l\in\ZZ\Rightarrow b=a+l\cdot n=x+(k+l)\cdot n\in M$\\
+	\\
+	\textbf{c)} \textbf{Behauptung:} Jede Restklasse $M$ enthält ein eindeutiges Element aus $\{0,...,n-1\}\ni x$\\
+	\textbf{Existenz von x:} Sei $y\in M\Rightarrow y+n\cdot |y|\in M\cap\NN_{0}$, denn $y+n\cdot |y|\geq y+|y|\geq0$. Sei nun $y\in M\cap\NN_{0}$ ein kleinstes Element. (ÜB 2)\\
+	\textbf{Behauptung:} $0\leq y\leq n-1$, sonst bilde $y-n$. Dies Führt zu Widerspruch.\\
+	\textbf{Eindeutigkeit:} Seien $x,x'\in M$ mit $0\leq x\leq x'\leq n-1$\\
+	\zz $x'=x$\\
+	Wissen: $0\leq x'-x=k\cdot n\leq n-1$ für ein $k\in\ZZ\Rightarrow 0\leq k<1\Rightarrow k=0\Rightarrow x'=x$\\
+	\textbf{Behauptung:} 1b)$\Rightarrow$ Die Abbildung, die einer Restklasse $M$ (modulo $n$) das eindeutige element in $M\cap\{0,...,n-1\}$ zuordnet, ist eine Bijektion: $\{Restklassen\}\rightarrow\{0,...,n-1\}$, d.h. c) gilt.\\
+	\\
+	\textbf{d)} Wissen; nach c) und b), dass alle Restklassen die Form $x+n\cdot\ZZ$ haben (für ein $x\in\{0,...,n-1\}$)\\
+	\textbf{Übung:} \begin{itemize}
+		\item $(a+n\cdot\ZZ)\oplus(b+n\cdot\ZZ=(a+b)+n\cdot\ZZ$ \hfill $\circledast$
+		\item $(a+n\cdot\ZZ\odot(b+n\cdot\ZZ)=a\cdot b+n\cdot\ZZ$ \hfill $\circledast\circledast$\\
+	\end{itemize}
+	\textbf{e)} z.B. $0+n\cdot\ZZ$ ist die Eins. \\
+	$(a+n\cdot\ZZ)\oplus(0+n\cdot\ZZ)\stackrel{\circledast}{=}(a+(-a))+n\cdot\ZZ=0+n\cdot\ZZ$\\
+	\\
+	\textbf{f)} Assoziativität, Kommutativität von $0$ mit $(\circledast\circledast)$, Distributivgesetz mit $(\circledast)$ und $(\circledast\circledast)$ (und verwende Gesetze für $\ZZ$).\\
+	Bleibt \zz für $a\in\{1,...,n-1\}\:\exists b\in\{0,...,n-1\}$ mit $a+n\cdot\ZZ\odot b+n\cdot\ZZ=1+n\cdot\ZZ$. \\
+	Dazu zeigen wir: $f_{a}:\ZZ/n\rightarrow\ZZ/n,M\mapsto M\odot(a+n\cdot\ZZ)$ ist surjektiv.\\
+	Aus den Übungen wissen wir: Sei $X$ eine endliche Menge, $f:X\rightarrow X$ injektiv $\Rightarrow f$ ist surjektiv.\\
+	\zz $f_{a}$ ist injektiv!\\
+	Seien $x+n\cdot\ZZ,x'+n\cdot\ZZ$ Restklassen mit $(x+n\cdot\ZZ)\odot(a+n\cdot\ZZ)=(x'+n\cdot\ZZ)\odot(a+n\cdot\ZZ)=a\cdot x'+n\cdot\ZZ \\
+	\Rightarrow a\cdot x,a\cdot x'$ sind in derselben Restklasse $\Rightarrow n|(a\cdot x'-a\cdot x)=a\cdot (x'-x)$ und da $n$ eine Primzahl ist\\
+	$\Rightarrow n|a$ oder $n|x'-x \stackrel{0<a<n}{\Rightarrow} n|x'-x\Rightarrow x',x$ in derselben Restklasse. \hfill $\Box$
+\end{bew}
+
+\begin{defi}
+	$p\in\NN$ heißt \imp{Primzahl} $\Leftrightarrow p>1$ und die einzigen Teiler aus $\NN$ von $p$ sind 1 und $p$.
+\end{defi}
+
+\begin{satz}
+	$p$ Primzahl $\Rightarrow(\forall a,b\in\ZZ:p|a\cdot b\Rightarrow p|a\vee p|b)$
+\end{satz}
+
+\begin{lem}[Übung]
+	Sei $\{0\}\subset M\subseteq\ZZ$, sodass gilt: $\forall a,a'\in M$ gilt $a\pm a'\in M$. Dann folgt:
+	\begin{itemize}
+		\item[a)] Es gilt $M=m\cdot\ZZ(=\{m\cdot x|x\in \ZZ\})$, wobei $m$ das kleinste Element in $M\cap\NN$ ist (und $\neq\emptyset$)
+		\item[b)] Falls $M\supseteq p\cdot\ZZ$ für $p$ eine Primzahl $\Rightarrow M=\ZZ\vee M=p\cdot \ZZ$
+	\end{itemize}
+\end{lem}
+
+\begin{bew}[des Satzes mit Lemma]
+	Seien $a,b\in\ZZ$ mit $p|a\cdot b$. Gelte nun $p\times b$. Betrachte $M:=\{x\in\ZZ|p\:teilt\:x\cdot b\}$. \\
+	\textbf{Prüfe} $\forall x,x'\in M:x\pm x'\in M$ und $p\cdot\ZZ\subseteq M$.\\
+	Aus dem Lemma folgt nun: $M=\ZZ$ oder $M=p\cdot\ZZ$.\\
+	Falls $M=p\cdot\ZZ:\stackrel{a\in M}{\Rightarrow}\exists k\in\ZZ:a=p\cdot k$, d.h. $p|a$.\\
+	Falls $M=\ZZ:\stackrel{1\in M}{\Rightarrow} p$ teilt $1\cdot b=b$ $\lightning$ \hfill $\Box$\\
+\end{bew}
+
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[a)] Eine Relation $R\subseteq M\times M$ (auf $M$) heißt \imp{Äquivalenzrelation} $\Leftrightarrow$
+		\begin{align*}
+		& i) && \forall x\in M: xRx & \text{(reflexiv)} \\
+		& ii) && \forall x,y\in M: xRy\Leftrightarrow yRx & \text{(symmetrisch)} \\
+		& iii) && \forall x,y,z\in M: xRy\text{ und }yRz\Rightarrow xRz & \text{(transitiv)} \\
+		\end{align*}
+		\item[b)] Schreibe $x/\sim\:y$ für $xRy$, falls $R$ Äquivalenzrelation.  %STIMMT DAS SO?
+		\item[c)] Die Äquivalenzklasse $x\in M$ ist $[x]:=\{y\in M|x\tilde y\}$.
+		\item[d)] $M/R:=M/\sim:=\{[x]|x\in M\}$ heißt Menge der Äquivalenzklassen.
+	\end{itemize}
+\end{defi}
+
+\begin{bsp}
+	Sei $M=\ZZ$. Dann ist $R_{n}=\{(x,y)\in\ZZ^{2}|n\text{ teilt }x-y\}\:(n\in\NN)$ ist eine Äquivalenzrelation auf $\ZZ$. Äquivalenzklassen zu $R_{n}$ sind die Restklassen modulo $n$.
+\end{bsp}
+
+\begin{defi}
+	$\CC:=\RR^{2}=\{(a,b)|a,b\in\RR\},\:0_{\CC}:=(0_{\RR},0_{\RR}),\:1_{\CC}=(1_{\RR},0_{\RR})$. \\ $+_{\CC}:\CC\times\CC\rightarrow\CC,((a,b),(c,d))\mapsto(a,b)+_{\CC}(c,d):=(a+_{\RR}c,b+_{\RR}d$\\
+	$\cdot_{\CC}:\CC\times\CC\rightarrow\CC,((a,b),(c,d))\mapsto(a,b)\cdot_{\CC}(c,d):=(a\cdot_{\RR}c-_{\RR}b\cdot_{\RR}d,a\cdot_{\RR}d+_{\RR}b\cdot_{\RR}c)$
+\end{defi}
+
+\begin{satz}
+	$(\CC,0_{\CC},1_{\CC},+_{\CC},\cdot_{\CC})$ ist ein Körper, der \imp{Körper der komplexen Zahlen}. \\
+	\textbf{Hinweis:} $(a,b)\cdot_{\CC}(a-b)=(a^{2}+b^{2},0)$ und $(r,0)\cdot_{\CC}(c,d)=(r\cdot c, r\cdot d)$
+\end{satz}
+
+\begin{nota}
+	\begin{itemize}
+		\item[]
+		\item Oft schreibt man $i$ für $(0,1)$ und $a+b\cdot i$ für $(a,b)$
+		\item Man identifiziert (oft) $a\in\RR$ mit $a+0\cdot i=(a,0)\in\CC\Rightarrow\RR\subseteq\CC$
+		\item $\exists x\in\CC$ mit $x^{2}=-1_{\CC}$: denn $i^{2}=(0,1)\cdot(0,1)=(0\cdot 0-1\cdot 1,0\cdot 1+1\cdot 0)=(-1,0)=-(1,0)=-1_{\CC}$
+	\end{itemize}
+\end{nota}

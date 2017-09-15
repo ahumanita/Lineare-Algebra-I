@@ -1,0 +1,356 @@
+% !TEX encoding = UTF-8 Unicode
+
+Wir werden in dieser Vorlesung mit einem \anf{naiven} Mengenbegriff arbeiten.
+\begin{defin}[Georg Cantor (Ende 19.Jhd.)]
+	Eine \imp{Menge} ist eine Zusammenfassung von Objekten unseres Denkens. Diese Objekte heißen \imp{Elemente} von $M$.\\
+	$x\in M$ bedeutet \anf{$x$ ist Element von $M$}.
+\end{defin}
+
+\begin{bem}
+	\begin{itemize}
+		\item[]
+		\item endliche Mengen werden oft durch eine Aufzählung ihrer Elemente angegeben.
+		\item viele Mengen sind durch ein Bildungsgesetz definiert.
+	\end{itemize}
+\end{bem}
+
+\begin{bsp}
+	\begin{align*}
+	\NN &=\{1,2,3,...\} &\text{(Natürliche Zahlen)} \\
+	\NN_{0} &=\{0,1,2,3,...\} &\text{(natürliche Zahlen und die Null)} \\
+	\ZZ &=\{0,\pm 1,\pm 2,...\} &\text{(ganze Zahlen)} \\
+	\QQ &=\{\tfrac{a}{b} |a,b\in\ZZ,\:b\neq0\} & \text{(Menge der rationalen Zahlen)} \\
+	\RR & & \text{(reelle Zahlen, siehe Analysis)} \\
+	\emptyset &=\{\} &\text{(leere Menge)}\\
+	\mathbb{P} &=\{x\in\NN |x\:ist\:Primzahl\}=\{2,3,5,7,...\}
+	\end{align*}
+\end{bsp}
+
+\noindent Seien heute im Weiteren $M,N$ Mengen.
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[a)] $x\in M:\Leftrightarrow x$ liegt nicht in $M$ ($\Leftrightarrow \neg(x\in M)$).
+		\item[b)] $N\subseteq M:\Leftrightarrow$ Jedes Element $x\in N$ liegt auch in $M$.	Man sagt: \anf{$N$ ist Teilmenge von $M$ \anf{oder} $M$ ist Obermenge von $N$}. 
+		\item[c)] $N\subset M:\Leftrightarrow N\subseteq M$ und $N\neq M$
+	\end{itemize}
+\end{defi}
+
+\begin{ub}
+	$M=N\Leftrightarrow(M\subseteq N\wedge N\subseteq M)$
+\end{ub}
+
+\begin{bsp}
+	$\mathbb{P}\subset\NN$
+\end{bsp}
+
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[a)] $M\cap N:=\{x|x\in M\wedge x\in N\}$ $M\cap N$ heißt \imp{Durchschnitt} von $M$ und $N$.
+		\item[b)] $M\cup N:=\{x|x\in M\vee x\in N\}$ \anf{\imp{Vereinigung} von $M$ und $N$}.
+		\item[c)] $M\setminus N:=\{x|x\in M\wedge x\notin N\}$ \anf{\imp{Differenz} von $M$ und $N$} ($M$ ohne $N$)
+		\item[d)] $M$ und $N$ heißen \imp{disjunkt}$\Leftrightarrow M\cap N=\emptyset$
+		\item[e)] Sind $M$ und $N$ disjunkt, so schreibt man auch $M\disj N$ für $M\cup N$ (\anf{disjunkte Vereinigung})
+	\end{itemize}
+\end{defi}
+
+\begin{bsp}
+	\begin{align*}
+	\mathbb{P}\cap\{1,...,10\}&=\{2,3,5,7\} \\
+	\{1,...,10\}\setminus\mathbb{P}&=\{1,4,6,8,9,10\}
+	\end{align*}
+\end{bsp}
+
+\noindent\textbf{Beachte:}
+\begin{itemize}
+	\item[i)] $\Rightarrow,\Leftrightarrow,\Leftarrow,:\Leftrightarrow$ stehen zwischen Aussagen.
+	\item[ii)] $=,:=$ stehen zwischen Mengen oder zwischen Elementen.
+\end{itemize}
+
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[a)] Für $m\in M$ und $n\in N$ bezeichnet der Ausdruck $(m,n)$ das \imp{geordnete Paar} mit 1. Eintrag $m$, 2. Eintrag $n$.
+		\item[b)] Das \imp{Mengenprodukt} von $M$ und $N$ ist $M\times N=\{(m,n)|m\in M,n\in N\}$
+	\end{itemize}
+\end{defi}
+
+\begin{bsp}
+	\begin{align*}
+	\RR\times\RR &=\{(a,b)|a,b\in\RR\} \text{\anf{= Punkt der Ebene}}\\
+	\RR\times\RR &\supseteq [0,1]\times[0,2] \\
+	[a,b] &=\{x\in\RR|a\leq x\leq b\}
+	\end{align*}
+\end{bsp}
+
+\begin{defi}
+	Sei $k\in\NN$:
+	\begin{itemize}
+		\item[a)] Ein \imp{$k$-Tupel} ist eine geordnete Aufzählung ($m_{1},...,m_{k}$) von Objekten $m_{1},...,m_{k}$
+		\item[b)] Sind $M_{1},...,M_{k}$ Mengen, so ist ihr Mengenprodukt $M_{1}\times...\times M_{k}=\{(m_{1},...,m_{k})|m_{1}\in M_{1},...,m_{k}\in M_{k}\}$
+		\item[c)] Man schreibt $M^{k}$ für $M\times...\times M$ ($k$ Faktoren)
+	\end{itemize}
+\end{defi}
+
+\begin{bsp}
+	$\RR^{3}=\RR\times\RR\times\RR$ (\anf{Punkte im Raum})
+\end{bsp}
+
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[i)] Eine \imp{Abbildung} ist ein Tripel ($M,N,f$) bestehend aus Mengen $M$, dem \imp{Definitionsbereich}, und $N$, dem \imp{Wertebereich}, und einer \imp{Abbildungsvorschrift} $f$, die jedem $m\in M$ ein Element $f(m)\in N)$ zuordnet. \\
+		Andere Notation: $f:M\rightarrow N$ \hspace{3em} $M\xrightarrow{f} N$ \hspace{3em} $f$
+		\item[ii)] Der \imp{Graph} einer Abbildung $f:M\rightarrow N$ ist $Graph(f):=\{(m,f(m))|m\in M\}\subseteq M\times N$
+	\end{itemize}
+\end{defi}
+
+\begin{bsp}
+	Ist die Menge eine beliebige Menge, so ist $id_{M}:M\rightarrow M,m\mapsto m$ die identische Abbildung.
+\end{bsp}
+
+\noindent Sei im Weiteren $f:M\rightarrow N$ eine Abbildung.
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[i)] Für $U\subseteq M$ sei $f(U):=\{f(m)|m\in U\}$ das \imp{Bild} von U unter f.
+		\item[ii)] Für $V\subseteq N$ sei $f^{-1}(V):=\{m\in M|f(m)\in V\}$ das \imp{Urbild} von V unter f.
+	\end{itemize}
+\end{defi}
+
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[i)] $f$ heißt \imp{injektiv} $:\Leftrightarrow$ für jedes $n\in N$ enthält $f^{-1}(\{n\})$ höchstens ein Element.
+		\item[ii)] $f$ heißt \imp{surjektiv} $:\Leftrightarrow$ für jedes $n\in N$ enthält $f^{-1}(\{n\})$ mindestens ein Element.
+		\item[iii)] $f$ heißt \imp{bijektiv} $:\Leftrightarrow$ für jedes $n\in N$ enthält $f^{-1}(\{n\})$ genau ein Element.
+	\end{itemize}
+\end{defi}
+
+\begin{lem}
+	\begin{itemize}
+		\item[]
+		\item[a)] $f$ ist injektiv$:\Leftrightarrow$ (für alle $m,m'\in M$ gilt: $f(m)=f(m')\Rightarrow m=m'$)
+		\item[b)] $f$ ist surjektiv$\Leftrightarrow f(M)=N$
+		\item[c)] $f$ ist bijektiv$\Leftrightarrow f$ ist injektiv und surjektiv
+	\end{itemize}
+\end{lem}
+
+\begin{nota}
+	\begin{itemize}
+		\item[]
+		\item $\forall n\in N:$ bedeutet \anf{für alle $n\in N$ gilt} oder \anf{für jedes $n\in N$ gilt}
+		\item $\exists n\in N:$ bedeutet \anf{es existiert ein $n\in N$, so dass}
+		\item $\exists!n\in N:$ bedeutet \anf{es gibt genau ein $n\in N$, so dass}
+	\end{itemize}
+\end{nota}
+
+\begin{bew}
+	\textbf{c)} Eine Menge enthält genau ein Element, genau dann, wenn sie mindestens ein Element enthält und höchstens ein Element enthält.\\
+	$f$ injektiv und surjektiv $:\Leftrightarrow \forall n\in N:f^{-1}(\{n\})$ enthält mindestens und höchstens ein Element \\
+	$\Leftrightarrow\forall n\in N:f^{-1}(\{n\})$ enthält genau ein Element $\Leftrightarrow f$ ist bijektiv \\
+	\\
+	\textbf{a)} \anf{$\Rightarrow$} Sei $f$ injektiv. Seien $m,m'\in M$ und gelte $f(m)=f(m')$.\\
+	Setze $n:=f(m)\Rightarrow m,m'\in f^{-1}(\{n\}) \stackrel{f\text{ inj.}}{\Rightarrow}m=m'$, da $f^{-1}(\{n\})$ höchstens einelementig ist. \\
+	\anf{$\Leftarrow$} (\anf{Widerspruchsbeweis}): Gelte die rechte Seite der Aussage a).\\
+	\textit{Annahme}: $f$ ist nicht injektiv, d.h. $\exists n\in N: f^{-1}(\{n\})$ enthält nicht kein oder ein Element, d.h.
+	\[ \exists n\in N:\exists m,m'\in M:f^{-1}(\{n\})\ni m,m'$ und $m\neq m'\]
+	Aber: wegen Aussage rechts: $f(m)=f(m')=n$ impliziert $m=m'$ \hfill {\Large$\lightning$} Widerspruch zur Annahme!\\
+	D.h. die Annahme muss falsch sein. Folglich ist $f$ injektiv.\\
+	\\
+	\textbf{b)} $f(M)=N\Leftrightarrow f(M)\supseteq N$ (Bemerkung: $f(M)\subseteq N$ gilt immer)\\
+	$\Leftrightarrow \forall n\in N:n\in f(M)=\{f(m)|m\in M\} \Leftrightarrow \forall n\in N:\exists m\in M:n=f(m)\\
+	\Leftrightarrow\forall n\in N:\exists m\in M:m\in f^{-1}(\{n\})\Leftrightarrow\forall n\in N:f^{-1}(\{n\})\neq\emptyset\Leftrightarrow f$ surjektiv \hfill $\Box$\\
+\end{bew}
+
+\noindent Seien weiterhin $M,N$ Mengen und $f:M\rightarrow N$ eine Abbildung.
+\begin{bem}
+	\begin{itemize}
+		\item[]
+		\item[i)] Für jedes $N\:\exists !$ Abbildung: $\emptyset\rightarrow N$
+		\item[ii)] Falls $M\neq\emptyset$, so existiert keine Abbildung: $M\rightarrow\emptyset$
+	\end{itemize}
+\end{bem}
+
+\subsection{Verkettung (/Komposition) von Abbildungen}
+
+\begin{defi}
+	Sei $g:L\rightarrow M$ eine weitere Abbildung. Die Verkettung \anf{$f$ nach $g$}  ist die Abbildung $f\circ g:L\rightarrow N,x\mapsto (f\circ g)(x):=f(g(x))$
+\end{defi}
+
+\begin{lem}
+	Sei $h:K\rightarrow L$ eine weitere Abbildung. Dann gilt $(f\circ g)\circ h = f\circ(g\circ h)$ als Abbildung: $K\rightarrow N$
+\end{lem}
+
+\begin{bew}
+	Es ist nur zu zeigen, dass die Abbildungsvorschriften dieselben sind:\\
+	Sei $x\in K:((f\circ g)\circ h)(x)=(f\circ g)(h(x))=f(g(h(x)))=f((g\circ h)(x))=(f\circ(f\circ h))(x)\:$ \hfill $\Box$\\
+\end{bew}
+
+\begin{ub}
+	Für $V\subseteq N$ gilt: $(f\circ g)^{-1}(V)=g^{-1}(f^{-1}(V))$
+\end{ub}
+
+\begin{lem}
+	\begin{itemize}
+		\item[]
+		\item[a)] $f,g$ injektiv $\Rightarrow f\circ g$ injektiv
+		\item[b)] $f,g$ surjektiv $\Rightarrow f\circ g$ surjektiv
+		\item[c)] $f\circ g$ surjektiv $\Rightarrow f$ surjektiv
+	\end{itemize}
+\end{lem}
+
+\begin{bew}
+	\textbf{c)} Seien $x_{1},x_{2}\in L$ und gelte $g(x_{1})=g(x_{2}).$\\
+	\zz $x_{1}=x_{2}$\\
+	Dazu wende $f$ an: $(f\circ g)(x_{1})=f(g(x_{1}))=f(g(x_{2}))=(f\circ g)(x_{2}\Rightarrow$ (da $f\circ g$ inj.) $x_{1}=x_{2}$ \\
+	\\
+	\textbf{d)} \zz $f$ surjektiv.
+	Sei $n\in N$. \zz $\exists m\in M:f(m)=n$\\
+	Wissen: $f\circ g$ surjektiv $\Rightarrow\:\exists l\in L$ mit $n=(f\circ g)(l)=(f(g(l))$.\\
+	Wähle $m:=g(l) \Rightarrow n=f(m)$ \hfill $\Box$
+\end{bew}
+
+\begin{satz}
+	Sei $f:M\rightarrow N$ eine bijektive Abbildung. Dann existiert genau eine Abbildung $\tilde{f}:N\rightarrow M$, mit $\tilde{f}\circ f \stackrel{\circledast}{=} id_{M}$ und $f\circ\tilde{f}=id_{N}$. Man schreib $f^{-1}$ für $\tilde{f}$ und nennt $f^{-1}$ die zu $f$ \imp{inverse Abbildung}.
+\end{satz}
+
+\begin{bew}
+	\textbf{Konstruktion:} Sei $n\in N\stackrel{f\text{ bij.}}{\Rightarrow}\:f^{-1}(\{n\})$ ist einelementig. Definiere $\tilde{f}(n)$ so, dass $\tilde{f}(\{n\})=f^{-1}(\{n\}) \leadsto$ erhalten: $\tilde{f}:N\rightarrow M$\\
+	\\
+	\textbf{$\circledast$ nachweisen:} Sei $m\in M.\:\tilde{f}(f(m))=m$. Sei nun $n\in N:f(\tilde{f}(n))=n$\\
+	\\
+	\textbf{Eindeutigkeit von $\tilde{f}$:} Sei $g:N\rightarrow M$ eine Abbildung und $f\circ g=id_{N}\wedge g\circ f=id_{M}$. Dann: $\tilde{f}=\tilde{f}\circ id_{N}=\tilde{f}\circ(f\circ g)=(\tilde{f}\circ f)\circ g \stackrel{\circledast}{=} id_{M}\circ g=g$ \hfill $\Box$
+\end{bew}
+
+\begin{bem}
+	Gilt $\circledast$ für $f$ und $\tilde{f}$, so sind beide bijektiv.
+\end{bem}
+
+\noindent \textbf{Induktion:} Man kann die natürlichen Zahlen durch folgende Axiome (nach Peano) beschreiben:
+\begin{itemize}
+	\item[P1)] $\NN_{0}$ hat ein ausgezeichnetes Element, die Null.
+	\item[P2)] Es gibt eine Abbildung $\nu:\NN_{0}\rightarrow\NN_{0},n\mapsto\nu(n)$ ($\nu(n)$ der Nachfolger von $n$)
+	\item[P3)] $0\notin\nu(\NN_{0}$) (\anf{$0$ hat keinen Vorgänger})
+	\item[P4)] $\nu$ ist injektiv
+	\item[P5)] Ist $N\subseteq\NN_{0}$ mit $0\in N$ und $\nu(N)\subseteq N$, so gilt $N=\NN_{0}$\\
+	Man definiert: $1:=\nu(0), 2:=\nu(1)=\nu(\nu(0)),...$
+\end{itemize}
+
+\begin{satz}[Induktionsprinzip]
+	Sei $A(n)$ eine Aussage für jedes $n\in\NN_{0}$, so dass gilt:
+	\begin{itemize}
+		\item[a)] $A(n)$ ist wahr.
+		\item[b)] Ist $A(n)$ wahr, so ist $A(\nu(n))$ wahr.
+	\end{itemize}
+	Dann gilt $A(n)$ für alle $n\in\NN_{0}$.
+\end{satz}
+
+\begin{bew}
+	Definiere $N:=\{n\in\NN_{0}|A(n)$ ist wahr $\}$. \\
+	\zz $N=\NN_{0}$\\
+	wegen a) und b) gelten: $0\in N$ und $\nu(N)\subseteq N\Rightarrow N=\NN_{0}$ \hfill $\Box$\
+\end{bew}
+
+\begin{bem}
+	Man kann \anf{rekursiv} für alle $m\in\NN_{0}$ eine Abbildung $m+\_ :\NN_{0}\rightarrow\NN_{0}, a\mapsto m\cdot a$ definieren.\\%DEFINIEREN?
+	($m\cdot 0=0, m\cdot\nu(n)=m+m\cdot n$)
+\end{bem}
+
+\begin{defi}
+	\begin{itemize}
+		\item[]
+		\item[a)] Eine \imp{Relation} auf einer Menge $M$ ist eine Teilmenge $R\subseteq M\times M$
+		\item[b)] An Stelle $(x,y)\in R$ schreibt man oft $xRy$
+		\item[c)] Eine Relation $R\subseteq M\times M$ heißt \imp{Totalordnung}, schreibe \anf{$\leq$}
+		\begin{itemize}
+			\item[i)] $\forall m\in M:m\leq m$
+			\item[ii)] $\forall m,m'\in M:m\leq m'$ und $m'\leq m\Rightarrow m=m'$
+			\item[iii)] $\forall m,m'\in M:m\leq m'$ oder $m'\leq m$
+			\item[iv)] $\forall m,m',m'':m\leq m'$ und $m'\leq m''\Rightarrow m\leq m''$
+		\end{itemize}
+		\item[d)] Definiere Relation $\leq$ auf $\NN_{0}$ durch: $m\leq m'\Leftrightarrow\exists m\in\NN_{0}:m'=n+m$
+	\end{itemize}
+\end{defi}
+
+\begin{prop}
+	$\leq$ aus d) ist eine Totalordnung auf $\NN_{0}$
+\end{prop}
+
+\subsection{Mächtigkeit (Kardinalität) von Mengen}
+
+Für $n\in\NN$ sei $\{1,...,n\}=\{x\in\NN|1\leq x\leq n\}$\\
+
+\begin{satz}
+	Ist $f:\{1,...,n\}\rightarrow\{1,...,m\}$ eine Bijektion, so gilt $n=m$.\
+\end{satz}
+
+\begin{bew}
+	Induktion über $n\in\NN$\\
+	$\mathbf{n=1}$ (Induktions-Anfang): $f(\{1,...,n\})=f(\{1\})=\{f(1)\}\stackrel{f\text{ surj.}}{=}\{1,...,m\}\Rightarrow m=1$\\
+	$\mathbf{n\mapsto n+1}$ (Induktions-Schritt): Gelte die Aussage für ein beliebiges, aber festes $n\in\NN$. Zeige nun, sie gilt auch für $n+1$: \\
+	Sei $f:\{1,...,n+1\}\rightarrow\{1,...,m\}$ bij. Sei $m'=f(n+1)$, definiere
+	\[
+	g:\{1,...,m\}\rightarrow\{1,...,m\}, i\mapsto
+	\begin{cases}
+	i & \text{für } i\neq m,m'\\
+	m & \text{für } i=m'\\
+	m' & \text{für } i=m
+	\end{cases}
+	\]
+	Prüfe: $g$ bijektiv, $g\circ f$ ist bijektiv, $g\circ f(n+1)=m,m>1\Rightarrow h:\{1,...,n\}\rightarrow\{1,...,m-1\},i\mapsto g\circ f(i)$ ist bijektiv $\stackrel{\text{IV}}{\Rightarrow}\:m-1=n \Rightarrow m=n+1$ \hfill $\Box$
+\end{bew}
+
+\begin{prop}[Proposition-Definition]
+	Für eine Menge $M$ gilt genau eine der folgenden 3 Aussagen:
+	\begin{itemize}
+		\item[a)] $M=\emptyset$
+		\item[b)] $\exists n\in\NN:\exists$bijektive Abbildung $f:\{1,...,n\}\rightarrow M$
+		\item[c)] es gilt weder a) noch b)
+	\end{itemize}
+	Im Fall b) ist die Zahl $n\in\NN$ eindeutig.\\
+	Die \imp{Kardinalität} (oder Mächtigkeit) von $M$ ist
+	\[
+	|M|:=\begin{cases}
+	0 & \text{falls } M=\emptyset \\
+	n & \text{falls b) gilt} \\
+	\infty & \text{falls c) gilt}
+	\end{cases}
+	\]
+	$M$ heißt endlich, falls a) oder b) gilt.
+\end{prop}
+
+\begin{bew}
+	i) \zz a) und b) schließen sich gegenseitig aus.\\
+	ii) \zz $n$ in b) ist eindeutig.\\
+	\textbf{i)} Falls $M=\emptyset$, so existiert keine Abbildung $N\rightarrow M=\emptyset$ für $N\neq\emptyset\Rightarrow$ b) gilt nicht. \\
+	\textbf{ii)} Seine $\{1,...,n\}\stackrel{f}{\rightarrow} M$ und $\{1,...,m\}\stackrel{g}{\rightarrow} M$ beide bijektiv. $\Rightarrow g^{-1}\circ f:\{1,...,n\}\rightarrow\{1,...,m\}$ ist bijektiv $\stackrel{1.15}{\Rightarrow} n=m$. \hfill $\Box$
+\end{bew}
+
+\noindent\textbf{Fakten:}
+\begin{itemize}
+	\item[a)] Sei $f:M\rightarrow N$ bijektiv. Dann gilt $|M|=|N|$.
+	\item[b)] Sei $f:\{1,...,m\}\rightarrow\{1,...,n\}$ eine Abbildung:
+	\begin{itemize}
+		\item[i)] $n=m\Rightarrow f$ bijektiv
+		\item[ii)] $n<m\Rightarrow f$ nicht injektiv
+		\item[iii)] $n>m\Rightarrow f$ nicht surjektiv
+	\end{itemize}
+	\item[c)] Sind $M$ und $N$ disjunkt, so gilt $|M\mathbin{\dot{\cup}}N|=|M|+|N|$ (unter der Vereinbarung $\infty+\_=\infty$ ; $\_+\infty=\infty$) (oder setze voraus: $M,N$ sind beide endlich).
+	\item[d)] Ist $M$ endlich und $N\subset M$, so ist $N$ endlich und $|N|<|M|$.
+	\item[e)] $|\NN_{0}|=\infty$
+	\item[f)] $M,N$ endlich: $|M\cup N|=|M|+|N|-|N\cap M|$
+\end{itemize}
+
+\begin{defi}
+	Ist $M$ eine Menge, so heißt $P(M):=\{N|N\subseteq M\}$ die \imp{Potenzmenge} von $M$.\
+\end{defi}
+
+\begin{bsp}
+	$P(\{1,2\})=\{\emptyset,\{1\},\{2\},\{2,1\}\}$
+\end{bsp}
+
+\begin{satz}
+	$M$ endlich $\Rightarrow$ $|P(M)|=2^{|M|}$
+\end{satz}

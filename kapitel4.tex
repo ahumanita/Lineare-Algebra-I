@@ -1,0 +1,261 @@
+% !TEX encoding = UTF-8 Unicode
+
+\begin{nota}
+	Sei $u\in\NN$, für $i=1,...,n$, sei $e_{i}=(0,...,0,1,0,...,0)\in K^{n}$, so dass die 1 an $i$-ter Stelle steht.
+\end{nota}
+
+\begin{lem}
+	$\forall v\in K^{n}:\exists!\lambda_{1},...,\lambda_{n}\in K$mit $v= \sum\limits_{i=1}^{n} \lambda_{i}\cdot e_{i}$
+\end{lem}
+
+\begin{bew}
+	Seien $\lambda_{1},...,\lambda_{n}\in K$ und
+	\[w:=\sum\limits_{i=1}^{n}\lambda_{i}\cdot(0,...,0,1,0,...,0)=\sum\limits_{i=1}^{n}(0,...,0,\lambda_{i},0,...,0)=(\lambda_{1},...,\lambda_{n}).\]
+	Sei $v=(\mu_{1},...,\mu_{n})\in K^{n}$ beliebig, dann: \[v=\sum\limits_{i=1}^{n}\lambda_{i}e_{i}\stackrel{\circledast}{\Leftrightarrow}(\mu_{1},...,\mu_{n})=(\lambda_{1},...,\lambda_{n})\Leftrightarrow \forall i=1,...,n: \lambda_{i}=\mu_{i}\] \hfill $\Box$
+\end{bew}
+\noindent Im weiteren seien $K$ ein Körper und $V$ ein $K$-VR.
+\begin{defi}
+	\itemizea{
+		\item[]
+		\item $v\in V$ heißt \imp{Linearkombination} (LK) von $v_{1},...,v_{n}\in V:\Leftrightarrow \exists\lambda_{1},...,\lambda_{n}\in K$ mit $v=\sum\limits_{i=1}^{n}\lambda_{i}v_{i}$
+		\item Für $S\subseteq V$: $v$ heißt LK aus $S$ :$\Leftrightarrow\exists n\in\NN,\exists v_{1},...,v_{n}\in S$. $v$ ist LK von $v_{1},...,v_{n}$.
+		\[L(S):=\{v\in V|v\text{ ist LK aus }S\}=\text{ die \imp{lineare Hülle} von }S.\]
+		\item $S\subseteq V$ heißt \imp{Erzeugendensystem} (ES) $\Leftrightarrow V=L(S)$
+		\item $V$ heißt \imp{endlich erzeugt} $\Leftrightarrow \exists S\subseteq V$ endlich: $V=L(S)$
+		\item $L(\emptyset):=\{0\}$
+	}
+\end{defi}
+
+\begin{bsp}
+	$K^{n}=L(\{e_{1},...,e_{n}\})$ $\leftarrow$ in Lemma 4.1.
+\end{bsp}
+
+\begin{lem}
+	Sei $V$ ein $K$-VR, $K$ ein Körper und seien $S;T\subseteq V$, dann gilt:
+	\itemizea{
+		\item $0\in L(S)$, $S\subseteq L(S)$
+		\item Ist $U\subseteq V$ ein UVR, so gilt $L(U)=U$
+		\item $T\subseteq S\Rightarrow L(T)\subseteq L(S)$
+		\item $L(S)$ ist ein UVR
+		\item $L(S)$ ist der kleinste UVR von $V$, der $S$ enthält.
+		\item $L(S\cup T)=L(S)+L(T)$
+		\item $L(L(S))=L(S)$
+	}
+\end{lem}
+
+\begin{bew}
+	\itemizea{
+		\item Falls $S=\emptyset\stackrel{\text{Def.}}{\Rightarrow}L(S)=\{\emptyset\}\ni 0,\:\emptyset=S\subseteq L(S)$.\\
+		Falls $S\neq\emptyset$: Für jedes $v\in S$ sind $0\cdot v,1\cdot v$ LK aus $S \Rightarrow 0,v\in L(S)\Rightarrow 0\subseteq L(S),\:S\subseteq L(S)$
+		\item $U\subseteq L(U)$: gilt nach a).\\
+		$L(S)\subseteq U$: Seien $v_{1},...,v_{n}\in U,\lambda_{1},...,\lambda_{n}\in K\stackrel{\text{ii) von UVR}}{\Rightarrow}\lambda_{1}\cdot v_{1},...,\lambda_{n}\cdot v_{n}\in U\\
+		\stackrel{\text{iii) von UVR}}{\Rightarrow}\lambda_{1} v_{1}+\lambda_{2} v_{2}\in U; \lambda_{1} v_{1}+\lambda_{2}v_{2}+\lambda_{3}v_{3}\in U$ ... (Induktion) $\rightarrow \lambda_{1}v_{1}+...+\lambda_{n}v_{n}\in U$
+		\item Übung.
+		\item $0\in L(S)$ nach a); Seien $v=\lambda_{1}v_{1}+...+\lambda_{n}v_{n},w=\mu_{1}w_{1}+...+\mu_{m}w_{m}\in L(S)$ mit $\lambda_{1},...,\lambda_{n},\mu_{1},...,\mu_{m}\in K,v_{1},...,v_{n},w_{1},...,w_{m}\in L(S)\Rightarrow v+w=\lambda_{1}v_{1}+...+\lambda_{n}v_{n}+\mu_{1}w_{1}+...+\mu_{m}w_{m}\in L(S)$. Analog $\lambda\cdot v=(\lambda\cdot\lambda_{1})v_{1}+...+(\lambda\cdot\lambda_{n})v_{n}\in L(S)$
+		\item \zz $\forall$ Untervektorräume $U\subseteq V$ mit $S\subseteq U$ gilt $U\supseteq L(S)$\\
+		Starte mit $S\subseteq U$. Wende $L(.)$ an $\stackrel{c)}{\Rightarrow}L(S)\subseteq L(U)\stackrel{b)}{=}U$
+		\item[f),g)] Übung. \hfill $\Box$
+	} 
+\end{bew}
+
+\begin{defi}
+	Sei $S\subseteq V$.
+	\itemizea{
+		\item $S$ heißt \imp{linear abhängig} $:\Leftrightarrow \exists v\in S:v\in L(S\setminus\{v\})$
+		\item $S$ heißt \imp{linear unabhängig} (l.u.) $:\Leftrightarrow\neg(S$ linear abhängig (l.a.))
+		\item $S$ heißt \imp{Basis} von $V$ $:\Leftrightarrow S$ ist l.u. und $V=L(S)$, d.h. $S$ ist Erzeugendensystem von $V$.
+	}
+\end{defi}
+
+\begin{bsp}
+	\itemizeNUM{}{
+		\item Sei $S=\{V\}\subseteq V$: $S$ l.a. $\Leftrightarrow v\in L(\emptyset)=\{\}\Leftrightarrow v=0$
+		\item Sei $S=\{(1,1,0),(1,0,1),(0,1,1)\}\subseteq\RR^3$.
+		\textbf{Beh:} $S$ ist l.u.\\
+		z.B.: Annahme: $(1,1,0)\in L(\{(1,0,1),(0,1,1)\})$ D.h. \[\exists\lambda,\mu\in\RR:(1,1,0)=\mu(1,0,1)+\lambda(0,1,1)=(\mu,\lambda,\mu+\lambda)\Rightarrow\lambda=1=\mu\wedge\lambda+\mu=0\hfill\lightning\]
+	}
+\end{bsp}
+
+\begin{lem}
+	Für $S\subseteq V$ sind äquivalent:
+	\itemizea{
+		\item $S$ ist l.u.
+		\item Für alle paarweise verschiedenen Vektoren $v_1,...,v_n\in S$ ($n\in\NN$ beliebig) und $\lambda_1,...,\lambda_n\in K$ gilt: $\sum\limits_{i=1}^n \lambda_i v_i = 0\Rightarrow \lambda_1 =...=\lambda_n =0$
+		\item Jeder Vektor $w\in L(S)$ ist eine eindeute LK aus $S$, d.h. sind $v_1,...,v_n \in S$ paarweise verschieden und gelten $w=\lambda_1 v_1 +...+\lambda_n v_n =\mu_1 v_1 +...+ \mu_n v_n$ (für alle Skalare $\mu_i,\lambda_i \in K$), so gilt: $\lambda_i = \mu_1\wedge ... \wedge \mu_n =\lambda_n$
+	}
+\end{lem}
+
+\begin{bew}
+	\begin{itemize} %AHHHHRG
+		\item[c)$\Rightarrow$b)] Wende c) an auf $0=\sum\limits_{i=1}^n \lambda_i v_i =0\cdot v_1 +...+0\cdot v_n \stackrel{c)}{\Rightarrow} \lambda_1 =...= \lambda_n =0$
+		\item[b)$\Rightarrow$a)] wir zeigen: $\neg a)\Rightarrow \neg b)$: Sei $v_0 \in S$, so dass $v_0 \in L(S\setminus\{v_0\})$, d.h. $\exists v_1,...,v_n \in S\setminus\{v_0\}$ paarweise verschieden und $\exists \lambda_1,...,\lambda_n \in K$ mit $v_0 =\sum\limits_{i=1}^n \lambda_i v_i \Rightarrow (-1)\cdot v_0 +\lambda_1 v_1 +...+ \lambda_n v_n =0$. $\lightning$ Widerspruch zu b).
+		\item[a)$\Rightarrow$c)] Zeige $\neg c)\Rightarrow\neg a):$ Gelte $w=\sum\limits_{i=1}^n \lambda_i v_i = \sum\limits_{i=1}^n \mu_i v_i$ (mit $\lambda_i,\mu_i,v_i$ wie in c)) und $\exists i_0$ mit $\lambda_{i_0} \neq \mu_{i_0}$. Dann gilt: $(\lambda_{i_0} -\mu_{i_0})\cdot v_{i_0} =\sum\limits_{i=1,i\neq i_0}^n (\mu_i -\lambda_i)\cdot v_i$. Wir wissen: $\lambda_{i_0}-\mu_{i_0}\neq 0$ (in K). Multipliziere mit $\tfrac{1}{\lambda_{i_0}-\mu_{i_0}}:v_{i_0}=\sum\limits_{i=1,i\neq 0}^n (\tfrac{\mu_i -\lambda_i}{\lambda_{i_0} -\mu_{i_0}})\cdot v_i \in L(S\setminus\{v\})$, d.h. $\neg a)$ \hfill $\Box$
+	\end{itemize}
+\end{bew}
+
+\begin{kor}
+	$S\subseteq V$ ist Basis $\Leftrightarrow$ Jeder Bektor $v\in V$ ist eindeutige LK aus $S$.
+\end{kor}
+
+\begin{bew}
+	$S\subseteq V$ ist Basis $\Leftrightarrow S$ ist l.u. und $L(S)=V \stackrel{4.5\wedge V=L(S)}{\Leftrightarrow}$ Jedes $v\in V$ ist eindeutige LK aus $S$. \hfill $\Box$
+\end{bew}
+
+\begin{kor}
+	Sei $S=\{e_1,...,e_n\}\subseteq K^n$ mit $e_i =(0,...,0,1,0,...,0)\in K^n$, wobei die 1 an $i$-ter Stelle steht. Dann ist nach Lemma 4.1 $S$ eine Basis von $K^n$.\\
+	Bezeichnung: $\{e_1,...,e_n\}$ heißt \imp{Standardbasis} von $K^n$.
+\end{kor}
+
+\begin{kor}
+	Jedes endlich ES $S\subseteq V$ enthält eine Basis $B\subseteq S$ von $V$.
+\end{kor}
+
+\begin{bew}
+	Sei $E:=\{T\subseteq S| T$ ist ES von $V\}$. $E\neq\emptyset$, denn $S\in E$. $S$ ist endlich $\Rightarrow$ alle $T\subseteq S$ sind endlich. Wähle $T\subseteq E$ mit kleinster Kardinalität.\\
+	Beh: $T$ ist Basis von $V$. \zz $T$ ist l.u.\\
+	Sonst ($T$ l.a.) $\exists v\in T$ mit \[v\in L(T\setminus\{v\})(\Rightarrow L(\{v\})\subseteq L(T\setminus\{v\}))\Rightarrow L(T\setminus\{v\})=L(T\setminus\{v\})+l(\{v\})\stackrel{Lemma\:4.3}{=} L(T\setminus\{v\}\cup\{v\})=L(T)=V.\]
+	Aber: $| T\setminus\{v\} | < | T |$, d.h. Widerspruch zur Wahl von $T$. \hfill $\Box$
+\end{bew}
+
+\begin{lem}
+	Sei $S\subseteq V$ l.u. und $v\notin L(S)\Rightarrow S\cup\{v\}$ ist l.u.
+\end{lem}
+
+\begin{bew}
+	\textbf{Annahme}: $S\cup\{v\}$ ist l.a. $\Rightarrow \exists$ Vektoren $v_1,...,v_n\in S$ paarweise verschieden und $\lambda,\lambda_1,...,\lambda_n$ mit $0=\lambda\cdot v+\lambda_1\cdot v_1 +...+\lambda_n\cdot v_n$ und nicht $\lambda=\lambda_1=...=\lambda_n=0!$ \\
+	\textbf{Fall 1}: $\lambda =0\stackrel{S\:l.u.}{\Rightarrow}\lambda_1 =...=\lambda_n =0$ \hspace{2em}$\lightning$\\
+	\textbf{Fall 2}: $\lambda\neq0\Rightarrow v=(-\tfrac{\lambda_1}{\lambda})\cdot v_1 +...+ (-\tfrac{\lambda_n}{\lambda})\cdot v_n \in L(S)$ ist ein Widerspruch zur Voraussetzung $v\notin L(S)$ \hfill $\Box$
+\end{bew}
+
+\begin{satz}[Austauschsatz von Steinitz]
+	Sei $T\subseteq V$ ein ES und $S\subseteq V$ l.u. mit $|S| < \infty$. Dann $\exists\tilde{T}\subseteq T$ mit $|\tilde{T}|=|S|$, so dass $(T\setminus\tilde{T})\cup S$ ein ES von $V$.\
+\end{satz}
+
+\begin{kor}
+	Sei $V$ endlich erzeugt und $S\subseteq V$ l.u., dann gilt:
+	\itemizea{
+		\item Für jedes ES $T$ von $V$ gilt: $|T|\geq |S|$ und insbesondere gilt $|S| < \infty$
+		\item Je zwei Basen von $V$ haben dieselbe Kardinalität
+	}
+\end{kor}
+
+\begin{bew}[von Korollar]
+	Sei nur $S$ endlich. Dazu sei $T\subseteq V$ ein endliches ES mit $m=|T|$.\\
+	\textbf{Steinitz:} Annahme: $|S| > m \Rightarrow \exists S_0\subseteq S$ mit $|S_0|=m+1$ und $S_0$ l.u. \\
+	%WARUM ...?
+	\textbf{Steinitz:} $\exists\tilde{T}\subseteq T$ mit $|\tilde{T}|=|S_0|$ und ... $\Rightarrow|S_0|=|\tilde{T}|\leq|T|=m$ \hspace{2em}$\lightning$
+	\itemizea{
+		\item es ist noch zu zeigen: Ist $T$ ein unendliches ES von $V$, so gilt: $|T|\geq|S|$. Dies folgt aus $|T|=\infty > |S|$
+		\item Seien $T,T'$ Basen von $V\Rightarrow T,T'$ l.u. $\stackrel{a)}{\Rightarrow} T,T'$ endlich. Nun: $T$ ist ES $\wedge T'$ ist l.u. $\stackrel{a)}{\Rightarrow} |T|\geq|T'|;T'$ ist ES $\wedge T$ ist l.u. $\stackrel{a)}{\Rightarrow} |T'|\geq |T| \Rightarrow |T|=|T'| (< \infty)$ \hfill $\Box$
+	}
+\end{bew}
+
+\begin{defin}
+	Elemente $x_1,...,x_n$ einer Menge $X$ heißen \imp{paarweise verschieden}$\Leftrightarrow \forall i\neq j:x_i\neq x_j(\Leftrightarrow |\{x_1,...,x_n\}|=n$
+\end{defin}
+
+\begin{bem}
+	4.10 und 4.11 gelten auch für $|S|=\infty$ bzw. $V$ nicht endlich erzeugt. Benötigt \anf{Auswahlaxiom} und \anf{unendliche Mächtigkeit}.
+\end{bem}
+
+\begin{bew}[von 4.10]
+	\itemizeNUM{}{
+		\item[]
+		\item Beh: Sei $U\subseteq V$ ein UVR, $T\subseteq V$ ein ES, $v\in V\setminus U$. Dann gilt: $\exists t\in T\setminus U$, so dass $T\setminus\{t\}\cup\{v\}$ ein ES ist. Denn: Schreibe $v=\sum\limits_{i=1}^n \lambda_i t_i$ mit $t_1,...,t_n \in T,\lambda_i\in K$ und $t_1,...,t_n$ seien paarweise verschieden und alle $\lambda_i\neq 0(v\neq 0)$. Ein $t_{i_0}\notin U$, sonst LK$\in U$, aber $v\notin U \stackrel{\lambda_{i_0}}{\Rightarrow} t_{i_0}=\tfrac{1}{\lambda_{i_0}}\cdot v +\sum\limits_{i=1,i\neq i_0}^n (\tfrac{-\lambda_i}{\lambda_{i_0}})$. $t_i\in L(T\setminus\{t_{i_0}\}\cup\{v\}\Rightarrow T\subseteq L(T\setminus\{t_{i_0}\}\cup\{v\}\Rightarrow V=L(T)\subseteq L(T\setminus\{t_{i_0}\}\cup\{v\})\subseteq V$
+		\item Induktion über $N:=|S|$. (Der Fall $n=0,S=\emptyset$ ist klar).\\
+		$n\mapsto n+1$: Gelte 4.10 für alle $S'\subseteq V$ l.u. mit $|S'|=n$. Sei $S\subseteq V$ l.u. mit $|S|=n+1$. Schreibe $S=S'\cup\{v\}$ mit $|S'|=n$
+		Induktionsvoraussetzung: $\exists T'\subseteq T$ mit $|T'|=n$ und $T\setminus T'\cup S'$ ist ES von $V$. Wende 1) auf $v\in V\setminus L(S)$ an, denn $S$ ist l.u. $\stackrel{1)}{\Rightarrow}\exists t\in T\setminus T'\cup S'\setminus L(S)$ mit $X=T\setminus T'\cup S'\setminus\{t\}\cup\{v\}$ ist ES. Wegen $t\notin L(S)$ gilt $t\notin S'$, d.h. $t\in T\setminus T'\Rightarrow X=T\setminus (T'\cup\{t\})\cup(S'\cup\{v\})$. Nenne nun $T'\cup \{t\}=:\tilde{T}$ und $S'\cup\{s\}=:S$. \hfill $\Box$
+	}
+\end{bew}
+
+\begin{defi}
+	\itemizea{
+		\item[]
+		\item Sei $V$ ein endlich erzeugter $K$-VR. Ist $T\subseteq V$ eine Basis, sod efiniert man $dim_K V:= |T|$ als die \imp{Dimension} von $V$.
+		\item Ist $V$ ein $K$-VR ohne endliches ES, so setze $dim_K V=\infty$
+	}
+\end{defi}
+
+\begin{nota}
+	Ist $K$ aus dem Kontext klar, so schreibe $dim V$ statt $dim_k V$.
+\end{nota}
+
+\noindent\textbf{Warnung:} $dim_{\CC} \CC=1$ aber $dim_{\RR} \CC=2$. \\
+\\
+\textbf{Sprechweise:} Ein $K$-VR heißt endlich-dimensional $:\Leftrightarrow dim_K V < \infty (\Leftrightarrow V$ ist endlich erzeugter $K$-VR)
+
+\begin{kor}
+	Sei $V$ ein endlich-dimensionaler $K-VR$, $T\subseteq V$ ein ES, $S\subseteq V$ l.u. Dann gelten:
+	\itemizea{
+		\item $|S|\leq dim V$ und ($|S|=dim V\Leftrightarrow S$ ist Basis von $V$)
+		\item $|T|\geq dim V$ und ($|T|=dim V\Leftrightarrow T$ ist Basis von $V$)
+	}
+\end{kor}
+
+\begin{bew}
+	Übung, linke Hälfte aus Kor.4.11, rechte Hälft: Satz von Steinitz.
+\end{bew}
+
+\begin{satz}[Basisergänzungssatz]
+	Sei $V$ ein endlich-dimensionaler $K$-VR. Sei $S\subseteq V$ l.u. Dann gilt: $\exists S' \subseteq V,S\subseteq S'$ und $S'$ ist Basis von $V$. (d.h. Elemente von $S'\setminus S$ ergänzen $S$ zu eine Basis).
+\end{satz}
+
+\begin{bew}
+	Sei $S'\supseteq S$ l.u. und von maximaler Kardinalität (Wissen: $S'$ l.u. $\Rightarrow|S'|\leq dim V$). Annahme: $L(S)\subset V \Rightarrow \exists v\in V,v\notin L(S)\stackrel{Lemma\:4.9}{\Rightarrow}S'\cup\{v\}$ ist l.u. $\lightning$, \\
+	denn: $|S'\cup \{v\}|=|S'|+1 > |S'|$, aber $S'$ hat maximale Kardinalität. \hfill $\Box$
+\end{bew}
+
+\begin{kor}
+	Sei $V$ ein $K$-VR und $d\in\NN$. Gelte $|S|\leq d$ für alle $S\subseteq V$ l.u. Dann gilt: $dim V\leq d$.
+\end{kor}
+
+\begin{bew}
+	Mit derselben Idee wie in 4.14.
+\end{bew}
+
+\begin{kor}
+	Sei $V$ ein endlich-dimensionaler $K-VR$ und $W\subseteq V$ ein UVR. Dann gelten:
+	\itemizea{
+		\item $dim W\leq dim V$
+		\item $dim W=dim V\Rightarrow W=V$
+		\item Jede Basis von $W$ lässt sich zu einer Basis von $V$ ergänzen.
+	}
+\end{kor}
+
+\begin{bew}
+	\begin{itemize}
+		\item[]
+		\item[c)] folgt aus 4.14,
+		\item[a)] folgt aus 4.13, weil Basis von $W$ ist l.u. und in $V$.
+		\item[b)] ist 4.13 a) 2. Teil.
+	\end{itemize}
+\end{bew}
+
+\noindent\textbf{Erinnerung:} Seien $M,N$ endliche Mengen. Dann $|M\cup N|=|M|+|N|-|M\cap N|$
+
+\begin{satz}[Dimensionsformel für Untervektorräume]
+	Seien $V$ ein endlich-dimensionaler $K$-VR und $U,W\subseteq V$ UVR'e, dann gilt: $dim(U+W)=dim U+dim W-dim(U\cap W)$
+\end{satz}
+
+\begin{bew}
+	Sei $dim V < \infty \stackrel{4.16}{\Rightarrow} U+W,U,W,U\cap W\subseteq V$ sind endlich-dimensional. Sei $B_0$ Basis von $U\cap W$. Egänze zu Basis $B_1\supseteq B_0$ von $U$. Ergänze zu Basis $B_2\supseteq B_0$ von $W$. Behauptung: i) $B_1\cap B_2 =B_0$ ii) $B_1\cup B_0$ ist ES von $U+W$ iii) $B_1\cup B_2(=B_1\mathbin{\dot{\cup}} B_2\setminus B_0)$ ist l.u.\\
+	Die Behauptung impliziert: $dim(U+W)\stackrel{ii)\wedge iii)}{=} |B_1\cup B_2|\stackrel{Erinn.}{=} |B_1|+|B_2|-|B_1\wedge B_2|\stackrel{i)}{=} dim U+dim W-dim(U\cap W)$.
+	\itemizei{
+		\item Sei $b\in B_1\cap B_2\supseteq B_0\stackrel{B_1\: l.u.}{\Rightarrow} B_0\cup\{b\}$ l.u. $\subseteq B_1$ und $\subseteq B_2\Rightarrow B_0\cup\{b\}$ ist l.u. von $L(B_1)$ und $L(B_2)\Rightarrow B_0\cup\{b\}\subseteq U\cap W$ ist l.u. $\Rightarrow |B_0\cup\{b\}|\leq dim U\cap W=|B_0|\Rightarrow b\in B_0$
+		\item $U+W=L(B_1)+L(B_2)=L(B_1\cup B_2)\Rightarrow B_1\cup B_2$ ist ES von $U+W$.
+		\item $B_1\cup B_2$ ist l.u., denn: Seien $\lambda_b,b\in B_2\cup B_1$ Elemente aus $V$ mit $\circledast \sum\limits_{b\in B_1\cup B_2} \lambda_b \cdot b=0$ $\uline{zz:}$ alle $\lambda_b=0$\\
+		$\circledast \Rightarrow \sum\limits_{b\in B_1} \lambda_b\cdot b=\sum\limits_{b\in B_2\setminus B_1} (-\lambda_b)\cdot b=:w\Rightarrow w\in W\cap U\stackrel{w\in L(B_0)\wedge B_1\:l.u.}{\Rightarrow} \lambda_w =0 \: \forall b\in B_1\setminus B_0$ (linke Seite $\stackrel{\circledast}{\Rightarrow} \sum\limits_{b\in B_0} \lambda_b\cdot b=0\stackrel{B_0\:l.u.}{\Rightarrow} \lambda_b=0 \: \forall b\in B_0$, d.h. $\lambda_b=0 \: \forall b\in B_1\setminus B_0\cup B_2\setminus B_0\cup B_0= B_1\cup B_2$ \hfill $\Box$
+	}
+\end{bew}
+
+\begin{nota}
+	$K$ Körper, $V$ ein $K-VR$, $V_1,...,v_n\in V$ sind k.u. (bzw. eine Basis) $:\Leftrightarrow \{v_1...,v_n\}\subseteq V$ ist l.u. (bzw. Basis) und $v_1,...,v_n$ sind paarweise verschieden.
+\end{nota}
+
+\begin{bem}
+	$v_1,...,v_n\in V$ sind l.u. $\Leftrightarrow$
+	\itemizeNUM{}{
+		\item $\forall i=1...n:v_i \notin L(\{v_1,...,v_{i-1},v_{i+1},...,v_n\}) \Leftrightarrow $
+		\item $\forall \lambda_1,...,\lambda_n\in K:(\sum\limits_{i=1}^n \lambda_i v_i=0\Rightarrow \lambda_1 =...=\lambda_n =0)$
+	}
+\end{bem}
